@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% if page.title %}{{ page.title }} – {% endif %}{{ site.title }}
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+</head>
+<body>
+
+<header class="site-header">
+    <a href="{{ '/' | relative_url }}" class="logo">
+        <img src="{{ '/assets/img/litovle_cz_small_transparent.png' | relative_url }}" alt="Litovle.cz">
+    </a>
+
+    <nav class="site-nav">
+        <a href="{{ '/' | relative_url }}">Úvod</a>
+        <a href="{{ '/zastupitelstvo/' | relative_url }}">Zastupitelstvo</a>
+        <a href="https://svoz.litovle.cz">Svoz odpadu</a>
+    </nav>
+</header>
+
+<main class="content">
+    {{ content }}
+</main>
+
+<footer class="site-footer">
+    © 2026 Litovle.cz, nezávislá občanská iniciativa
+</footer>
+
+</body>
+</html>
