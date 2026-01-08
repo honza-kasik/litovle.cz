@@ -1,0 +1,8 @@
+title: Litovle.cz
+description: Místní projekty a online služby pro Litovel
+url: https://litovle.cz
+baseurl: ""
+
+markdown: kramdown
+theme: null
+permalink: pretty

@@ -1,0 +1,144 @@
+:root {
+    --primary-text-color: #1f2933;
+}
+
+body {
+    font-family: system-ui, sans-serif;
+    background: #f5f7f8;
+    color: var(--primary-text-color);
+    margin: 0;
+}
+
+a {
+    color: var(--primary-text-color);
+}
+
+h1 {
+    text-align: center;
+}
+
+.subtitle {
+    text-align: center;
+}
+
+.site-header {
+    text-align: center;
+    padding: 40px 20px 20px;
+}
+
+.site-header img {
+    max-width: 180px;
+    height: auto;
+}
+
+.site-subtitle {
+    color: #555;
+    margin-top: 10px;
+}
+
+.content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.meeting {
+    background: #fff;
+    border-radius: 14px;
+    padding: 30px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.meeting-meta {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.meeting-summary {
+    background: #f0f6f3;
+    border-left: 4px solid #2f855a;
+    padding: 15px;
+    margin-bottom: 25px;
+}
+
+.meeting-summary-header a {
+    text-decoration: none;
+}
+
+.meeting-summary-header a:hover,
+.meeting-summary-header a:focus {
+    text-decoration: underline;
+}
+
+.site-footer {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #888;
+    margin: 40px 0 20px;
+}
+.site-nav {
+    margin-top: 15px;
+    font-size: 15pt;
+}
+
+.site-nav a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #2f855a;
+    font-weight: 600;
+}
+
+.site-nav a:hover,
+.site-nav a:focus {
+    text-decoration: underline;
+}
+
+.landing-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.logo-hero {
+    max-width: 300px;
+    margin: 0 auto 20px;
+}
+
+.landing {
+    display: grid;
+    gap: 25px;
+}
+
+.item-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.item-card.primary {
+    border-left: 5px solid #2f855a;
+}
+
+.landing-card {
+    text-align: center;
+}
+
+.button {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 12px 20px;
+    background: #2f855a;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+}
+
+.button.secondary {
+    background: #4a5568;
+}
+
+.coming-soon {
+    color: #777;
+    font-style: italic;
+}
