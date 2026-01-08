@@ -1,0 +1,38 @@
+---
+layout: default
+---
+
+<article class="meeting">
+
+<h1>{{ page.meeting_title }}</h1>
+
+<p class="meeting-meta">
+    📅 {{ page.meeting_date | date: "%-d. %-m. %Y" }}
+    {% if page.meeting_number %}
+        • 🏛️ {{ page.meeting_number }}. zasedání zastupitelstva
+    {% endif %}
+</p>
+
+{% if page.summary %}
+<div class="meeting-summary">
+    <strong>Stručné shrnutí:</strong>
+    <p>{{ page.summary }}</p>
+</div>
+{% endif %}
+
+{% if page.raw_transcript %}
+<div class="meeting-raw">
+    📄
+    <a href="{{ page.raw_transcript | relative_url }}"
+    target="_blank"
+    rel="noopener noreferrer">
+           Plný přepis jednání (strojový výstup - bez označení mluvčích, neupraveno)
+    </a>
+</div>
+{% endif %}
+
+<div class="meeting-content">
+    {{ content }}
+</div>
+
+</article>
