@@ -6,7 +6,7 @@ title: Zastupitelstvo
 # Shrnutí jednání zastupitelstva
 
 <p class=subtitle>
-K vytváření shrnutí je používána AI. Shrnutí může být nepřesné.<br/>
+K vytváření shrnutí je <a href="https://github.com/honza-kasik/meeting-summarizer">mimo jiné používána AI</a>. Shrnutí může být nepřesné.<br/>
 Každé shrnutí obsahuje odkaz na přepis audiozáznamu ze kterého shrnutí vychází.
 </p>
 
