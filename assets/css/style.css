@@ -86,6 +86,7 @@ h1 {
     text-decoration: none;
     color: #2f855a;
     font-weight: 600;
+    white-space: nowrap;
 }
 
 .site-nav a:hover,
@@ -141,4 +142,134 @@ h1 {
 .coming-soon {
     color: #777;
     font-style: italic;
+}
+
+/* ============================================================
+   Usnesení
+   ============================================================ */
+
+.usn-app {
+  max-width: 900px;
+}
+
+.usn-info {
+  color: #666;
+  margin: .5em 0;
+}
+
+.usn-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .8em;
+  margin: .6em 0;
+}
+
+#usn-sort {
+  font-size: .9em;
+}
+
+.usn-years {
+  font-size: .9em;
+}
+
+.usn-year {
+  margin-right: .8em;
+  white-space: nowrap;
+}
+
+.usn-results {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.usn-result {
+  border-bottom: 1px solid #eee;
+  padding: 1em 0;
+}
+
+.usn-head {
+  display: flex;
+  align-items: baseline;
+  gap: .5em;
+  cursor: pointer;
+}
+
+.usn-permalink {
+  color: #bbb;
+  text-decoration: none;
+  font-size: .9em;
+}
+
+.usn-permalink:hover {
+  color: #000;
+}
+
+.usn-date {
+  color: #777;
+  font-size: .9em;
+}
+
+.usn-summary {
+  font-style: italic;
+  color: #444;
+  margin: .3em 0;
+}
+
+.usn-snippet {
+  color: #555;
+  font-size: .95em;
+}
+
+.usn-detail {
+  display: none;
+  margin-top: .7em;
+  padding-left: .6em;
+  border-left: 2px solid #ddd;
+}
+
+.usn-result.usn-open .usn-detail {
+  display: block;
+}
+
+.usn-p {
+  margin: .4em 0;
+}
+
+#usn-q {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: .4em .6em;
+  font-size: 1rem;
+}
+
+.usn-pager {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .6em;
+  margin-top: 1.2em;
+  flex-wrap: wrap;
+}
+
+.usn-pager a {
+  color: #555;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.usn-pager a:hover {
+  text-decoration: underline;
+}
+
+.usn-page-current {
+  font-weight: bold;
+  color: #000;
+  cursor: default;
+}
+
+.usn-page-disabled {
+  color: #aaa;
+  cursor: default;
 }
