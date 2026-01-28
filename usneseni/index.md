@@ -7,7 +7,7 @@ permalink: /usneseni/
 # Vyhledávání v usneseních
 
 <p class=subtitle>
-Jednoduché vyhledávání v usneseních vydaných orgány města Litovel. <br>Prozatím je rady města z aktuálního volebního období.
+Jednoduché vyhledávání v usneseních vydaných orgány města Litovel.<br/>Prozatím jen rady města z aktuálního volebního období.
 </p>
 
 <div class="usn-app">
