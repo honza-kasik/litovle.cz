@@ -12,6 +12,14 @@ title: Litovle.cz
 </div>
 
 <div class="item-card landing-card">
+    <h2>🔍 Vyhledávání v usneseních</h2>
+    <p>Vyhledávání v usneseních rady města. Připravujeme také vyhledávání v usneseních zastupitelstva.</p>
+    <a href="{{ '/usneseni/' | relative_url }}" class="button">
+        Zobrazit vyhledávání
+    </a>
+</div>
+
+<div class="item-card landing-card">
     <h2>🗣️ Report ze zastupitelstva</h2>
     <p>Stručné shrnutí ze zasedání zastupitelstva vytvořené pomocí AI.</p>
     <a href="{{ '/zastupitelstvo/' | relative_url }}" class="button">
