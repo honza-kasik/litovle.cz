@@ -278,6 +278,12 @@
         .trim();
   }
 
+  function matchesAllTerms(u, terms) {
+    const text = extractFullText(u);
+    return terms.every(t => text.includes(t));
+  }
+
+
   function parseQuery(input) {
     const raw = normalizeText(input);
     if (!raw) return null;
@@ -356,8 +362,15 @@
     const candidates = await collectCandidates(anchor, years);
 
     let results = candidates.filter(u =>
-      matchesPhrase(u, parsed.raw)
+    matchesPhrase(u, parsed.raw)
     );
+
+    // fallback: pokud fráze nic nenašla
+    if (!results.length && parsed.longWords.length > 1) {
+    results = candidates.filter(u =>
+        matchesAllTerms(u, parsed.longWords)
+    );
+    }
 
     results = sortResults(results);
 
