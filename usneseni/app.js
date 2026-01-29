@@ -11,6 +11,8 @@
   let DATA = {};
   let LOADED = {};
   let PAGE = 1;
+  // guard pro vracení výsledků v sekvenci (přechozí výsledek nepřepíše aktuální vyhledávání)
+  let SEARCH_SEQ = 0;
   let currentResults = [];
 
   const q = document.getElementById("usn-q");
@@ -272,6 +274,7 @@
 
   async function search() {
     PAGE = 1;
+    const seq = ++SEARCH_SEQ;
 
     const terms = norm(q.value)
       .split(/\s+/)
@@ -307,6 +310,9 @@
     }
 
     results = sortResults(results);
+    
+    // sequence guard, vrať výsledek jen pokud byl zpracován v rámci tohoto search a nepřepíše další
+    if (seq !== SEARCH_SEQ) return;
     renderResults(results);
   }
 
