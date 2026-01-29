@@ -271,6 +271,13 @@
   // SEARCH
   // ============================================================
 
+  function normalizeText(s) {
+    return s
+        .toLowerCase()
+        .replace(/\s+/g, " ")
+        .trim();
+  }
+
   function parseQuery(input) {
     const raw = normalizeText(input);
     if (!raw) return null;
