@@ -170,6 +170,8 @@ h1 {
 
 .usn-years {
   font-size: .9em;
+  flex-wrap: wrap;
+  display: flex;
 }
 
 .usn-year {
