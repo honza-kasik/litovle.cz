@@ -13,7 +13,7 @@ title: Litovle.cz
 
 <div class="item-card landing-card">
     <h2>🔍 Vyhledávání v usneseních</h2>
-    <p>Vyhledávání v usneseních rady města. Připravujeme také vyhledávání v usneseních zastupitelstva.</p>
+    <p>Vyhledávání v usneseních rady a zastupitelstva města Litovel.</p>
     <a href="{{ '/usneseni/' | relative_url }}" class="button">
         Zobrazit vyhledávání
     </a>

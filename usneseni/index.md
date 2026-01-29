@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Usnesení rady města – vyhledávání
+title: Usnesení rady a zastupitelstva města – vyhledávání
 permalink: /usneseni/
 ---
 
 # Vyhledávání v usneseních
 
 <p class=subtitle>
-Jednoduché vyhledávání v usneseních vydaných orgány města Litovel.<br/>Prozatím jen rady města z aktuálního volebního období.
+Vyhledávání v usneseních vydaných orgány města Litovel v aktuálním volebním období.
 </p>
 
 <div class="usn-app">
@@ -15,6 +15,17 @@ Jednoduché vyhledávání v usneseních vydaných orgány města Litovel.<br/>P
 
   <div class="usn-controls">
     <div id="usn-years" class="usn-years"></div>
+
+    <div id="usn-org">
+      <label>
+        <input type="checkbox" value="Rada města Litovel" checked>
+        Rada města
+      </label>
+      <label>
+        <input type="checkbox" value="Zastupitelstvo města Litovel" checked>
+        Zastupitelstvo
+      </label>
+    </div>
 
     <select id="usn-sort">
       <option value="desc">Nejnovější</option>

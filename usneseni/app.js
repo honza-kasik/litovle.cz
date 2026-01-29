@@ -20,6 +20,7 @@
   const info = document.getElementById("usn-info");
   const yearsBox = document.getElementById("usn-years");
   const sortSel = document.getElementById("usn-sort");
+  const orgBox = document.getElementById("usn-org");
 
   // ============================================================
   // NORMALIZACE (JEDINÝ ZDROJ PRAVDY)
@@ -89,6 +90,10 @@
 
   function selectedYears() {
     return [...yearsBox.querySelectorAll("input:checked")].map(i => i.value);
+  }
+
+  function selectedOrgans() {
+    return [...orgBox.querySelectorAll("input:checked")].map(i => i.value);
   }
 
   // ============================================================
@@ -272,10 +277,14 @@
       matchesPhrase(u, parsed.raw)
     );
 
+    const organs = selectedOrgans();
+    results = results.filter(u => organs.includes(u.organ));
+
     if (!results.length && parsed.longWords.length > 1) {
       results = candidates.filter(u =>
         matchesAllTerms(u, parsed.longWords)
       );
+      results = results.filter(u => organs.includes(u.organ));
     }
 
     results = sortResults(results);
@@ -360,6 +369,12 @@
         if (el) el.classList.add("usn-open");
       }, 0);
     }
+
+    if (u.organ) {
+      [...orgBox.querySelectorAll("input")].forEach(i => {
+          i.checked = i.value === u.organ;
+      });
+    }
   }
 
   // ============================================================
@@ -381,6 +396,7 @@
 
     q.addEventListener("input", search);
     yearsBox.addEventListener("change", search);
+    orgBox.addEventListener("change", search);
     sortSel.addEventListener("change", search);
 
     if (location.hash) await showFromHash();
