@@ -1,0 +1,58 @@
+= Neoficiální web města Litovel
+:toc:
+:toclevels: 2
+
+Tento repozitář obsahuje zdrojové kódy a datové pipeline pro neoficiální, plně statický web, který zpřehledňuje veřejně dostupné informace města Litovel.
+
+Projekt nevytváří nový obsah ani neinterpretuje data. Pouze strukturuje a zobrazuje již publikované městské podklady tak, aby byly dlouhodobě přehledné, vyhledatelné a snadno dostupné.
+
+== Co web nabízí
+
+=== Shrnutí jednání zastupitelstva
+
+Veřejně dostupné záznamy z jednání zastupitelstva (často v délce několika hodin) jsou deterministicky zpracovány do stručných textových přehledů.
+
+Zpracování je reprodukovatelné a auditovatelné; jazykové modely jsou použity pouze jako pomocný nástroj, nikoli jako autor obsahu.
+
+Více informací:
+https://github.com/honza-kasik/meeting-summarizer
+
+=== Vyhledávání v usneseních města Litovel
+
+Usnesení města jsou dlouhodobě publikována ve formě PDF dokumentů. Projekt tato data strukturuje a umožňuje fulltextové vyhledávání napříč jednotlivými roky a dokumenty.
+
+Výstupem jsou statické datové indexy, které lze dlouhodobě provozovat bez závislosti na serverové logice.
+
+Více informací:
+https://github.com/honza-kasik/usneseni-mesta
+
+=== Svoz odpadu
+
+Přehled svozu odpadu podle ulic, postavený nad veřejně dostupnými podklady města Litovel.
+
+Projekt je plně statický, bez cookies a bez sledovacích skriptů, optimalizovaný na rychlé načtení i na starších zařízeních a horším připojení k internetu
+
+Více informací:
+https://github.com/honza-kasik/svoz_odpadu_litovel
+
+== Motivace
+
+Projekt vznikl z občanské iniciativy a osobní angažovanosti v oblasti otevřenosti, transparentnosti a srozumitelnosti fungování veřejné správy na úrovni města Litovel.
+
+Zveřejňování informací je základní podmínkou veřejné kontroly, samo o sobě však nezaručuje jejich skutečnou dostupnost a použitelnost pro běžné občany. Projekt vychází z přesvědčení, že forma publikace dat má zásadní vliv na to, zda mohou být informace reálně využívány, porovnávány a dlouhodobě sledovány.
+
+Cílem projektu je přispět k tomu, aby veřejné podklady města byly technicky zpracovány způsobem, který umožňuje snadnou orientaci, vyhledávání a zpětnou dohledatelnost, aniž by docházelo k interpretaci nebo posuzování jejich obsahu.
+
+Projekt je veden jako otevřený, nekomerční a dlouhodobý. Je chápán jako doplněk oficiálních informačních kanálů a jako technický nástroj podporující informované občanství a veřejnou kontrolu samosprávy.
+
+== Spolupráce
+
+Projekt je otevřen spolupráci a dalším příspěvkům, ať už ve formě technických vylepšení, oprav chyb, nebo zpětné vazby k datovému zpracování.
+
+Spolupráce je vítána především v oblastech, které podporují dlouhodobou udržitelnost projektu, transparentnost zpracování dat
+a technickou jednoduchost řešení.
+
+Projekt si zachovává nekomerční a nepolitický charakter. Příspěvky by měly respektovat skutečnost, že cílem není interpretace obsahu,
+ale jeho zpřehlednění a dlouhodobá dostupnost.
+
+Projekt a veškeré odkazované projekty jsou vedeny transparentně a veškeré změny jsou veřejně dohledatelné v historii konkrétního repozitáře.
