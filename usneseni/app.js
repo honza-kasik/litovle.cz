@@ -9,9 +9,9 @@
   let META = {};
   let INDEX = {};
   let DATA = {};
+  let DATA_MAP = {};
   let LOADED = {};
   let PAGE = 1;
-  // guard pro vracení výsledků v sekvenci (přechozí výsledek nepřepíše aktuální vyhledávání)
   let SEARCH_SEQ = 0;
   let currentResults = [];
 
@@ -22,15 +22,21 @@
   const sortSel = document.getElementById("usn-sort");
 
   // ============================================================
-  // UTIL
+  // NORMALIZACE (JEDINÝ ZDROJ PRAVDY)
   // ============================================================
 
-  function norm(s) {
+  function normalize(s) {
     return s
       .toLowerCase()
       .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
   }
+
+  // ============================================================
+  // UTIL
+  // ============================================================
 
   function anchorFromId(id) {
     return id.replace(/\//g, "-");
@@ -47,15 +53,20 @@
     return "";
   }
 
-  /**
-   * Má detail smysl?
-   * - má položky nebo tail
-   * - nebo je subject delší než snippet
-   */
   function hasDetail(u) {
     if ((u.items && u.items.length) || u.tail) return true;
     if (u.subject && u.subject.length > SNIPPET_LEN) return true;
     return false;
+  }
+
+  function extractFullText(u) {
+    return normalize(
+      [
+        u.subject || "",
+        ...(u.items || []).map(i => i.text),
+        u.tail || ""
+      ].join(" ")
+    );
   }
 
   // ============================================================
@@ -72,6 +83,7 @@
 
     INDEX[year] = index;
     DATA[year] = data;
+    DATA_MAP[year] = Object.fromEntries(data.map(u => [u.id, u]));
     LOADED[year] = true;
   }
 
@@ -96,7 +108,6 @@
   function renderDetail(u) {
     let html = "";
 
-    // subject jen pokud jsou i položky (aby se neduplikoval snippet)
     if (u.subject && u.items && u.items.length) {
       html += `<p class="usn-p">${u.subject}</p>`;
     }
@@ -112,7 +123,6 @@
       }
     }
 
-    // dlouhý subject bez položek
     if (
       (!u.items || !u.items.length) &&
       u.subject &&
@@ -176,41 +186,102 @@
       return a;
     }
 
-    // ← předchozí
-    nav.appendChild(
-      pageLink("‹ předchozí", PAGE - 1, PAGE === 1)
-    );
+    nav.appendChild(pageLink("‹ předchozí", PAGE - 1, PAGE === 1));
 
-    const window = 2;
-    let start = Math.max(1, PAGE - window);
-    let end = Math.min(pages, PAGE + window);
+    const radius = 2;
+    let start = Math.max(1, PAGE - radius);
+    let end = Math.min(pages, PAGE + radius);
 
     if (start > 1) {
       nav.appendChild(pageLink("1", 1));
-      if (start > 2) {
-        nav.appendChild(pageLink("…", null, true));
-      }
+      if (start > 2) nav.appendChild(pageLink("…", null, true));
     }
 
     for (let i = start; i <= end; i++) {
-      nav.appendChild(
-        pageLink(i, i, false, i === PAGE)
-      );
+      nav.appendChild(pageLink(i, i, false, i === PAGE));
     }
 
     if (end < pages) {
-      if (end < pages - 1) {
-        nav.appendChild(pageLink("…", null, true));
-      }
+      if (end < pages - 1) nav.appendChild(pageLink("…", null, true));
       nav.appendChild(pageLink(pages, pages));
     }
 
-    // další →
-    nav.appendChild(
-      pageLink("další ›", PAGE + 1, PAGE === pages)
+    nav.appendChild(pageLink("další ›", PAGE + 1, PAGE === pages));
+    res.appendChild(nav);
+  }
+
+  // ============================================================
+  // SEARCH
+  // ============================================================
+
+  function parseQuery(input) {
+    const raw = normalize(input);
+    if (!raw) return null;
+
+    const words = raw.split(" ");
+    const longWords = words.filter(w => w.length >= 3);
+
+    const anchor = longWords.length
+      ? longWords.slice().sort((a, b) => b.length - a.length)[0]
+      : null;
+
+    return { raw, words, longWords, anchor };
+  }
+
+  async function collectCandidates(anchor, years) {
+    const out = [];
+
+    for (const y of years) {
+      await loadYear(y);
+
+      const hit = INDEX[y][anchor];
+      if (!hit) continue;
+
+      for (const id of hit) {
+        const u = DATA_MAP[y][id];
+        if (u) out.push(u);
+      }
+    }
+    return out;
+  }
+
+  function matchesPhrase(u, phrase) {
+    return extractFullText(u).includes(phrase);
+  }
+
+  function matchesAllTerms(u, terms) {
+    const text = extractFullText(u);
+    return terms.every(t => text.includes(t));
+  }
+
+  async function search() {
+    PAGE = 1;
+    const seq = ++SEARCH_SEQ;
+
+    const parsed = parseQuery(q.value);
+    if (!parsed || !parsed.anchor) {
+      res.innerHTML = "";
+      info.textContent = "Zadejte hledaný výraz";
+      return;
+    }
+
+    const years = selectedYears();
+    const candidates = await collectCandidates(parsed.anchor, years);
+
+    let results = candidates.filter(u =>
+      matchesPhrase(u, parsed.raw)
     );
 
-    res.appendChild(nav);
+    if (!results.length && parsed.longWords.length > 1) {
+      results = candidates.filter(u =>
+        matchesAllTerms(u, parsed.longWords)
+      );
+    }
+
+    results = sortResults(results);
+
+    if (seq !== SEARCH_SEQ) return;
+    renderResults(results);
   }
 
   // ============================================================
@@ -226,13 +297,14 @@
 
     for (const u of pageItems) {
       const anchor = anchorFromId(u.id);
+      const detail = hasDetail(u);
 
       const li = document.createElement("li");
       li.className = "usn-result";
       li.id = anchor;
 
       li.innerHTML = `
-        <div class="usn-head ${hasDetail(u) ? "" : "usn-noclick"}">
+        <div class="usn-head ${detail ? "" : "usn-noclick"}">
           <a href="#${anchor}" class="usn-permalink">#</a>
           <strong>${u.id}</strong>
           <span class="usn-date">${u.datum || ""}</span>
@@ -241,23 +313,18 @@
         <div class="usn-summary">${summaryLabel(u)}</div>
 
         <div class="usn-snippet">
-          ${firstSentence(u).slice(0, SNIPPET_LEN)}
+          ${(firstSentence(u) || "").slice(0, SNIPPET_LEN)}
         </div>
 
-        ${hasDetail(u)
-          ? `<div class="usn-detail">${renderDetail(u)}</div>`
-          : ""
-        }
+        ${detail ? `<div class="usn-detail">${renderDetail(u)}</div>` : ""}
       `;
 
       li.querySelector(".usn-head").onclick = () => {
-        if (hasDetail(u)) {
-          li.classList.toggle("usn-open");
-        }
+        if (detail) li.classList.toggle("usn-open");
         history.replaceState(null, "", `#${anchor}`);
       };
 
-      if (location.hash === `#${anchor}` && hasDetail(u)) {
+      if (location.hash === `#${anchor}` && detail) {
         li.classList.add("usn-open");
       }
 
@@ -268,134 +335,21 @@
   }
 
   // ============================================================
-  // SEARCH
-  // ============================================================
-
-  function normalizeText(s) {
-    return s
-        .toLowerCase()
-        .replace(/\s+/g, " ")
-        .trim();
-  }
-
-  function matchesAllTerms(u, terms) {
-    const text = extractFullText(u);
-    return terms.every(t => text.includes(t));
-  }
-
-
-  function parseQuery(input) {
-    const raw = normalizeText(input);
-    if (!raw) return null;
-
-    const words = raw.split(/\s+/);
-    const longWords = words.filter(w => w.length >= 3);
-
-    return {
-      raw,        // "tv nova"
-      words,      // ["tv", "nova"]
-      longWords   // ["nova"]
-    };
-  }
-
-  // vyber část dotazu, která je nejlépe idnexovaná a kolem které se hledají další slova. Prostě vezmeme nejdelší slovo.
-  function chooseAnchor(parsed) {
-    if (!parsed || !parsed.longWords.length) return null;
-
-    return parsed.longWords
-      .slice()
-      .sort((a, b) => b.length - a.length)[0];
-  }
-
-  async function collectCandidates(anchor, years) {
-    const candidates = [];
-
-    for (const y of years) {
-      await loadYear(y);
-
-      const hit = INDEX[y][anchor];
-      if (!hit) continue;
-
-      for (const id of hit) {
-        const u = DATA[y].find(x => x.id === id);
-        if (u) candidates.push(u);
-      }
-    }
-
-    return candidates;
-  }
-
-  function matchesPhrase(u, phrase) {
-    return extractFullText(u).includes(phrase);
-  }
-
-
-  function extractFullText(u) {
-    return normalizeText(
-      [
-        u.subject || "",
-        ...(u.items || []).map(i => i.text),
-        u.tail || ""
-      ].join(" ")
-    );
-  }
-
-  async function search() {
-    PAGE = 1;
-    const seq = ++SEARCH_SEQ;
-
-    const parsed = parseQuery(q.value);
-    if (!parsed) {
-      res.innerHTML = "";
-      info.textContent = "";
-      return;
-    }
-
-    const anchor = chooseAnchor(parsed);
-    if (!anchor) {
-      res.innerHTML = "";
-      info.textContent = "Zadejte prosím delší výraz.";
-      return;
-    }
-
-    const years = selectedYears();
-    const candidates = await collectCandidates(anchor, years);
-
-    let results = candidates.filter(u =>
-    matchesPhrase(u, parsed.raw)
-    );
-
-    // fallback: pokud fráze nic nenašla
-    if (!results.length && parsed.longWords.length > 1) {
-    results = candidates.filter(u =>
-        matchesAllTerms(u, parsed.longWords)
-    );
-    }
-
-    results = sortResults(results);
-
-    if (seq !== SEARCH_SEQ) return;
-    renderResults(results);
-  }
-
-  // ============================================================
-  // DEEP LINK (HASH)
+  // DEEP LINK
   // ============================================================
 
   async function showFromHash() {
     const id = idFromHash();
     if (!id) return;
 
-    const parts = id.split("/");
-    const year = parts[parts.length - 1];
+    const year = id.split("/").pop();
 
     [...yearsBox.querySelectorAll("input")].forEach(i => {
-      i.checked = (i.value === year);
+      i.checked = i.value === year;
     });
 
     await loadYear(year);
-
-    const u = DATA[year].find(x => x.id === id);
+    const u = DATA_MAP[year][id];
     if (!u) return;
 
     renderResults([u]);
@@ -418,12 +372,10 @@
     for (const year of Object.keys(META).sort().reverse()) {
       const label = document.createElement("label");
       label.className = "usn-year";
-
       label.innerHTML = `
         <input type="checkbox" value="${year}" checked>
         ${year} (${META[year].count})
       `;
-
       yearsBox.appendChild(label);
     }
 
@@ -431,10 +383,7 @@
     yearsBox.addEventListener("change", search);
     sortSel.addEventListener("change", search);
 
-    if (location.hash) {
-      await showFromHash();
-    }
-
+    if (location.hash) await showFromHash();
     window.addEventListener("hashchange", showFromHash);
 
     info.textContent = "Zadejte hledaný výraz";
