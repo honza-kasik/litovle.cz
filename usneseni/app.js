@@ -244,10 +244,9 @@
           ${firstSentence(u).slice(0, SNIPPET_LEN)}
         </div>
 
-        ${
-          hasDetail(u)
-            ? `<div class="usn-detail">${renderDetail(u)}</div>`
-            : ""
+        ${hasDetail(u)
+          ? `<div class="usn-detail">${renderDetail(u)}</div>`
+          : ""
         }
       `;
 
@@ -272,46 +271,89 @@
   // SEARCH
   // ============================================================
 
+  function parseQuery(input) {
+    const raw = normalizeText(input);
+    if (!raw) return null;
+
+    const words = raw.split(/\s+/);
+    const longWords = words.filter(w => w.length >= 3);
+
+    return {
+      raw,        // "tv nova"
+      words,      // ["tv", "nova"]
+      longWords   // ["nova"]
+    };
+  }
+
+  // vyber část dotazu, která je nejlépe idnexovaná a kolem které se hledají další slova. Prostě vezmeme nejdelší slovo.
+  function chooseAnchor(parsed) {
+    if (!parsed || !parsed.longWords.length) return null;
+
+    return parsed.longWords
+      .slice()
+      .sort((a, b) => b.length - a.length)[0];
+  }
+
+  async function collectCandidates(anchor, years) {
+    const candidates = [];
+
+    for (const y of years) {
+      await loadYear(y);
+
+      const hit = INDEX[y][anchor];
+      if (!hit) continue;
+
+      for (const id of hit) {
+        const u = DATA[y].find(x => x.id === id);
+        if (u) candidates.push(u);
+      }
+    }
+
+    return candidates;
+  }
+
+  function matchesPhrase(u, phrase) {
+    return extractFullText(u).includes(phrase);
+  }
+
+
+  function extractFullText(u) {
+    return normalizeText(
+      [
+        u.subject || "",
+        ...(u.items || []).map(i => i.text),
+        u.tail || ""
+      ].join(" ")
+    );
+  }
+
   async function search() {
     PAGE = 1;
     const seq = ++SEARCH_SEQ;
 
-    const terms = norm(q.value)
-      .split(/\s+/)
-      .filter(t => t.length >= 3);
-
-    if (!terms.length) {
+    const parsed = parseQuery(q.value);
+    if (!parsed) {
       res.innerHTML = "";
       info.textContent = "";
       return;
     }
 
-    const years = selectedYears();
-    let results = [];
-
-    for (const y of years) {
-      await loadYear(y);
-
-      let ids = null;
-
-      for (const t of terms) {
-        const hit = INDEX[y][t];
-        if (!hit) {
-          ids = [];
-          break;
-        }
-        ids = ids ? ids.filter(x => hit.includes(x)) : hit.slice();
-      }
-
-      for (const id of ids || []) {
-        const u = DATA[y].find(x => x.id === id);
-        if (u) results.push(u);
-      }
+    const anchor = chooseAnchor(parsed);
+    if (!anchor) {
+      res.innerHTML = "";
+      info.textContent = "Zadejte prosím delší výraz.";
+      return;
     }
 
+    const years = selectedYears();
+    const candidates = await collectCandidates(anchor, years);
+
+    let results = candidates.filter(u =>
+      matchesPhrase(u, parsed.raw)
+    );
+
     results = sortResults(results);
-    
-    // sequence guard, vrať výsledek jen pokud byl zpracován v rámci tohoto search a nepřepíše další
+
     if (seq !== SEARCH_SEQ) return;
     renderResults(results);
   }
