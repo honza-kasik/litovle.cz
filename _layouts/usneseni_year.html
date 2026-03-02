@@ -1,0 +1,16 @@
+---
+layout: default
+---
+
+{% assign parts = page.url | split: '/' %}
+{% assign year = parts[2] %}
+
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+  <a href="{{ '/' | relative_url }}">Úvod</a>
+  &nbsp;›&nbsp;
+  <a href="{{ '/usneseni/' | relative_url }}">Usnesení</a>
+  &nbsp;›&nbsp;
+  <span>{{ year }}</span>
+</nav>
+
+{{ content }}
