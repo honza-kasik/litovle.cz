@@ -285,3 +285,45 @@ h1 {
   color: #aaa;
   cursor: default;
 }
+.breadcrumbs {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    color: #666;
+}
+
+.breadcrumbs a {
+    color: #666;
+    text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+    text-decoration: underline;
+}
+.archiv-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #666;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.archiv-years {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.archiv-years li {
+    display: inline;
+    margin-right: 0.8rem;
+}
+
+.archiv-years a {
+    font-size: 0.9rem;
+    color: #666;
+    text-decoration: none;
+}
+
+.archiv-years a:hover {
+    text-decoration: underline;
+}

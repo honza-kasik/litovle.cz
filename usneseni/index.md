@@ -35,6 +35,31 @@ Vyhledávání v usneseních vydaných orgány města Litovel v aktuálním vole
 
   <div id="usn-info" class="usn-info"></div>
   <ul id="usn-results" class="usn-results"></ul>
+
+  <div class="archiv-label">Archiv podle let</div>
+  <ul class="archiv-years">
+  {% assign years = site.pages
+      | where_exp: "p", "p.url contains '/usneseni/'"
+      | where_exp: "p", "p.url != '/usneseni/'"
+      | map: "url"
+  %}
+
+  {% assign year_list = "" | split: "" %}
+
+  {% for url in years %}
+    {% assign parts = url | split: "/" %}
+    {% assign y = parts[2] %}
+    {% unless year_list contains y %}
+      {% assign year_list = year_list | push: y %}
+    {% endunless %}
+  {% endfor %}
+
+  {% assign sorted_years = year_list | sort | reverse %}
+
+  {% for year in sorted_years %}
+    <li><a href="/usneseni/{{ year }}/">{{ year }}</a></li>
+  {% endfor %}
+  </ul>
 </div>
 
 <script src="/usneseni/app.js"></script>
