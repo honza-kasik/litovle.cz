@@ -43,6 +43,12 @@
     return id.replace(/\//g, "-");
   }
 
+  function staticUrlFromId(id) {
+    const year = id.split("/").pop();
+    const slug = anchorFromId(id);
+    return `/usneseni/${year}/${slug}/`;
+  }
+
   function idFromHash() {
     if (!location.hash) return null;
     return location.hash.substring(1).replace(/-/g, "/");
@@ -305,16 +311,15 @@
     const pageItems = paginate(list);
 
     for (const u of pageItems) {
-      const anchor = anchorFromId(u.id);
       const detail = hasDetail(u);
+      const staticUrl = staticUrlFromId(u.id);
 
       const li = document.createElement("li");
       li.className = "usn-result";
-      li.id = anchor;
 
       li.innerHTML = `
         <div class="usn-head ${detail ? "" : "usn-noclick"}">
-          <a href="#${anchor}" class="usn-permalink">#</a>
+          <a href="${staticUrl}" class="usn-permalink" title="Přímý odkaz na toto usnesení">↗</a>
           <strong>${u.id}</strong>
           <span class="usn-date">${u.datum || ""}</span>
         </div>
@@ -328,13 +333,11 @@
         ${detail ? `<div class="usn-detail">${renderDetail(u)}</div>` : ""}
       `;
 
-      li.querySelector(".usn-head").onclick = () => {
-        if (detail) li.classList.toggle("usn-open");
-        history.replaceState(null, "", `#${anchor}`);
-      };
-
-      if (location.hash === `#${anchor}` && detail) {
-        li.classList.add("usn-open");
+      if (detail) {
+        li.querySelector(".usn-head").onclick = (e) => {
+          if (e.target.classList.contains("usn-permalink")) return;
+          li.classList.toggle("usn-open");
+        };
       }
 
       res.appendChild(li);
@@ -344,37 +347,18 @@
   }
 
   // ============================================================
-  // DEEP LINK
+  // DEEP LINK — redirect to static page
   // ============================================================
 
-  async function showFromHash() {
+  function redirectFromHash() {
     const id = idFromHash();
-    if (!id) return;
+    if (!id) return false;
 
-    const year = id.split("/").pop();
+    // Validate it looks like a real resolution ID (RM/ZM + digits)
+    if (!/^(RM|ZM)\/\d+\/\d+\/\d+$/.test(id)) return false;
 
-    [...yearsBox.querySelectorAll("input")].forEach(i => {
-      i.checked = i.value === year;
-    });
-
-    await loadYear(year);
-    const u = DATA_MAP[year][id];
-    if (!u) return;
-
-    renderResults([u]);
-
-    if (hasDetail(u)) {
-      setTimeout(() => {
-        const el = document.getElementById(anchorFromId(id));
-        if (el) el.classList.add("usn-open");
-      }, 0);
-    }
-
-    if (u.organ) {
-      [...orgBox.querySelectorAll("input")].forEach(i => {
-          i.checked = i.value === u.organ;
-      });
-    }
+    window.location.replace(staticUrlFromId(id));
+    return true;
   }
 
   // ============================================================
@@ -382,6 +366,9 @@
   // ============================================================
 
   async function init() {
+    // Redirect hash deep links to their canonical static pages
+    if (redirectFromHash()) return;
+
     META = await fetch("/assets/usneseni/meta.json").then(r => r.json());
 
     for (const year of Object.keys(META).sort().reverse()) {
@@ -398,9 +385,6 @@
     yearsBox.addEventListener("change", search);
     orgBox.addEventListener("change", search);
     sortSel.addEventListener("change", search);
-
-    if (location.hash) await showFromHash();
-    window.addEventListener("hashchange", showFromHash);
 
     info.textContent = "Zadejte hledaný výraz";
   }
