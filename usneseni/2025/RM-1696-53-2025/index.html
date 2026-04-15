@@ -8,7 +8,36 @@ datum: "2025-06-26"
 permalink: /usneseni/2025/RM-1696-53-2025/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2025/RM-53/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> schvaluje uzavření předložené Dohody o ukončení účinnosti Smlouvy o nájmu prostoru sloužícího k podnikání
 č.j. LIT 14292/2023 ze dne 9. června 2023, ve znění pozdějších dodatků, uzavřené se společností MEDIVIZE s.r.o.,

@@ -9,7 +9,36 @@ datum: "2024-02-22"
 permalink: /usneseni/2024/RM-839-30-2024/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2024/RM-30/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje uzavření Nájemní smlouvy a Smlouvy o budoucí smlouvě o zřízení služebnosti
 na akci „Víska, komunikace podél silnice III/03543“, pozemek p.č. 93/1, v k.ú. Víska u Litovle, obec Litovel

@@ -8,7 +8,36 @@ datum: "2024-09-12"
 permalink: /usneseni/2024/ZM-5-13-2024/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2024/ZM-13/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> bere na vědomí skutečnost, že Sdružení vzniklé na základě Smlouvy o sdružení ze dne 22.11.2001 zaniklo
 uplynutím 20 let od data kolaudace bytového domu č.p. 691, tzn. ke dni 6.11.2021 (resp. nejpozději k datu

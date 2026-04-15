@@ -17,6 +17,10 @@ h1 {
     text-align: center;
 }
 
+h2 {
+  margin-top: 2rem;
+}
+
 .subtitle {
     text-align: center;
 }
@@ -167,6 +171,21 @@ h1 {
   margin: .5em 0;
 }
 
+.usn-card {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  cursor: pointer;
+}
+
+.usn-card:hover {
+  background: #f5f5f5;
+}
+
+.usn-card:hover .usn-snippet {
+  text-decoration: underline;
+}
+
 .usn-controls {
   display: flex;
   flex-wrap: wrap;
@@ -228,9 +247,28 @@ h1 {
   margin: .3em 0;
 }
 
+
 .usn-snippet {
   color: #555;
   font-size: .95em;
+  position: relative;
+  max-height: 4.5em;
+  overflow: hidden;
+}
+
+.usn-snippet::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 40%;
+  height: 1.5em;
+  background: linear-gradient(to right, transparent, white);
+}
+
+.usn-more {
+  font-size: 0.85em;
+  color: #666;
 }
 
 .usn-detail {
@@ -285,6 +323,72 @@ h1 {
   color: #aaa;
   cursor: default;
 }
+
+.usn-item {
+  display: block;
+  padding: 0.6rem 0.8rem;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 6px;
+}
+
+.usn-item:hover {
+  background: #f5f5f5;
+}
+
+.usn-id {
+  font-weight: 600;
+}
+
+.usn-meetings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.5rem 0 1rem;
+}
+
+.usn-meetings a {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  color: #444;
+  text-decoration: none;
+  border-radius: 6px;
+  background: #f7f7f7;
+}
+
+.usn-meetings a:hover {
+  background: #ececec;
+}
+
+.usn-recent a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  padding: 0.3rem 0.4rem;
+  border-radius: 4px;
+}
+
+.usn-recent a:hover {
+  background: #f5f5f5;
+  text-decoration: underline;
+}
+
+.usn-recent a::before {
+  content: "• ";
+  color: #aaa;
+}
+
+.usn-all summary:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+mark {
+  background: rgba(0,0,0,0.08);
+  color: inherit;
+  padding: 0 2px;
+}
+
 .breadcrumbs {
     font-size: 0.9rem;
     margin-bottom: 1rem;

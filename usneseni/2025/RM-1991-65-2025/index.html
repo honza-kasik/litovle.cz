@@ -8,6 +8,35 @@ datum: "2025-12-11"
 permalink: /usneseni/2025/RM-1991-65-2025/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2025/RM-65/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>bere na vědomí zápis z porady s vedoucím muzea ze dne 11. 11. 2025.</p>

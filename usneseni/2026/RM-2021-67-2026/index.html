@@ -8,7 +8,36 @@ datum: "2026-01-29"
 permalink: /usneseni/2026/RM-2021-67-2026/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2026/RM-67/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> souhlasí s podnájmem nebytových prostor nacházejících se v objektu č.p. 31 v Litovli, místní část Chudobín,
 společnosti Levné pleny s.r.o., IČ: 17597935, se sídlem Renoty 37, 783 91 Uničov.</p>

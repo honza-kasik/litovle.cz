@@ -9,7 +9,36 @@ datum: "2024-12-05"
 permalink: /usneseni/2024/RM-1371-44-2024/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2024/RM-44/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje předložený „Ceník A“ nájemného v objektech města v místních částech města
 Litovel včetně DPH, který je jednou z příloh Vnitřního předpisu č. 5/2023/ZML - Směrnice o spolupráci Osadních

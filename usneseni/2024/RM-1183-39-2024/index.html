@@ -9,7 +9,36 @@ datum: "2024-08-22"
 permalink: /usneseni/2024/RM-1183-39-2024/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2024/RM-39/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje uzavření předloženého Dodatku č. 1 ke Smlouvě o nájmu prostoru sloužícího
 k podnikání č.j. LIT 14314/2023 mezi městem Litovel a společností GYNMEDIA CZ s.r.o. z důvodu změny

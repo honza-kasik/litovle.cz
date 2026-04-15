@@ -9,7 +9,36 @@ datum: "2022-11-16"
 permalink: /usneseni/2022/RM-31-2-2022/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2022/RM-2/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>souhlasí v souladu s ust. § 39, odst. 1, zák. č. 128/2000 Sb. v platném znění, s prodloužením
 pronájmu částí pozemků: parc.č. 1832, ost. plocha/ost. komunikace. Z celkové výměry z 3 106 m2 bude zveřejněno

@@ -9,7 +9,36 @@ datum: "2023-06-01"
 permalink: /usneseni/2023/RM-396-13-2023/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2023/RM-13/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje v souladu se zveřejněným záměrem dle ust. § 39, odst. 1, zák. č. 128/2000 Sb.
 v platném znění v souladu s přijatým usnesením č. RM/327/11/2023, písm. b), Smlouvu o nájmu částí pozemků

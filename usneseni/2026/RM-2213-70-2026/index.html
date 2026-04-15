@@ -8,7 +8,36 @@ datum: "2026-04-02"
 permalink: /usneseni/2026/RM-2213-70-2026/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2026/RM-70/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> bere na vědomí žádost zájemce o koupi pozemku parc.č. 838/7, orná půda, o výměře 1 208 m2, k.ú. Litovel,
 kterému byl schválen odprodej uvedeného pozemku zastupitelstvem města dne 5. 3. 2026, o vyjádření předběžného

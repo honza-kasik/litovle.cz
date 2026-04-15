@@ -9,7 +9,36 @@ datum: "2024-12-05"
 permalink: /usneseni/2024/RM-1381-44-2024/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2024/RM-44/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje předložený Dodatek č. 2 ke Smlouvě o dílo na PD k akci „Litovel – ul. Žerotínova
 mezi ul. Gemerská a Sušilova“ mezi městem Litovel a projekční kanceláří Atelis - Ateliér liniových staveb.</p>

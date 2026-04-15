@@ -9,7 +9,36 @@ datum: "2025-11-06"
 permalink: /usneseni/2025/RM-1902-62-2025/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2025/RM-62/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>se seznámila se strategickým plánem rozvoje Základní a mateřské školy Nasobůrky a rozhodla
 se, že závazný plán bude projednán a přijat až po jmenování nového ředitele školy na základě probíhajícího

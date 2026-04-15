@@ -9,7 +9,36 @@ datum: "2025-05-15"
 permalink: /usneseni/2025/RM-1630-51-2025/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2025/RM-51/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje předloženou Smlouvu o připojení odběrného elektrického zařízení k distribuční
 soustavě do napěťové hladiny 0,4 kV (NN) mezi městem Litovel a ČEZ Distribuce, a. s., na parc.č. 385/45,

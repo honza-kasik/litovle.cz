@@ -8,7 +8,36 @@ datum: "2025-04-10"
 permalink: /usneseni/2025/RM-1591-49-2025/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2025/RM-49/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> doporučuje Zastupitelstvu města Litovel delegovat jako zástupce města na Valnou hromadu společnosti
 Servisní společnost odpady Olomouckého kraje, a.s., IČO 07686501, se sídlem Jeremenkova 1191/40a, Hodolany,

@@ -9,7 +9,36 @@ datum: "2024-09-12"
 permalink: /usneseni/2024/RM-1221-40-2024/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2024/RM-40/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>bere na vědomí doplnění informace o budově č.p. 19 Myslechovice a setrvává na svém
 stanovisku z usnesení č. 965/34 ze dne 25. 4. 2024.</p>

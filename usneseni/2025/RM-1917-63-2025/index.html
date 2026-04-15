@@ -8,6 +8,35 @@ datum: "2025-11-27"
 permalink: /usneseni/2025/RM-1917-63-2025/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2025/RM-63/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>revokuje usnesení č. 1043/35 ze dne 16. 5. 2024.</p>

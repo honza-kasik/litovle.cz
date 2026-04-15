@@ -9,7 +9,36 @@ datum: "2025-07-22"
 permalink: /usneseni/2025/RM-1732-55-2025/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2025/RM-55/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje předloženou smlouvu o smlouvě budoucí o zřízení věcného břemene a dohodu
 o umístění stavby mezi oprávněným, tj. Společností ČEZ Distribuce, a.s. se sídlem Děčín, Děčín IV-Podmokly,

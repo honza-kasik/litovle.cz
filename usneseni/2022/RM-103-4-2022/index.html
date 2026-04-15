@@ -9,7 +9,36 @@ datum: "2022-12-08"
 permalink: /usneseni/2022/RM-103-4-2022/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2022/RM-4/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>doporučuje Zastupitelstvu města Litovel schválit rozdělení kompetencí starosty,
 místostarosty a členů rady města dle předloženého návrhu.</p>

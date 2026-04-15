@@ -8,7 +8,36 @@ datum: "2025-08-12"
 permalink: /usneseni/2025/RM-1789-56-2025/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2025/RM-56/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> bere na vědomí žádost spolku Moravské trhy, z. s., Milotice nad Opavou, ve věci pronájmu části veřejného
 prostranství na náměstí Přemysla Otakara v Litovli za účelem pořádání pravidelných jarmarků s různým

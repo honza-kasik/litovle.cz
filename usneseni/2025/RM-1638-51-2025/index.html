@@ -8,7 +8,36 @@ datum: "2025-05-15"
 permalink: /usneseni/2025/RM-1638-51-2025/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2025/RM-51/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> souhlasí s přijetím finančního daru ve výši 22.950 Kč od firmy Kimberly-Clark, s.r.o. pro Základní školu Litovel,
 Vítězná 1250, okres Olomouc. Peníze budou použity na nákup školních pomůcek pro žáky 1. tříd.</p>

@@ -8,7 +8,36 @@ datum: "2024-05-16"
 permalink: /usneseni/2024/RM-1032-35-2024/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2024/RM-35/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> souhlasí s použitím znaku města Litovel na plakátech při pořádání akce „6. ročník závodů mopedů - Wild Hogs
 Unčovice“, která se bude konat dne 25. 5. 2024 v Unčovicích.</p>

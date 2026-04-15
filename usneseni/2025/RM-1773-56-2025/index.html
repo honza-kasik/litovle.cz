@@ -9,7 +9,36 @@ datum: "2025-08-12"
 permalink: /usneseni/2025/RM-1773-56-2025/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2025/RM-56/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>doporučuje Zastupitelstvu města Litovel schválit předloženou smlouvu o bezúplatném
 převodu vlastnického práva k nemovité věci č. UZSVM/OOLM týkající se části pozemku parc.č. 1582/10,

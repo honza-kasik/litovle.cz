@@ -8,7 +8,36 @@ datum: "2024-03-14"
 permalink: /usneseni/2024/RM-868-31-2024/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2024/RM-31/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> souhlasí s poskytnutím daru ve výši 2.500 Kč na organizační zajištění oslav Mezinárodního dne žen v Nové Vsi.</p>
 <p><strong>b)</strong> schvaluje uzavření smlouvy o poskytnutí daru mezi městem Litovel a spolkem Novoveské Šťabajzny, z. s.

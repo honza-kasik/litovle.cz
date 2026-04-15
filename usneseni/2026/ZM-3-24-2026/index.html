@@ -8,7 +8,36 @@ datum: "2026-02-12"
 permalink: /usneseni/2026/ZM-3-24-2026/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2026/ZM-24/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> souhlasí s účastí města Litovel v exekuční dražbě (elektronické) nemovité věci - pozemku parc.č.st. 70
 o výměře 528 m2, k.ú. Litovel, obec Litovel, zapsáno na LV č. 1583 pro k.ú. Litovel, se součástmi

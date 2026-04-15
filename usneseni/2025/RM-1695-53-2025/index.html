@@ -9,7 +9,36 @@ datum: "2025-06-26"
 permalink: /usneseni/2025/RM-1695-53-2025/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2025/RM-53/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje uzavření Dodatku č. 5 ke Smlouvě o nájmu prostor sloužící k podnikání
 ze dne 21. listopadu 2011, ve znění pozdějších dodatků, mezi městem Litovel a paní I. K., v předloženém znění.</p>

@@ -9,7 +9,36 @@ datum: "2022-11-16"
 permalink: /usneseni/2022/RM-32-2-2022/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2022/RM-2/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>souhlasí s ukončením Nájemní smlouvy ze dne 15. 3. 2004, uzavřené mezi městem Litovel
 a nájemci K. a M. K. z Litovle na pronájem části pozemku parc.č. 1805, o výměře 60 m2, využívané jako příjezdová

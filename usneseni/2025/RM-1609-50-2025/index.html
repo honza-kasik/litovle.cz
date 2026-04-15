@@ -9,7 +9,36 @@ datum: "2025-04-24"
 permalink: /usneseni/2025/RM-1609-50-2025/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2025/RM-50/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>potvrzuje Mgr. Evu Hrachovcovou ředitelkou Základní školy Litovel, Jungmannova 655,
 okres Olomouc od 1. srpna 2025 na další 6leté funkční období.</p>

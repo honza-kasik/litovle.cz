@@ -8,7 +8,36 @@ datum: "2024-11-14"
 permalink: /usneseni/2024/RM-1321-43-2024/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2024/RM-43/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> zřizuje ve smyslu § 122 zákona o obcích tři tříčlenné komise určené k administraci žádostí postižených
 domácností o podporu v rámci dotačního programu MŽP – SFŽP „Pomoc domácnostem postiženým povodní“ (září

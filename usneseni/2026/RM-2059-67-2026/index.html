@@ -9,7 +9,36 @@ datum: "2026-01-29"
 permalink: /usneseni/2026/RM-2059-67-2026/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2026/RM-67/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>bere na vědomí Výroční zprávu za rok 2025 o činnosti v oblasti poskytování informací
 podle zákona č. 106/1999 Sb., o svobodném přístupu k informacím.</p>

@@ -8,7 +8,36 @@ datum: "2025-06-24"
 permalink: /usneseni/2025/ZM-22-20-2025/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2025/ZM-20/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> stanovuje název nové ulice Strouhalova pro parc.č. 835/12, 833/21, 833/20, 293/17 až po hranu parc.č. 299/2.</p>
 <p><strong>b)</strong> stanovuje název ulice Pošmýlská částečně rozšířit i na parc.č. 293/17.</p>

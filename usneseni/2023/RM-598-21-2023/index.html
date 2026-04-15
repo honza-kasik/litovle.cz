@@ -9,7 +9,36 @@ datum: "2023-09-21"
 permalink: /usneseni/2023/RM-598-21-2023/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2023/RM-21/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje Dodatek č. 1. ke Smlouvě o dílo, uzavřený podle § 2586 a násl. zákona č. 89/2012
 Sb. občanského zákoníku v platném znění, na akci „WC hřiště Březové - sanitární kontejner, přípojka splaškové

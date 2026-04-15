@@ -9,7 +9,36 @@ datum: "2025-05-15"
 permalink: /usneseni/2025/RM-1621-51-2025/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2025/RM-51/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje uzavření smlouvy o poskytnutí dotace mezi městem Litovel a Spolkem TJ VS, z. s.
 v předloženém znění na úhradu zpracování projektové dokumentace budovy nové loděnice a souvisejících

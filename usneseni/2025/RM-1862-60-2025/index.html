@@ -9,7 +9,36 @@ datum: "2025-10-16"
 permalink: /usneseni/2025/RM-1862-60-2025/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2025/RM-60/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje uzavření Dodatku č. 1 ke Smlouvě o dílo ze dne 10. 7. 2025 uzavřenou mezi SEVEn
 Energy s.r.o. a městem Litovel k vypracování projektové dokumentace na akci „Intenzifikace kalového hospodářství

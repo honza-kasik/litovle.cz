@@ -9,7 +9,36 @@ datum: "2022-10-27"
 permalink: /usneseni/2022/RM-2-1-2022/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2022/RM-1/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje uzavření nájemní smlouvy mezi městem Litovel a panem M. K. na pronájem
 parkovacího místa č. 8 v garážovém stání č. 2 umístěném na pozemku parc.č.st. 2046 zastavěná plocha a nádvoří

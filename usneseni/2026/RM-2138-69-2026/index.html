@@ -9,7 +9,36 @@ datum: "2026-03-12"
 permalink: /usneseni/2026/RM-2138-69-2026/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2026/RM-69/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje Smlouvu o nájmu pozemku, uzavřenou mezi městem Litovel a Mgr. I. K. z Litovle
 (IN KAFE), na pronájem části pozemku parc.č. 1573/1, ostatní plocha/ostatní komunikace, v k.ú. Litovel (část

@@ -8,7 +8,36 @@ datum: "2023-09-21"
 permalink: /usneseni/2023/RM-592-21-2023/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2023/RM-21/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> souhlasí s poskytnutím daru ve výši 5.000 Kč na organizační zajištění drakiády, která proběhne 12. října 2023.</p>
 <p><strong>b)</strong> schvaluje uzavření smlouvy o poskytnutí daru mezi městem Litovel a Církevní mateřskou školou Svatojánek

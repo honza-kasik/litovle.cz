@@ -8,7 +8,36 @@ datum: "2025-09-24"
 permalink: /usneseni/2025/RM-1832-59-2025/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2025/RM-59/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> souhlasí s poskytnutím daru ve výši 2.000 Kč na pokrytí akce O nás na Hané.</p>
 <p><strong>b)</strong> schvaluje zavření smlouvy o poskytnutí daru mezi městem Litovel a DSO Region Moravská cesta v předloženém

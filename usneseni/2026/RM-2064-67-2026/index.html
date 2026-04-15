@@ -9,7 +9,36 @@ datum: "2026-01-29"
 permalink: /usneseni/2026/RM-2064-67-2026/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2026/RM-67/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje předložený Dodatek č. 2 ke Smlouvě o dílo mezi městem Litovel a společností TGT
 Litovel, se sídlem Pištěkova 782/3, 149 00 Praha 4, IČ 25917838, pro realizaci veřejné zakázky „Obytný soubor

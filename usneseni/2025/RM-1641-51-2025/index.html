@@ -9,7 +9,36 @@ datum: "2025-05-15"
 permalink: /usneseni/2025/RM-1641-51-2025/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2025/RM-51/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje podání žádosti o dotaci na výdaje spojené se zásahy při mimořádných událostech
 způsobených tlakovou níží BORIS v období od 11. 9. 2024 do 31. 12. 2024 pro JSDH Tři Dvory, JSDH Chořelice

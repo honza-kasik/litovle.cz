@@ -8,7 +8,36 @@ datum: "2023-06-01"
 permalink: /usneseni/2023/RM-430-13-2023/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2023/RM-13/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> doporučuje Zastupitelstvu města Litovel schválit předložený návrh Vnitřního předpisu č. 4/2023/ZML, kterým
 se mění a doplňuje VP 1/2023/ZML „Pravidla ZML pro jednání, usnášení a hlasování OV“ s účinností od 1. 7. 2023.</p>

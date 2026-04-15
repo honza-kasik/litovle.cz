@@ -9,7 +9,36 @@ datum: "2024-04-04"
 permalink: /usneseni/2024/RM-922-32-2024/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2024/RM-32/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje smlouvu o zřízení věcného břemene mezi oprávněným, tj. Nordic Telecom
 Regional s.r.o., se sídlem Jihlavská 1558/21, Michle, 140 00 Praha 4, IČO 04593332, DIČ CZ04593332, zastoupená

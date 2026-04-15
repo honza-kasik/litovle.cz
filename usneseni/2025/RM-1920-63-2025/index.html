@@ -9,7 +9,36 @@ datum: "2025-11-27"
 permalink: /usneseni/2025/RM-1920-63-2025/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+})();
+</script>
+
+
+<p>
+  <a href="/usneseni/2025/RM-63/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje předloženou Smlouvu o nájmu pozemku, uzavřenou v souladu se zveřejněným
 záměrem města a v souladu s ust. § 39 odst. 1 zákona č. 128/2000 Sb., v platném znění, dle usnesení rady města
