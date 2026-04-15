@@ -19,23 +19,26 @@ permalink: /usneseni/2026/RM-2157-69-2026/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2026/RM-69/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>neschvaluje uzavření předložené Smlouvy o dílo týkající se Koncepční studie ulic Havlíčkova
 a Boskovicova dle principů Shared Space vč. vizualizace mezi Vojtěch Novotný - mobility consultancy &amp; advisory

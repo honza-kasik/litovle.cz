@@ -18,23 +18,26 @@ permalink: /usneseni/2025/RM-1683-52-2025/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2025/RM-52/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> revokuje usnesení č. RM/1646/51 ze dne 15. 5. 2025.</p>
 <p><strong>b)</strong> uděluje výjimku ze Směrnice č. 1/2025/RML o zadávání veřejných zakázek v podmínkách města Litovel,

@@ -18,23 +18,26 @@ permalink: /usneseni/2024/RM-1266-42-2024/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2024/RM-42/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> projednala žádost paní I. K. o prominutí nájemného za užívání nebytových prostor v objektu Sokolovny
 v Litovli, ul. Opletalova 341/1 - Fitcentrum z důvodu zatopení prostor při zářijových povodní.</p>

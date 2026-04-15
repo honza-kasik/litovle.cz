@@ -19,23 +19,26 @@ permalink: /usneseni/2022/RM-40-2-2022/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2022/RM-2/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje předložený Dodatek č. 1 ke smlouvě o dílo se společností GEOtest, a.s. Předmětem
 smlouvy je zpracování PD na záměr: „Komplexní revitalizace plochy sanované skládky v k.ú. Haňovice“.</p>

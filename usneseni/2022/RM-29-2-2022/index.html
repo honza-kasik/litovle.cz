@@ -19,23 +19,26 @@ permalink: /usneseni/2022/RM-29-2-2022/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2022/RM-2/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje zveřejnění záměru odprodeje části pozemku parc.č. 331/2 dle GP č. 135-132/2021
 díl a o výměře 58 m2 v k.ú. Nová Ves. Cena se stanovuje dle usn. ZM/12/28/2021 písm. a), bod 3: cena obvyklá

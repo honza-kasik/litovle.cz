@@ -18,23 +18,26 @@ permalink: /usneseni/2024/RM-1141-38-2024/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2024/RM-38/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> bere na vědomí ukončení pronájmu k částem pozemků parc.č. 307, o výměře 1 750 m2 a parc.č. 308,
 o výměře 8 225 m2, v k.ú. Tři Dvory u Litovle, v souladu s čl. VI. smlouvy SML/00112, bod 3.2. výpovědí ze strany

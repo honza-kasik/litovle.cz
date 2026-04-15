@@ -19,23 +19,26 @@ permalink: /usneseni/2025/RM-1463-47-2025/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2025/RM-47/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>nesouhlasí s poskytnutím finančního příspěvku spolku TAJV, z. s. na podporu akce TAJV
 Open v Litovli – 2025.</p>

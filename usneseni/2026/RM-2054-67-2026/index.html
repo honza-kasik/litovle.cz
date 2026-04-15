@@ -18,23 +18,26 @@ permalink: /usneseni/2026/RM-2054-67-2026/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2026/RM-67/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> bere na vědomí Zápis z otevírání obálek veřejné zakázky „Litovel - chodník Olomoucká“.</p>
 <p><strong>b)</strong> rozhodla o vyloučení účastníka PORR a.s. z veřejné zakázky „Litovel - chodník Olomoucká“, dle ust. § 48

@@ -19,23 +19,26 @@ permalink: /usneseni/2024/RM-982-34-2024/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2024/RM-34/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje uzavření Smlouvy o dílo vč. příloh na zhotovení díla: „Zateplení půdního prostoru
 ul. Boskovicova 785/2 a 785/4, Litovel“ mezi městem Litovel, IČ: 00299138 a společností STAVBEX s.r.o.,

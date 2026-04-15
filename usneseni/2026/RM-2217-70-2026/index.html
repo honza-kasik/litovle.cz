@@ -19,23 +19,26 @@ permalink: /usneseni/2026/RM-2217-70-2026/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2026/RM-70/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>souhlasí s parkováním 35 historických vozidel v obou vyhrazených prostorech (u Morového
 sloupu a před Nečízem) na náměstí Přemysla Otakara v Litovli dne 5. 5. 2026 v době od 12:45 hod. do 14:30 hod.

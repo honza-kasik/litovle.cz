@@ -19,23 +19,26 @@ permalink: /usneseni/2022/RM-63-4-2022/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2022/RM-4/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>souhlasí v souladu s ust. § 39, odst. 1, zákona číslo 128/2000 Sb. o obcích, v platném a účinném
 znění s pronájmem části pozemku parc.č. 1638/15, ostatní plocha/jiná plocha, v k.ú. Litovel. Z celkové výměry

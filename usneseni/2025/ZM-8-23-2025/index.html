@@ -18,23 +18,26 @@ permalink: /usneseni/2025/ZM-8-23-2025/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2025/ZM-23/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> schvaluje předloženou směnnou smlouvu, podle které první směňující, tj. obec Červenka vlastník pozemků
 parc.č. 946/70, 946/71, 946/74, 947/4, 947/5, 1131/41, 931/22, 931/23 a 922/120, to vše v k.ú. Červenka, obec

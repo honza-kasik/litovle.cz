@@ -18,23 +18,26 @@ permalink: /usneseni/2023/RM-441-14-2023/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2023/RM-14/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> bere na vědomí odstoupení pana Jana Indry z funkce jednatele společnosti FCC Litovel, s.r.o.</p>
 <p><strong>b)</strong> doporučuje Zastupitelstvu města Litovel delegovat Ing. R. V. do funkce jednatele společnosti

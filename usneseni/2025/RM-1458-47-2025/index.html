@@ -19,23 +19,26 @@ permalink: /usneseni/2025/RM-1458-47-2025/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2025/RM-47/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje předloženou Smlouvu o nájmu pozemku, uzavřenou mezi městem Litovel a manželi
 V. a V. Z. z Rozvadovic, ve věci pronájmu části pozemku parc.č. 59/1, zahrada, o celkové výměře 505 m2, na dobu

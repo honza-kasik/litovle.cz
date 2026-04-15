@@ -19,23 +19,26 @@ permalink: /usneseni/2024/RM-983-34-2024/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2024/RM-34/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje Smlouvu o dílo mezi městem Litovel na straně objednatele a panem Filipem Jančo,
 IČ: 692 30 781, se sídlem Na Zábraní 1040/54, Olomouc 779 00, na straně dodavatele, jejímž předmětem je dodání

@@ -19,23 +19,26 @@ permalink: /usneseni/2024/ZM-9-10-2024/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2024/ZM-10/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje Souhlasné prohlášení o shodě na průběhu hranic pozemků mezi Úřadem
 pro zastupování státu ve věcech majetkových a městem Litovel týkající se pozemků na ul. Žerotínova v Litovli

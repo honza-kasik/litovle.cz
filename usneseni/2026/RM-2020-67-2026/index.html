@@ -19,23 +19,26 @@ permalink: /usneseni/2026/RM-2020-67-2026/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2026/RM-67/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>souhlasí s výpovědí Smlouvy o nájmu pozemku uzavřené mezi městem Litovel a paní A. F.
 dne 17. 2. 2020, na pronájem pozemku parc.č. 803, za účelem zřízení zahrádky, z důvodu budoucího prodeje

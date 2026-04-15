@@ -19,23 +19,26 @@ permalink: /usneseni/2025/RM-1426-46-2025/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2025/RM-46/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje Smlouvu o výpůjčce, uzavřenou mezi městem Litovel (jako půjčitelem) a TV Nova
 s.r.o. (jako vypůjčitelem) ve věci výpůjčky části pozemku parc.č. 1573/1, ost. plocha/ost. komunikace, o výměře

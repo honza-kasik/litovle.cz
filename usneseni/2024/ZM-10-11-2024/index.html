@@ -19,23 +19,26 @@ permalink: /usneseni/2024/ZM-10-11-2024/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2024/ZM-11/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje prodej pozemků parc.č. st. 367, zastavěná plocha, o výměře 4,0 m2,
 a parc.č. 550/10, ostatní plocha, o výměře 37 m2, dle GP 755-1201/2023, v k.ú. Unčovice, panu K. P. z Březové

@@ -19,23 +19,26 @@ permalink: /usneseni/2026/RM-2214-70-2026/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2026/RM-70/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>uděluje Souhlas se stavbou veřejné komunikační sítě – optických a metalických kabelů včetně
 související infrastruktury, jež bude společností CETIN vybudována na pozemcích parc.č. 1577/13, 1577/28,

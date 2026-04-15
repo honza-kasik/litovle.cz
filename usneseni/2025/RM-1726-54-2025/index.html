@@ -18,23 +18,26 @@ permalink: /usneseni/2025/RM-1726-54-2025/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2025/RM-54/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> se seznámila s aktualizovaným programem veřejně přístupné akce „Litovelské slavnosti v rámci Dnů evropského
 dědictví“, která se uskuteční dne 6. září 2025 na nám. Přemysla Otakara v Litovli, v parcích a u rybníků.</p>

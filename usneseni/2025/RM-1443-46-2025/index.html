@@ -18,23 +18,26 @@ permalink: /usneseni/2025/RM-1443-46-2025/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2025/RM-46/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> schvaluje Rozpočet Technických služeb Litovel na rok 2025.</p>
 <p><strong>b)</strong> schvaluje příspěvek na provoz ve výši 37.708.000 Kč pro TS Litovel – schváleno ZML dne 12. 12. 2024

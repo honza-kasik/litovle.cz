@@ -19,23 +19,26 @@ permalink: /usneseni/2024/RM-1068-36-2024/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2024/RM-36/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje Smlouvu o dílo o autorském dozoru v rámci stavební akce: „Oprava rybníka
 „Olomoucký“ k.ú. Litovel“. Smlouva bude uzavřena mezi městem Litovel a Ing. Hynkem Hradským,

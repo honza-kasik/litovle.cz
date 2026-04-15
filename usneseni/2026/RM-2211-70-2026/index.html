@@ -18,23 +18,26 @@ permalink: /usneseni/2026/RM-2211-70-2026/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2026/RM-70/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> souhlasí s převedením částky 83.000 Kč z rezervního fondu Základní školy Litovel, Jungmannova 655, okres
 Olomouc do fondu investičního a následným čerpáním investičního fondu v max. výši 83.000 Kč. Důvodem čerpání

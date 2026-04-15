@@ -19,23 +19,26 @@ permalink: /usneseni/2025/RM-1928-63-2025/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2025/RM-63/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>doporučuje Zastupitelstvu města Litovel schválit předloženou kupní smlouvu, podle které
 pan J. N., bytem Savín, a paní Z. N. prodávají nově vytvořené pozemky parc.č. 674/20, ostatní plocha/silnice,

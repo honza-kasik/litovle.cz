@@ -19,23 +19,26 @@ permalink: /usneseni/2022/RM-68-4-2022/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2022/RM-4/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje smlouvu o smlouvě budoucí o zřízení věcného břemene a právu provést stavbu mezi
 oprávněným, tj. ČEZ Distribuce, a.s. se sídlem Děčín, Děčín IV-Podmokly, Teplická 874/8, PSČ 405 02 zastoupená

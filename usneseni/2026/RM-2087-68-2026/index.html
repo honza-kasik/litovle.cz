@@ -19,23 +19,26 @@ permalink: /usneseni/2026/RM-2087-68-2026/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2026/RM-68/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje uzavření smlouvy o dílo mezi městem Litovel a společností AGP PROJEKČNÍ
 ATELIÉR s.r.o., v předloženém znění. Předmětem smlouvy je zpracování DPS k záměru: „Kompostárna Litovel

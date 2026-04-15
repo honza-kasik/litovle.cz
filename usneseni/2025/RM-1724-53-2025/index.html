@@ -19,23 +19,26 @@ permalink: /usneseni/2025/RM-1724-53-2025/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2025/RM-53/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje uzavření Příkazní smlouvy č. 2503-007 s firmou ENSYTRA, s.r.o. se sídlem
 v Mohelnici na realizaci postupného nákupu elektrické energie a zemního plynu pro období dodávky od roku 2026

@@ -18,23 +18,26 @@ permalink: /usneseni/2026/RM-2216-70-2026/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2026/RM-70/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> bere na vědomí žádost Městského klubu Litovel o spolupráci města Litovel při uspořádání veřejnosti přístupné
 akce „Hanácké Benátky 2026“, která se bude konat dne 13. 6. 2026, v době od 10:00 hod. do 23:00 hod., na náměstí

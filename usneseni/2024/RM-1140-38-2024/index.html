@@ -19,23 +19,26 @@ permalink: /usneseni/2024/RM-1140-38-2024/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2024/RM-38/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje předloženou Smlouvu o nájmu pozemku parc.č. 131/2, zahrada,
 v k.ú. Myslechovice, uzavřenou v souladu se zveřejněným záměrem města dle ust. § 39, odst. 1, zákona č. 128/2000

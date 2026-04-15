@@ -1,0 +1,19 @@
+---
+layout: default
+---
+
+{% assign parts = page.url | split: '/' %}
+{% assign year = parts[2] %}
+{% assign meeting = parts[3] %}
+
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+  <a href="{{ '/' | relative_url }}">Úvod</a>
+  &nbsp;›&nbsp;
+  <a href="{{ '/usneseni/' | relative_url }}">Usnesení</a>
+  &nbsp;›&nbsp;
+  <a href="{{ '/usneseni/' | append: year | append: '/' | relative_url }}">{{ year }}</a>
+  &nbsp;›&nbsp;
+  <span>{{ meeting }}</span>
+</nav>
+
+{{ content }}

@@ -19,23 +19,26 @@ permalink: /usneseni/2025/ZM-10-22-2025/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2025/ZM-22/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje prodej pozemku parc.č. 950/1, o výměře cca 39 m2, ostatní plocha/ostatní
 komunikace, k.ú. Litovel, panu J. U., za cenu 500 Kč/m2. Veškeré vedlejší náklady, jako je pořízení GP, jde k tíži

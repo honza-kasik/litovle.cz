@@ -19,23 +19,26 @@ permalink: /usneseni/2025/RM-1781-56-2025/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2025/RM-56/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje Dodatek č. 1 ke Smlouvě o dílo na akci „Dodávka a montáž herních prvků –
 sportovní areál místní části Chudobín“, uzavřený mezi městem Litovel a společností Hřiště v Cajku s.r.o.,

@@ -18,23 +18,26 @@ permalink: /usneseni/2026/ZM-18-25-2026/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2026/ZM-25/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> ukládá vedení města předložit zastupitelstvu variantní návrh dalšího postupu, jehož cílem bude především
 zajištění bezpečnosti obyvatel a kolemjdoucích v prostoru objektu č.p. 626, ul. 1. máje.</p>

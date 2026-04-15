@@ -18,22 +18,25 @@ permalink: /usneseni/2024/RM-849-30-2024/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2024/RM-30/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>rozhoduje o zřízení přípravné třídy na Základní škole Litovel, Vítězná 1250, okres Olomouc.</p>

@@ -19,23 +19,26 @@ permalink: /usneseni/2024/ZM-17-13-2024/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2024/ZM-13/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>bere na vědomí informaci o připravované směně nemovitostí s ČR - Úřadem pro
 zastupování státu ve věci majetkových a ČR – HZS OK, včetně podrobností připravované směny,

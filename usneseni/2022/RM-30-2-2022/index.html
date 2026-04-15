@@ -18,23 +18,26 @@ permalink: /usneseni/2022/RM-30-2-2022/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2022/RM-2/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> schvaluje přidělení bytu č. 003, o vel. 1+1 s příslušenstvím, situovaný ve 2. nadzemním podlaží domu č.p. 754,
 nám. Přemysla Otakara, č.or. 12 paní O. N. Současně Rada města Litovel souhlasí s uzavřením Smlouvy o nájmu

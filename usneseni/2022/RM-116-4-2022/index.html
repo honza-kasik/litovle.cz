@@ -18,23 +18,26 @@ permalink: /usneseni/2022/RM-116-4-2022/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2022/RM-4/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> schvaluje zřízení a složení Komise SPOZ dle předloženého návrhu s účinností od 1. 1. 2023.</p>
 <p><strong>b)</strong> schvaluje navýšení hodnoty dárkových balíčků pro jubilanty o 100 Kč s účinností od 1. 1. 2023.</p>

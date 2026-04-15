@@ -18,23 +18,26 @@ permalink: /usneseni/2025/RM-1441-46-2025/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2025/RM-46/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> souhlasí s tím, že na vyúčtování ceny za bezesmluvní užívání části pozemku parc.č. 479/61, k.ú. Litovel,
 za období od 27. 6. 2024 do 30. 11. 2024 společnosti INLIFE MORAVA s.r.o., jakožto uživateli, se uplatní stejné

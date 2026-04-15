@@ -19,23 +19,26 @@ permalink: /usneseni/2022/ZM-14-2-2022/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2022/ZM-2/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje Mgr. Lubomíra Brozu určeným zastupitelem po dobu trvání jeho mandátu,
 tj. volební období 2022–2026, pro všechny úkony spojené s procesem pořízení Územního plánu města Litovel,

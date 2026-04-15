@@ -19,23 +19,26 @@ permalink: /usneseni/2024/ZM-22-11-2024/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2024/ZM-11/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje poskytnutí zápůjčky z Fondu rozvoje bydlení manželům L. a D. Z.
 z Litovle – 200.000 Kč dle titulu č. 3 na novou střechu, úrok 1 %, doba splatnosti 5 let.</p>

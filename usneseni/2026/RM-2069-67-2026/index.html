@@ -19,23 +19,26 @@ permalink: /usneseni/2026/RM-2069-67-2026/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2026/RM-67/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>bere na vědomí poskytnuté informace k elektronické dražbě domu na adrese 1. máje 626/10
 a navrhuje svolat zasedání Zastupitelstva města Litovel k rozhodnutí o dalším postupu.

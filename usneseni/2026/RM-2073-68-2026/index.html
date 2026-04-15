@@ -18,23 +18,26 @@ permalink: /usneseni/2026/RM-2073-68-2026/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2026/RM-68/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> bere na vědomí oznámení Československé obchodní banky, a.s. o prodloužení doby trvání nájmu na dobu
 dalšího jednoho (1) roku, tj. do 31. 8. 2027, v souladu s čl. IX odst. 9.2 Smlouvy o nájmu prostor, s tím, že i nadále

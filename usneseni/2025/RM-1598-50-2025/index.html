@@ -18,23 +18,26 @@ permalink: /usneseni/2025/RM-1598-50-2025/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2025/RM-50/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> schvaluje Dohodu o ukončení Nájemní smlouvy č.j.: LIT 21446/2013, ve znění pozdějšího dodatku na parkovací
 místo č. 1 v objektu bývalé uhelny u kotelny na sídlišti Vítězná v Litovli, nacházející se v garážovém stání č. 2,

@@ -19,23 +19,26 @@ permalink: /usneseni/2024/RM-1157-38-2024/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2024/RM-38/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>doporučuje Zastupitelstvu města Litovel projednat a schválit uzavření Smlouvy o poskytnutí
 dotace na základě žádosti města Litovel ve výši 48.870 Kč od Olomouckého kraje. Účelem dotace je realizace

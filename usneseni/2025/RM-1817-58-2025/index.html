@@ -19,23 +19,26 @@ permalink: /usneseni/2025/RM-1817-58-2025/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2025/RM-58/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>akceptuje návrh zadávacích podmínek VZ pro dodavatele EE pro roky 2026 a 2027 a plynu
 pro rok 2026 a schvaluje komisi pro hodnocení VZ ve složení Ing. R. V., Mgr. M. H. a Ing. P. H.</p>

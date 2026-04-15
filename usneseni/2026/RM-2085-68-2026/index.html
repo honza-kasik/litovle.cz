@@ -19,23 +19,26 @@ permalink: /usneseni/2026/RM-2085-68-2026/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2026/RM-68/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje předloženou Smlouvu o dílo mezi městem Litovel a spol. GEPRO s.r.o.,
 IČ 44851529 na poskytování služeb Zakladatele a Editora v Digitální technické mapě ČR. Tato smlouva

@@ -19,23 +19,26 @@ permalink: /usneseni/2024/RM-1252-41-2024/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2024/RM-41/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>určuje pro školské a kulturní příspěvkové organizace města Litovel vedení účetnictví
 ve zjednodušeném rozsahu s tím, že příloha účetní závěrky bude obsahovat informace o tvorbě a čerpání fondů.</p>

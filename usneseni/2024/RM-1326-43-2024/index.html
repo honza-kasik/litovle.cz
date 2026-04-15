@@ -19,23 +19,26 @@ permalink: /usneseni/2024/RM-1326-43-2024/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2024/RM-43/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>nesouhlasí s kompenzací slevy nájmu v prodejně H-PODLAHY na ulici Palackého ve výši
 4.000 Kč měsíčně za měsíce září, říjen a listopad 2024 v důsledku rekonstrukce autobusové zastávky na ulici

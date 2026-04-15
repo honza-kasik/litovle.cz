@@ -19,23 +19,26 @@ permalink: /usneseni/2024/ZM-18-16-2024/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2024/ZM-16/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>poskytuje s ohledem na úspěšné plnění úkolů spojených s výkonem činností
 zvláštních orgánů města Litovel, zejména bezpečnostní rady, povodňové komise a krizového štábu, jejichž

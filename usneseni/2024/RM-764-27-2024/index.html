@@ -18,23 +18,26 @@ permalink: /usneseni/2024/RM-764-27-2024/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2024/RM-27/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> doporučuje Zastupitelstvu města Litovel schválit poskytnutí dotace žadatelům o finanční podporu na rok 2024
 dle předloženého návrhu. Současně doporučuje ZML souhlasit s podepsáním každé jednotlivé smlouvy

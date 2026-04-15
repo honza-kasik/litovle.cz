@@ -19,23 +19,26 @@ permalink: /usneseni/2024/RM-807-29-2024/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2024/RM-29/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje předložený Dodatek č. 5 ke Smlouvě za účelem zajištění provozu náhradního
 autobusového stanoviště v Litovli č. SAN 24-002/2020 ze dne 20. 6. 2020, uzavřený mezi městem Litovel a ČSAD

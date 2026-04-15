@@ -20,23 +20,26 @@ permalink: /usneseni/2023/RM-480-15-2023/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2023/RM-15/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>souhlasí s vyvěšením moravské vlajky na budově MěÚ v Litovli dne 5. července 2023.
 Viktor Kohout v. r. Mgr. Lubomír Broza v. r.

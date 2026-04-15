@@ -18,23 +18,26 @@ permalink: /usneseni/2024/RM-1001-35-2024/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2024/RM-35/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> revokuje usnesení RM/972/34/2024 schválené na 34. schůzi Rady města Litovel.</p>
 <p><strong>b)</strong> schvaluje smlouvu o zřízení věcného břemene mezi oprávněným, tj. ČEZ Distribuce, a. s. IČ 24729035,

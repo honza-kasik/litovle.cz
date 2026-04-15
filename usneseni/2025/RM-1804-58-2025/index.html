@@ -19,23 +19,26 @@ permalink: /usneseni/2025/RM-1804-58-2025/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2025/RM-58/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje smlouvu o poskytnutí fotografického materiálu a udělení souhlasu s právem
 reprodukce uzavíranou mezi městem Litovel, na straně nabyvatele, a Vlastivědným muzeem v Olomouci, na straně

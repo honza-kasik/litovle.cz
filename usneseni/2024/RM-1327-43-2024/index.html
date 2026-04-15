@@ -19,23 +19,26 @@ permalink: /usneseni/2024/RM-1327-43-2024/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2024/RM-43/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>bere na vědomí oznámení o jmenování zimní pohotovostní skupiny na období listopad 2024-
 březen 2025.</p>

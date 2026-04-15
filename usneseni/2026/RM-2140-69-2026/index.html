@@ -18,23 +18,26 @@ permalink: /usneseni/2026/RM-2140-69-2026/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2026/RM-69/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> souhlasí s poskytnutím daru ve výši 5.000 Kč na podporu činnosti spolku v roce 2026.</p>
 <p><strong>b)</strong> schvaluje uzavření smlouvy o poskytnutí daru mezi městem Litovel a pobočným spolkem Českého svazu

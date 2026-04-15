@@ -18,23 +18,26 @@ permalink: /usneseni/2026/RM-2122-68-2026/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2026/RM-68/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> schvaluje výběr dodavatele veřejné zakázky „Sportovní hala Litovel – instalace slaboproudu“, a to dodavatele
 Elektro Jarmar s.r.o., Sadová 240/4, 784 01 Litovel, IČO 04288688.</p>

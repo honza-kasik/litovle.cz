@@ -19,23 +19,26 @@ permalink: /usneseni/2026/RM-2212-70-2026/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2026/RM-70/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>jmenuje hodnotící komisi pro posouzení kvalifikace a hodnocení nabídek týkající se veřejné
 zakázky „Instalace fotovoltaické elektrárny na ČOV ve městě Litovel“ ve složení: Mgr. L. B., Ing. H. S., M. B.;

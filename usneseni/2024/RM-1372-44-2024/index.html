@@ -18,23 +18,26 @@ permalink: /usneseni/2024/RM-1372-44-2024/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2024/RM-44/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> souhlasí s geodetickým zaměřením - vytýčením v terénu části pozemku parc.č. 479/2, orná půda, v k.ú. Litovel
 (plocha žlutě vyznačená OS). Plocha nesmí být v kolizi s navrženou povolenou komunikací a musí být mimo

@@ -19,23 +19,26 @@ permalink: /usneseni/2025/RM-1693-52-2025/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2025/RM-52/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>souhlasí s návrhem rozhodnutí Valné hromady společnosti Servisní společnost odpady
 Olomouckého kraje, a.s., IČO 07686501, se sídlem Zamenhofova 783/34, 779 00 Olomouc ze dne 28. 5. 2025,

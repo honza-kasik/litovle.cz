@@ -19,23 +19,26 @@ permalink: /usneseni/2024/RM-1285-42-2024/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2024/RM-42/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>bere na vědomí seznam úkonů, které starosta města Litovel v rámci výkonu svěřené
 pravomoci dle § 102 odst. 3 (druhá část věty za středníkem) zákona o obcích v období 3. 10. - 17. 10. 2024 učinil.</p>

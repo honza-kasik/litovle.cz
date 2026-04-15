@@ -19,23 +19,26 @@ permalink: /usneseni/2025/RM-1416-46-2025/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2025/RM-46/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje ukončení Smlouvy o nájmu veřejného prostranství za účelem umístění reklamního
 zařízení, uzavřené dne 31. 7. 2002 mezi městem Litovel a panem F. H. z Litovle, v souladu s čl. II. smlouvy, Doba

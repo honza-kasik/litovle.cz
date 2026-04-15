@@ -19,23 +19,26 @@ permalink: /usneseni/2024/RM-935-32-2024/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2024/RM-32/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje uzavření Dodatku ke smlouvě o dodávce softwarových produktů a poskytování
 servisních služeb č. 00299138/000/2022 mezi městem Litovel a společností INISOFT s.r.o., v předloženém znění.</p>

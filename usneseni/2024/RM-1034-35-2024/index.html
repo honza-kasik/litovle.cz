@@ -19,23 +19,26 @@ permalink: /usneseni/2024/RM-1034-35-2024/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2024/RM-35/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>souhlasí s poskytnutím finančního daru F. S. ve výši 5.000 Kč za sportovní úspěchy v oblasti
 kanoistiky, který bude předán na červnovém zasedání Zastupitelstva města Litovel.</p>

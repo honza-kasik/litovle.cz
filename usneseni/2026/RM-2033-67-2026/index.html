@@ -19,23 +19,26 @@ permalink: /usneseni/2026/RM-2033-67-2026/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2026/RM-67/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje uzavření Příkazní smlouvy k výkonu zadavatelských činností podle zák. č. 134/2016
 Sb. o zadávání veřejných zakázek k připravované akci „Rozvadovice - místní komunikace na parc.č. 316/2“.

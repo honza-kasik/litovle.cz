@@ -17,6 +17,10 @@ h1 {
     text-align: center;
 }
 
+h2 {
+  margin-top: 2rem;
+}
+
 .subtitle {
     text-align: center;
 }
@@ -318,6 +322,65 @@ h1 {
 .usn-page-disabled {
   color: #aaa;
   cursor: default;
+}
+
+.usn-item {
+  display: block;
+  padding: 0.6rem 0.8rem;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 6px;
+}
+
+.usn-item:hover {
+  background: #f5f5f5;
+}
+
+.usn-id {
+  font-weight: 600;
+}
+
+.usn-meetings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.5rem 0 1rem;
+}
+
+.usn-meetings a {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  color: #444;
+  text-decoration: none;
+  border-radius: 6px;
+  background: #f7f7f7;
+}
+
+.usn-meetings a:hover {
+  background: #ececec;
+}
+
+.usn-recent a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  padding: 0.3rem 0.4rem;
+  border-radius: 4px;
+}
+
+.usn-recent a:hover {
+  background: #f5f5f5;
+  text-decoration: underline;
+}
+
+.usn-recent a::before {
+  content: "• ";
+  color: #aaa;
+}
+
+.usn-all summary:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 mark {

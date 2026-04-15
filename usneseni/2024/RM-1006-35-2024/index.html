@@ -19,23 +19,26 @@ permalink: /usneseni/2024/RM-1006-35-2024/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2024/RM-35/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>schvaluje zveřejnění záměru odprodeje části pozemku parc.č. 73/1, ostatní plocha, o výměře
 cca 150 m2, v k.ú. Nová Ves u Litovle za cenu stanovenou znaleckým posudkem, který si nechá na své náklady

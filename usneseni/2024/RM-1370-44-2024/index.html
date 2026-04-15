@@ -18,23 +18,26 @@ permalink: /usneseni/2024/RM-1370-44-2024/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2024/RM-44/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p><strong>a)</strong> doporučuje Zastupitelstvu města Litovel schválit směnu části pozemku parc.č. 14, zahrada, k.ú. Chořelice,
 v rozsahu výměry cca 41 m2, ve vlastnictví města Litovel, za část pozemku parc.č. 60/2, k.ú. Chořelice, zahrada,

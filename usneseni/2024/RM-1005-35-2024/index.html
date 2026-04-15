@@ -19,23 +19,26 @@ permalink: /usneseni/2024/RM-1005-35-2024/
   const a = document.getElementById("back-link");
 
   a.addEventListener("click", function(e) {
-    // pokud je referrer z vyhledávání → použij ho
     if (document.referrer && document.referrer.includes("/usneseni?")) {
       e.preventDefault();
       location.href = document.referrer;
       return;
     }
 
-    // fallback: když je historie
     if (history.length > 1) {
       e.preventDefault();
       history.back();
     }
-
-    // jinak se použije normální href (/usneseni/)
   });
 })();
 </script>
+
+
+<p>
+  <a href="/usneseni/2024/RM-35/">
+    → Všechna usnesení z této schůze
+  </a>
+</p>
 
 <p>odkládá materiál „Prodej pozemků města Litovel - lokalita Pavlínka“ na další schůzi RM
 s tím, že materiál bude doplněn o informace týkající se cen okolních stavebních pozemků v této lokalitě.</p>
