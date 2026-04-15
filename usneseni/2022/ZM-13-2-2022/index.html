@@ -9,7 +9,33 @@ datum: "2022-12-08"
 permalink: /usneseni/2022/ZM-13-2-2022/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    // pokud je referrer z vyhledávání → použij ho
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    // fallback: když je historie
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+
+    // jinak se použije normální href (/usneseni/)
+  });
+})();
+</script>
 
 <p>schvaluje rozdělení kompetencí starosty, místostarosty a členů rady města dle
 předloženého návrhu.</p>

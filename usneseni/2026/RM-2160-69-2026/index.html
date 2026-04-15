@@ -9,7 +9,33 @@ datum: "2026-03-12"
 permalink: /usneseni/2026/RM-2160-69-2026/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    // pokud je referrer z vyhledávání → použij ho
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    // fallback: když je historie
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+
+    // jinak se použije normální href (/usneseni/)
+  });
+})();
+</script>
 
 <p>schvaluje předložený Dodatek č. 3 ke Smlouvě o dílo mezi městem Litovel a společností TGT
 Litovel pro realizaci veřejné zakázky „Obytný soubor Litovel, Boženy Němcové - demolice stávajících objektů“.</p>

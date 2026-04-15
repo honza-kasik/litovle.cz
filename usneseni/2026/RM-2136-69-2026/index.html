@@ -9,7 +9,33 @@ datum: "2026-03-12"
 permalink: /usneseni/2026/RM-2136-69-2026/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    // pokud je referrer z vyhledávání → použij ho
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    // fallback: když je historie
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+
+    // jinak se použije normální href (/usneseni/)
+  });
+})();
+</script>
 
 <p>schvaluje zveřejnění záměru pronájmu obecního bytu č. 005 s dispozicí 2 + 1 o celkové
 výměře 61 m2, umístěný ve III. nadzemním podlaží bytového domu č.p. 785 na ulici Boskovicova č. or. 2 v Litovli.</p>

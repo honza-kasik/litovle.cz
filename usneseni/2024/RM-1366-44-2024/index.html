@@ -8,6 +8,32 @@ datum: "2024-12-05"
 permalink: /usneseni/2024/RM-1366-44-2024/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    // pokud je referrer z vyhledávání → použij ho
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    // fallback: když je historie
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+
+    // jinak se použije normální href (/usneseni/)
+  });
+})();
+</script>
 
 <p>stanovuje novou výši vstupného do Muzea Litovel od 1. ledna 2025 dle předloženého návrhu.</p>

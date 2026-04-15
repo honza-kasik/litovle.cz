@@ -9,7 +9,33 @@ datum: "2025-03-13"
 permalink: /usneseni/2025/RM-1520-48-2025/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    // pokud je referrer z vyhledávání → použij ho
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    // fallback: když je historie
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+
+    // jinak se použije normální href (/usneseni/)
+  });
+})();
+</script>
 
 <p>souhlasí s uzavřením Dodatku č. 3 ke Smlouvě o dílo na realizaci zakázky s názvem
 „Revitalizace sportovního areálu v Litovli - 2. etapa“, uzavřené dne 5. 3. 2024 mezi městem Litovel na straně

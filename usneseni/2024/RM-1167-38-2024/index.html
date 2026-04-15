@@ -8,7 +8,33 @@ datum: "2024-08-01"
 permalink: /usneseni/2024/RM-1167-38-2024/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    // pokud je referrer z vyhledávání → použij ho
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    // fallback: když je historie
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+
+    // jinak se použije normální href (/usneseni/)
+  });
+})();
+</script>
 
 <p><strong>a)</strong> bere na vědomí informaci Litovelského bytového družstva o záměru rozdělení bytových domů č.p. 691, č.p. 734,
 č.p. 738 a č.p. 1249 na bytové jednotky a záměru převodu vymezených bytových jednotek do osobního vlastnictví

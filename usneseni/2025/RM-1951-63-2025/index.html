@@ -8,7 +8,33 @@ datum: "2025-11-27"
 permalink: /usneseni/2025/RM-1951-63-2025/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    // pokud je referrer z vyhledávání → použij ho
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    // fallback: když je historie
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+
+    // jinak se použije normální href (/usneseni/)
+  });
+})();
+</script>
 
 <p><strong>a)</strong> byla seznámena s průběhem konkursního řízení na místo ředitele/ředitelky Základní a mateřské školy Nasobůrky
 a rozhodla se nejmenovat ředitelem školy žádného z uchazečů.</p>

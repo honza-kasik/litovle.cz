@@ -8,7 +8,33 @@ datum: "2025-03-13"
 permalink: /usneseni/2025/RM-1506-48-2025/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    // pokud je referrer z vyhledávání → použij ho
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    // fallback: když je historie
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+
+    // jinak se použije normální href (/usneseni/)
+  });
+})();
+</script>
 
 <p><strong>a)</strong> souhlasí s poskytnutím finanční podpory ve výši 7.500 Kč na zajištění kulturního a společenského života
 a 30.000 Kč na podporu hasičského sportu v Chořelicích v roce 2025. Současně schvaluje uzavření smlouvy

@@ -9,7 +9,33 @@ datum: "2025-01-30"
 permalink: /usneseni/2025/RM-1424-46-2025/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    // pokud je referrer z vyhledávání → použij ho
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    // fallback: když je historie
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+
+    // jinak se použije normální href (/usneseni/)
+  });
+})();
+</script>
 
 <p>schvaluje uzavření darovací smlouvy mezi panem J. K., na straně dárce, a městem Litovel,
 na straně obdarovaného, jejímž předmětem je poskytnutí finančního daru 50.000 Kč na pomoc po povodni

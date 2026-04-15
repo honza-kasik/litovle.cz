@@ -8,7 +8,33 @@ datum: "2022-12-08"
 permalink: /usneseni/2022/RM-96-4-2022/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    // pokud je referrer z vyhledávání → použij ho
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    // fallback: když je historie
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+
+    // jinak se použije normální href (/usneseni/)
+  });
+})();
+</script>
 
 <p><strong>a)</strong> souhlasí s cenovou nabídkou na provoz Senior Taxi Litovel podanou panem P. K. s následující úpravou: nástupní
 taxa ve výši 30 Kč a omezení počtu jíst, tj. přeprava maximálně 8krát za jeden kalendářní měsíc.</p>

@@ -8,7 +8,33 @@ datum: "2023-06-01"
 permalink: /usneseni/2023/RM-410-13-2023/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    // pokud je referrer z vyhledávání → použij ho
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    // fallback: když je historie
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+
+    // jinak se použije normální href (/usneseni/)
+  });
+})();
+</script>
 
 <p><strong>a)</strong> schvaluje Smlouvu o dílo, uzavřenou podle § 2586 a násl. zákona č. 89/2012 Sb., občanského zákoníku v platném
 znění, uzavřenou mezi městem Litovel a zhotovitelem Radkem Šotolou z Litovle na akci „WC hřiště Březové -

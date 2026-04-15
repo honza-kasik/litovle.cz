@@ -8,7 +8,33 @@ datum: "2024-04-04"
 permalink: /usneseni/2024/RM-939-32-2024/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    // pokud je referrer z vyhledávání → použij ho
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    // fallback: když je historie
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+
+    // jinak se použije normální href (/usneseni/)
+  });
+})();
+</script>
 
 <p><strong>a)</strong> souhlasí s podáním žádostí o dotaci z Programu na podporu aktivit v oblasti životního prostředí a zemědělství
 2024 na realizaci projektu: „Výsadba stromořadí na ulici Uničovská v Litovli“.</p>

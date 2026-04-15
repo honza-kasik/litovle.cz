@@ -9,7 +9,33 @@ datum: "2026-01-08"
 permalink: /usneseni/2026/RM-2014-66-2026/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    // pokud je referrer z vyhledávání → použij ho
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    // fallback: když je historie
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+
+    // jinak se použije normální href (/usneseni/)
+  });
+})();
+</script>
 
 <p>souhlasí s žádostí firmy Inlife Morava s.r.o. ve věci umístění blíže nespecifikovaného nového
 zastřešení nad posezením, dále umístění lodního kontejneru na kola a umístění samoobslužného kiosku pro online

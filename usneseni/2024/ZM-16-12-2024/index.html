@@ -8,7 +8,33 @@ datum: "2024-06-19"
 permalink: /usneseni/2024/ZM-16-12-2024/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    // pokud je referrer z vyhledávání → použij ho
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    // fallback: když je historie
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+
+    // jinak se použije normální href (/usneseni/)
+  });
+})();
+</script>
 
 <p><strong>a)</strong> souhlasí se vstupem obce Senice na Hané a obce Příkazy do společnosti Vodohospodářská společnost
 ČERLINKA s.r.o., se sídlem Cholinská 1120/13,784 01 Litovel, IČ: 471 50 904, převzetím vkladové povinnosti

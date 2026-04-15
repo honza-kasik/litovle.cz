@@ -9,7 +9,33 @@ datum: "2025-10-16"
 permalink: /usneseni/2025/RM-1863-60-2025/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    // pokud je referrer z vyhledávání → použij ho
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    // fallback: když je historie
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+
+    // jinak se použije normální href (/usneseni/)
+  });
+})();
+</script>
 
 <p>schvaluje uzavření Dodatku č. 1 ke Smlouvě o výpůjčce movitých věcí ze dne 17. 9. 2025,
 č. smlouvy u půjčitele 29/391/2025, č. j. NPU-391/70364/2025, mezi městem Litovel na straně vypůjčitele

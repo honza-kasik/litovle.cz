@@ -9,7 +9,33 @@ datum: "2025-04-10"
 permalink: /usneseni/2025/RM-1583-49-2025/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    // pokud je referrer z vyhledávání → použij ho
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    // fallback: když je historie
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+
+    // jinak se použije normální href (/usneseni/)
+  });
+})();
+</script>
 
 <p>souhlasí s využitím venkovního prostranství (hřiště a bufetu) pro akci pořádanou firmou
 DOFITKO, zastoupenou A. B. a G. P., ve dnech 16. 5. 2025 a 18. 5. 2025 od 16.00 do 19.00 hod. Akce zahrnuje

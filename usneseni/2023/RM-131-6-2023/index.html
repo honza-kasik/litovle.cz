@@ -9,7 +9,33 @@ datum: "2023-01-05"
 permalink: /usneseni/2023/RM-131-6-2023/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    // pokud je referrer z vyhledávání → použij ho
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    // fallback: když je historie
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+
+    // jinak se použije normální href (/usneseni/)
+  });
+})();
+</script>
 
 <p>souhlasí s převodem 110.000 Kč z RF ZŠ Jungmannova do IF a následně s čerpáním
 potřebných finančních prostředků z IF na pořízení multifunkčního kopírovacího stroje.</p>

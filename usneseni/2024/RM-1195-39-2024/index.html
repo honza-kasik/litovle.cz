@@ -8,7 +8,33 @@ datum: "2024-08-22"
 permalink: /usneseni/2024/RM-1195-39-2024/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    // pokud je referrer z vyhledávání → použij ho
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    // fallback: když je historie
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+
+    // jinak se použije normální href (/usneseni/)
+  });
+})();
+</script>
 
 <p><strong>a)</strong> schvaluje smlouvy o uzavření budoucích smluv o připojení odběrných elektrických zařízení k distribuční
 soustavě mezi městem Litovel a společností ČEZ Distribuce, a.s. se sídlem Teplická 874/8, 405 02 Děčín.</p>

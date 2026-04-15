@@ -8,7 +8,33 @@ datum: "2024-12-12"
 permalink: /usneseni/2024/ZM-13-16-2024/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    // pokud je referrer z vyhledávání → použij ho
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    // fallback: když je historie
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+
+    // jinak se použije normální href (/usneseni/)
+  });
+})();
+</script>
 
 <p><strong>a)</strong> svěřuje budovu č.p. 795/4, k.ú. Litovel, stojící na parcele p.č.st. 61, včetně pozemku, a dále pozemek p.č. 114/1,
 k.ú. Litovel, vše zapsáno na LV č. 10001 pro k.ú. Litovel, do správy organizační složky města Litovel Muzea

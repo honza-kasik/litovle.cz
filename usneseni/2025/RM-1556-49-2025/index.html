@@ -8,7 +8,33 @@ datum: "2025-04-10"
 permalink: /usneseni/2025/RM-1556-49-2025/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    // pokud je referrer z vyhledávání → použij ho
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    // fallback: když je historie
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+
+    // jinak se použije normální href (/usneseni/)
+  });
+})();
+</script>
 
 <p><strong>a)</strong> souhlasí s poskytnutím daru ve výši 5.000 Kč na organizační zajištění Dětského dne, který se uskuteční
 3. 5. 2025, a na organizační zajištění Střeleckého závodu o pohár Doubravy, který se uskuteční 14. 6. 2025.</p>

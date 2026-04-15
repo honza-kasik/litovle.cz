@@ -8,7 +8,33 @@ datum: "2024-06-06"
 permalink: /usneseni/2024/RM-1076-36-2024/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    // pokud je referrer z vyhledávání → použij ho
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    // fallback: když je historie
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+
+    // jinak se použije normální href (/usneseni/)
+  });
+})();
+</script>
 
 <p><strong>a)</strong> ruší na základě přijaté námitky ze dne 16. 5. 2024 usnesení č. RM/978/34/2024 ze dne 25. dubna 2024, kterým
 Rada města Litovel schválila výběr dodavatele veřejné zakázky „ZŠ JUNGMANNOVA - REKONSTRUKCE

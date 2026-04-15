@@ -9,7 +9,33 @@ datum: "2025-03-13"
 permalink: /usneseni/2025/RM-1510-48-2025/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    // pokud je referrer z vyhledávání → použij ho
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    // fallback: když je historie
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+
+    // jinak se použije normální href (/usneseni/)
+  });
+})();
+</script>
 
 <p>doporučuje Zastupitelstvu města Litovel schválit předloženou darovací smlouvu, podle
 které dárce - McDonald´s ČR spol. s.r.o., se sídlem Radlická 740/113c, 158 00 Praha – Jinonice , IČO: 16191129,

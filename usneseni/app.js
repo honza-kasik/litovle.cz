@@ -14,6 +14,7 @@
   let PAGE = 1;
   let SEARCH_SEQ = 0;
   let currentResults = [];
+  let LAST_PARSED = null;
 
   const q = document.getElementById("usn-q");
   const res = document.getElementById("usn-results");
@@ -23,7 +24,7 @@
   const orgBox = document.getElementById("usn-org");
 
   // ============================================================
-  // NORMALIZACE (JEDINÝ ZDROJ PRAVDY)
+  // NORMALIZACE
   // ============================================================
 
   function normalize(s) {
@@ -60,12 +61,6 @@
     return "";
   }
 
-  function hasDetail(u) {
-    if ((u.items && u.items.length) || u.tail) return true;
-    if (u.subject && u.subject.length > SNIPPET_LEN) return true;
-    return false;
-  }
-
   function extractFullText(u) {
     return normalize(
       [
@@ -74,6 +69,63 @@
         u.tail || ""
       ].join(" ")
     );
+  }
+
+  function escapeRegExp(str) {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
+
+  function highlight(text, terms) {
+    let out = text;
+
+    for (const t of terms) {
+      if (!t) continue;
+      const re = new RegExp(`(${escapeRegExp(t)})`, "gi");
+      out = out.replace(re, "<mark>$1</mark>");
+    }
+
+    return out;
+  }
+
+  // ============================================================
+  // URL STATE
+  // ============================================================
+
+  function updateUrl() {
+    const params = new URLSearchParams();
+
+    if (q.value) params.set("q", q.value);
+
+    for (const y of selectedYears()) params.append("y", y);
+    for (const o of selectedOrgans()) params.append("org", o);
+
+    params.set("sort", sortSel.value);
+
+    history.replaceState(null, "", "?" + params.toString());
+  }
+
+  function loadFromUrl() {
+    const params = new URLSearchParams(location.search);
+
+    if (params.get("q")) q.value = params.get("q");
+
+    const years = params.getAll("y");
+    if (years.length) {
+      yearsBox.querySelectorAll("input").forEach(i => {
+        i.checked = years.includes(i.value);
+      });
+    }
+
+    const orgs = params.getAll("org");
+    if (orgs.length) {
+      orgBox.querySelectorAll("input").forEach(i => {
+        i.checked = orgs.includes(i.value);
+      });
+    }
+
+    if (params.get("sort")) {
+      sortSel.value = params.get("sort");
+    }
   }
 
   // ============================================================
@@ -103,7 +155,7 @@
   }
 
   // ============================================================
-  // SUMMARY / DETAIL
+  // SUMMARY
   // ============================================================
 
   function summaryLabel(u) {
@@ -114,39 +166,6 @@
       return u.actions && u.actions[0] ? u.actions[0] : "";
     }
     return `${u.items.length} rozhodnutí`;
-  }
-
-  function renderDetail(u) {
-    let html = "";
-
-    if (u.subject && u.items && u.items.length) {
-      html += `<p class="usn-p">${u.subject}</p>`;
-    }
-
-    if (u.items && u.items.length) {
-      for (const it of u.items) {
-        html += `
-          <p class="usn-p">
-            <strong>${it.label})</strong>
-            ${it.text}
-          </p>
-        `;
-      }
-    }
-
-    if (
-      (!u.items || !u.items.length) &&
-      u.subject &&
-      u.subject.length > SNIPPET_LEN
-    ) {
-      html += `<p class="usn-p">${u.subject}</p>`;
-    }
-
-    if (u.tail) {
-      html += `<p class="usn-p">${u.tail}</p>`;
-    }
-
-    return html;
   }
 
   // ============================================================
@@ -270,6 +289,8 @@
     const seq = ++SEARCH_SEQ;
 
     const parsed = parseQuery(q.value);
+    LAST_PARSED = parsed;
+
     if (!parsed || !parsed.anchor) {
       res.innerHTML = "";
       info.textContent = "Zadejte hledaný výraz";
@@ -297,6 +318,7 @@
 
     if (seq !== SEARCH_SEQ) return;
     renderResults(results);
+    updateUrl();
   }
 
   // ============================================================
@@ -310,35 +332,35 @@
     currentResults = list;
     const pageItems = paginate(list);
 
+    const parsed = LAST_PARSED;
+
     for (const u of pageItems) {
-      const detail = hasDetail(u);
       const staticUrl = staticUrlFromId(u.id);
+
+      const snippetRaw = (firstSentence(u) || "").slice(0, SNIPPET_LEN);
+      const snippet = parsed
+        ? highlight(snippetRaw, parsed.longWords)
+        : snippetRaw;
+
+      const hasMore = (firstSentence(u) || "").length > SNIPPET_LEN;
 
       const li = document.createElement("li");
       li.className = "usn-result";
 
       li.innerHTML = `
-        <div class="usn-head ${detail ? "" : "usn-noclick"}">
-          <a href="${staticUrl}" class="usn-permalink" title="Přímý odkaz na toto usnesení">↗</a>
-          <strong>${u.id}</strong>
-          <span class="usn-date">${u.datum || ""}</span>
-        </div>
+        <a href="${staticUrl}" class="usn-card">
+          <div class="usn-head">
+            <strong>${u.id}</strong>
+            <span class="usn-date">${u.datum || ""}</span>
+          </div>
 
-        <div class="usn-summary">${summaryLabel(u)}</div>
+          <div class="usn-summary">${summaryLabel(u)}</div>
 
-        <div class="usn-snippet">
-          ${(firstSentence(u) || "").slice(0, SNIPPET_LEN)}
-        </div>
+          <div class="usn-snippet">${snippet}</div>
 
-        ${detail ? `<div class="usn-detail">${renderDetail(u)}</div>` : ""}
+          ${hasMore ? `<div class="usn-more">…</div>` : ""}
+        </a>
       `;
-
-      if (detail) {
-        li.querySelector(".usn-head").onclick = (e) => {
-          if (e.target.classList.contains("usn-permalink")) return;
-          li.classList.toggle("usn-open");
-        };
-      }
 
       res.appendChild(li);
     }
@@ -347,14 +369,13 @@
   }
 
   // ============================================================
-  // DEEP LINK — redirect to static page
+  // DEEP LINK
   // ============================================================
 
   function redirectFromHash() {
     const id = idFromHash();
     if (!id) return false;
 
-    // Validate it looks like a real resolution ID (RM/ZM + digits)
     if (!/^(RM|ZM)\/\d+\/\d+\/\d+$/.test(id)) return false;
 
     window.location.replace(staticUrlFromId(id));
@@ -366,7 +387,6 @@
   // ============================================================
 
   async function init() {
-    // Redirect hash deep links to their canonical static pages
     if (redirectFromHash()) return;
 
     META = await fetch("/assets/usneseni/meta.json").then(r => r.json());
@@ -381,12 +401,14 @@
       yearsBox.appendChild(label);
     }
 
+    loadFromUrl();
+
     q.addEventListener("input", search);
     yearsBox.addEventListener("change", search);
     orgBox.addEventListener("change", search);
     sortSel.addEventListener("change", search);
 
-    info.textContent = "Zadejte hledaný výraz";
+    search();
   }
 
   init();

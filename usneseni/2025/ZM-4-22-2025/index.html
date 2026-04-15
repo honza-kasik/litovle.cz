@@ -8,7 +8,33 @@ datum: "2025-09-25"
 permalink: /usneseni/2025/ZM-4-22-2025/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    // pokud je referrer z vyhledávání → použij ho
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    // fallback: když je historie
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+
+    // jinak se použije normální href (/usneseni/)
+  });
+})();
+</script>
 
 <p><strong>a)</strong> souhlasí se zánikem dobrovolného svazku obcí „Mikroregion Litovelsko“, se sídlem nám. Př. Otakara 778/1b,
 Litovel, IČ: 71207058, a to formou sloučení s dobrovolným svazkem obcí „DSO Region Moravská cesta“, se

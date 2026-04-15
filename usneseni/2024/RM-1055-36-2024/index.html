@@ -9,7 +9,33 @@ datum: "2024-06-06"
 permalink: /usneseni/2024/RM-1055-36-2024/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    // pokud je referrer z vyhledávání → použij ho
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    // fallback: když je historie
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+
+    // jinak se použije normální href (/usneseni/)
+  });
+})();
+</script>
 
 <p>schvaluje předloženou smlouvu o zřízení služebnosti mezi oprávněným, tj. CETIN a.s., sídlo:
 Českomoravská 2510/19, Libeň, 190 00 Praha 9, IČ: 04084063, DIČ: CZ04084063, zastoupená na základě plné

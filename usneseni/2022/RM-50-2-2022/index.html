@@ -9,7 +9,33 @@ datum: "2022-11-16"
 permalink: /usneseni/2022/RM-50-2-2022/
 ---
 
-<p><a href="/usneseni/">← Zpět na vyhledávání</a></p>
+
+<p>
+  <a href="/usneseni/" id="back-link">← Zpět na vyhledávání</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+
+  a.addEventListener("click", function(e) {
+    // pokud je referrer z vyhledávání → použij ho
+    if (document.referrer && document.referrer.includes("/usneseni?")) {
+      e.preventDefault();
+      location.href = document.referrer;
+      return;
+    }
+
+    // fallback: když je historie
+    if (history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+
+    // jinak se použije normální href (/usneseni/)
+  });
+})();
+</script>
 
 <p>schvaluje příspěvek na provoz ve výši 400.000 Kč pro TS Litovel, p. o. – rozpočtová změna
 č. 109/2022/ZM schválená ZML dne 15. 9. 2022 pod číslem ZM/4/34/2022.</p>
