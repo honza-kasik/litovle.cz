@@ -17,19 +17,20 @@ permalink: /usneseni/2024/RM-1235-41-2024/
 <script>
 (function() {
   const a = document.getElementById("back-link");
+  if (!a) return;
 
-  a.addEventListener("click", function(e) {
-    if (document.referrer && document.referrer.includes("/usneseni?")) {
-      e.preventDefault();
-      location.href = document.referrer;
-      return;
+  const back = new URLSearchParams(location.search).get("back");
+  try {
+    const url = new URL(back, location.origin);
+    if (
+      url.origin === location.origin &&
+      (url.pathname === "/usneseni" || url.pathname.startsWith("/usneseni/"))
+    ) {
+      a.href = url.pathname + url.search;
     }
-
-    if (history.length > 1) {
-      e.preventDefault();
-      history.back();
-    }
-  });
+  } catch (e) {
+    // ignoruj rozbité hodnoty
+  }
 })();
 </script>
 

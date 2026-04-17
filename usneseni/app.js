@@ -317,8 +317,8 @@
     results = sortResults(results);
 
     if (seq !== SEARCH_SEQ) return;
-    renderResults(results);
     updateUrl();
+    renderResults(results);
   }
 
   // ============================================================
@@ -336,6 +336,8 @@
 
     for (const u of pageItems) {
       const staticUrl = staticUrlFromId(u.id);
+      const back = encodeURIComponent(location.pathname + location.search);
+      const href = `${staticUrl}?back=${back}`;
 
       const snippetRaw = (firstSentence(u) || "").slice(0, SNIPPET_LEN);
       const snippet = parsed
@@ -348,7 +350,7 @@
       li.className = "usn-result";
 
       li.innerHTML = `
-        <a href="${staticUrl}" class="usn-card">
+        <a href="${href}" class="usn-card">
           <div class="usn-head">
             <strong>${u.id}</strong>
             <span class="usn-date">${u.datum || ""}</span>
