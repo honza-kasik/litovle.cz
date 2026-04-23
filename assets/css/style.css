@@ -499,6 +499,13 @@ h2 {
   font-size: 0.9rem;
 }
 
+.usn-rz-title {
+  margin: 0;
+  padding: 1rem 1.2rem 0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
 .usn-rz-note {
   margin: 0;
   padding: 1rem 1.2rem;
@@ -508,6 +515,26 @@ h2 {
 
 .usn-rz-note p {
   margin: 0;
+}
+
+.usn-rz-totals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0.8rem 1.2rem;
+  border-bottom: 1px solid #eee;
+  background: #fbfcfd;
+}
+
+.usn-rz-totals li {
+  margin: 0;
+}
+
+.usn-rz-total-label {
+  color: #666;
+  margin-right: 0.35rem;
 }
 
 .usn-rz-row {
