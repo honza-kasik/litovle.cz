@@ -383,6 +383,220 @@ h2 {
   cursor: pointer;
 }
 
+/* ============================================================
+   Rozpočtová opatření
+   ============================================================ */
+
+.usn-back {
+  margin: 0 0 1rem;
+}
+
+.usn-meta,
+.usn-meta-detail {
+  color: #666;
+}
+
+.usn-summary-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin: 1.2rem 0;
+}
+
+.usn-summary-list > div {
+  background: #f7f7f7;
+  border-radius: 8px;
+  padding: 0.75rem 0.9rem;
+}
+
+.usn-summary-list dt {
+  margin: 0 0 0.25rem;
+  color: #666;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.usn-summary-list dd {
+  margin: 0;
+  font-weight: 700;
+}
+
+.usn-code-help {
+  margin: 1.5rem 0 2rem;
+  padding: 0.9rem 1rem;
+  border-left: 4px solid #2f855a;
+  background: #f0f6f3;
+}
+
+.usn-code-help summary,
+.usn-code-details summary {
+  cursor: pointer;
+}
+
+.usn-code-help summary {
+  font-weight: 700;
+}
+
+.usn-code-help dl {
+  display: grid;
+  gap: 0.7rem;
+  margin: 1rem 0 0;
+}
+
+.usn-code-help dt {
+  font-weight: 700;
+}
+
+.usn-code-help dd {
+  margin: 0.15rem 0 0;
+  color: #555;
+}
+
+.usn-ro-section {
+  margin: 2rem 0;
+}
+
+.usn-rz-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.usn-rz-group {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+
+.usn-rz-group:target {
+  box-shadow: 0 0 0 3px rgba(47,133,90,0.22), 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.usn-rz-group-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid #eee;
+  background: #f7f7f7;
+}
+
+.usn-rz-group-head h3 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.usn-rz-group-head h3 a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+.usn-rz-count {
+  flex: 0 0 auto;
+  margin: 0;
+  color: #777;
+  font-size: 0.9rem;
+}
+
+.usn-rz-note {
+  margin: 0;
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid #eee;
+  background: #f0f6f3;
+}
+
+.usn-rz-note p {
+  margin: 0;
+}
+
+.usn-rz-row {
+  display: grid;
+  gap: 0.55rem;
+  padding: 1rem 1.2rem;
+}
+
+.usn-rz-row + .usn-rz-row {
+  border-top: 1px solid #eee;
+}
+
+.usn-rz-row-main {
+  display: grid;
+  grid-template-columns: minmax(8rem, max-content) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.usn-rz-row-main p {
+  margin: 0;
+}
+
+.usn-amount {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.usn-amount-positive {
+  color: #2f855a;
+}
+
+.usn-amount-negative {
+  color: #b42318;
+}
+
+.usn-code-details {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.usn-code-details dl {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.6rem 0 0;
+}
+
+.usn-code-details dl > div {
+  display: inline-flex;
+  gap: 0.35rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  background: #f7f7f7;
+}
+
+.usn-code-details dt,
+.usn-code-details dd {
+  margin: 0;
+}
+
+.usn-code-details dt {
+  color: #666;
+  font-weight: 700;
+}
+
+.usn-code-details dd {
+  color: var(--primary-text-color);
+}
+
+@media (max-width: 720px) {
+  .usn-summary-list {
+    grid-template-columns: 1fr;
+  }
+
+  .usn-rz-group-head {
+    display: block;
+  }
+
+  .usn-rz-count {
+    margin-top: 0.35rem;
+  }
+
+  .usn-rz-row-main {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+}
+
 mark {
   background: rgba(0,0,0,0.08);
   color: inherit;
