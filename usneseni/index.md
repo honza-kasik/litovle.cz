@@ -16,21 +16,41 @@ Vyhledávání v usneseních vydaných orgány města Litovel v aktuálním vole
   <div class="usn-controls">
     <div id="usn-years" class="usn-years"></div>
 
-    <div id="usn-org">
-      <label>
-        <input type="checkbox" value="Rada města Litovel" checked>
-        Rada města
-      </label>
-      <label>
-        <input type="checkbox" value="Zastupitelstvo města Litovel" checked>
-        Zastupitelstvo
-      </label>
+    <div class="usn-filter-group">
+      <div class="usn-filter-label">Typ dokumentu</div>
+      <div id="usn-type" class="usn-filter-options">
+        <label>
+          <input type="checkbox" value="usneseni" checked>
+          Usnesení
+        </label>
+        <label>
+          <input type="checkbox" value="ro" checked>
+          Rozpočtová opatření
+        </label>
+      </div>
     </div>
 
-    <select id="usn-sort">
-      <option value="desc">Nejnovější</option>
-      <option value="asc">Nejstarší</option>
-    </select>
+    <div class="usn-filter-group">
+      <div class="usn-filter-label">Schvalující orgán</div>
+      <div id="usn-org" class="usn-filter-options">
+        <label>
+          <input type="checkbox" value="Rada města Litovel" checked>
+          Rada města
+        </label>
+        <label>
+          <input type="checkbox" value="Zastupitelstvo města Litovel" checked>
+          Zastupitelstvo
+        </label>
+      </div>
+    </div>
+
+    <div class="usn-filter-group">
+      <label class="usn-filter-label" for="usn-sort">Řazení</label>
+      <select id="usn-sort">
+        <option value="desc">Nejnovější</option>
+        <option value="asc">Nejstarší</option>
+      </select>
+    </div>
   </div>
 
   <div id="usn-info" class="usn-info"></div>
