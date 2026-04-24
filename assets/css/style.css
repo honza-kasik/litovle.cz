@@ -195,12 +195,36 @@ h2 {
 
 #usn-sort {
   font-size: .9em;
+  min-height: 2.1em;
 }
 
 .usn-years {
   font-size: .9em;
   flex-wrap: wrap;
   display: flex;
+}
+
+.usn-filter-group {
+  font-size: .9em;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.usn-filter-label {
+  color: #666;
+  font-size: .85em;
+  margin-bottom: .2em;
+}
+
+.usn-filter-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .8em;
+}
+
+.usn-filter-options label {
+  white-space: nowrap;
 }
 
 .usn-year {
@@ -212,6 +236,37 @@ h2 {
   list-style: none;
   padding: 0;
   margin: 0;
+}
+
+.usn-info {
+  min-height: 1.4em;
+}
+
+.usn-info-loading::after {
+  content: "";
+  display: inline-block;
+  width: 1.2em;
+  text-align: left;
+  animation: usn-loading-dots 1.2s steps(4, end) infinite;
+  vertical-align: bottom;
+}
+
+@keyframes usn-loading-dots {
+  0% {
+    content: "";
+  }
+  25% {
+    content: ".";
+  }
+  50% {
+    content: "..";
+  }
+  75% {
+    content: "...";
+  }
+  100% {
+    content: "";
+  }
 }
 
 .usn-result {
@@ -239,6 +294,26 @@ h2 {
 .usn-date {
   color: #777;
   font-size: .9em;
+}
+
+.usn-doc-type {
+  font-size: .78em;
+  color: #555;
+  border: 1px solid #ddd;
+  border-radius: 999px;
+  padding: .08em .45em;
+  background: #fafafa;
+  white-space: nowrap;
+}
+
+.usn-doc-type-ro {
+  border-color: #cfcfcf;
+  background: #f3f3f3;
+}
+
+.usn-doc-type-usn {
+  border-color: #e0e0e0;
+  background: #fcfcfc;
 }
 
 .usn-summary {
@@ -269,6 +344,41 @@ h2 {
 .usn-more {
   font-size: 0.85em;
   color: #666;
+}
+
+.usn-ro-matches {
+  display: grid;
+  gap: .45em;
+  margin-top: .55em;
+}
+
+.usn-ro-match-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .45em;
+  font-size: .85em;
+  color: #555;
+  text-decoration: none;
+  padding: .35em .5em;
+  border: 1px solid #ddd;
+  border-radius: .55em;
+  background: #fafafa;
+}
+
+.usn-ro-match-item:hover {
+  color: #000;
+  background: #f0f0f0;
+  text-decoration: none;
+}
+
+.usn-ro-match-badge {
+  font-size: .8em;
+  color: #666;
+  border: 1px solid #ddd;
+  border-radius: 999px;
+  padding: .1em .4em;
+  background: white;
 }
 
 .usn-detail {
