@@ -252,18 +252,22 @@
 
     const seen = new Set();
     const topMatches = [];
+    let totalMatches = 0;
     for (const match of matched) {
       const dedupeKey = `${match.anchor}|${match.label}`;
       if (seen.has(dedupeKey)) continue;
       seen.add(dedupeKey);
-      topMatches.push(match);
-      if (topMatches.length === 3) break;
+      totalMatches += 1;
+      if (topMatches.length < 3) {
+        topMatches.push(match);
+      }
     }
 
       return {
         anchor: topMatches[0].anchor,
         snippet: cleanRoSnippet(topMatches[0].snippet),
-        matches: topMatches
+        matches: topMatches,
+        totalMatches
       };
     }
 
@@ -579,9 +583,7 @@
       const roMatch = u.id.startsWith("RO/")
         ? findRoMatchContext(u, parsed)
         : null;
-      const href = u.id.startsWith("RO/")
-        ? staticUrl
-        : `${staticUrl}?back=${encodeURIComponent(location.pathname + location.search)}`;
+      const href = `${staticUrl}?back=${encodeURIComponent(location.pathname + location.search)}`;
 
       const snippetRaw = ((roMatch && roMatch.snippet) || firstSentence(u) || "").slice(0, SNIPPET_LEN);
       const snippet = parsed
@@ -610,12 +612,16 @@
           ${roMatch && roMatch.matches && roMatch.matches.length
             ? `<div class="usn-ro-matches">${
               roMatch.matches.map((match, index) => `
-                <a href="${staticUrl}${match.anchor ? `#${match.anchor}` : ""}" class="usn-ro-match-item">
+                <a href="${href}${match.anchor ? `#${match.anchor}` : ""}" class="usn-ro-match-item">
                   <span class="usn-ro-match-badge">${index === 0 ? "Shoda" : "Další"}</span>
                   <strong>${match.label}</strong>
                   <span>${highlight((cleanRoSnippet(match.snippet) || match.label).slice(0, SNIPPET_LEN), parsed.longWords)}</span>
                 </a>
               `).join("")
+            }${
+              roMatch.totalMatches > roMatch.matches.length
+                ? `<div class="usn-ro-match-more">+${roMatch.totalMatches - roMatch.matches.length} další shody v tomto rozpočtovém opatření</div>`
+                : ""
             }</div>`
             : ""}
 

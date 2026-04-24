@@ -8,7 +8,32 @@ datum: "2025-01-09"
 permalink: /rozpoctova-opatreni/RO-1-2025/
 ---
 
-<p class="usn-back"><a href="/rozpoctova-opatreni/">← Zpět na rozpočtová opatření</a></p>
+
+<p class="usn-back">
+  <a href="/rozpoctova-opatreni/" id="back-link">← Zpět na rozpočtová opatření</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+  if (!a) return;
+
+  const back = new URLSearchParams(location.search).get("back");
+  try {
+    const url = new URL(back, location.origin);
+    if (
+      url.origin === location.origin &&
+      (url.pathname === "/usneseni" || url.pathname.startsWith("/usneseni/") || url.pathname === "/rozpoctova-opatreni" || url.pathname.startsWith("/rozpoctova-opatreni/"))
+    ) {
+      a.href = url.pathname + url.search;
+      a.textContent = "← Zpět na vyhledávání";
+    }
+  } catch (e) {
+    // ignoruj rozbité hodnoty
+  }
+})();
+</script>
+
 <h1>Rozpočtové opatření RO/1/2025</h1>
 <p class="usn-meta">9. 1. 2025 • Rada města Litovel</p>
 <dl class="usn-summary-list">
@@ -36,7 +61,7 @@ permalink: /rozpoctova-opatreni/RO-1-2025/
 <h3><a href="#rz-1-2025-rm">Rozpočtová změna 1/2025/RM</a></h3>
 <p class="usn-rz-count">2 účetní řádky</p>
 </header>
-<p class="usn-rz-title">transfery dle rozhodnuí RM</p>
+<p class="usn-rz-title">SH ČMS - Sbor dobrovolných hasičů Nasobůrky - dar na úhradu nákladů spojených s rozsvěcováním vánočního stromu v Nasobůrkách dne 30.11.2024</p>
 <aside class="usn-rz-note">
 <p>Dar poskytnutý na základě žádosti.</p>
 </aside>
@@ -63,7 +88,7 @@ permalink: /rozpoctova-opatreni/RO-1-2025/
 <h3><a href="#rz-2-2025-rm">Rozpočtová změna 2/2025/RM</a></h3>
 <p class="usn-rz-count">2 účetní řádky</p>
 </header>
-<p class="usn-rz-title">transfery dle rozhodnutí RM</p>
+<p class="usn-rz-title">H.Z.K. - dar na organizační zajištění dětského maškarního plesu, který se koná 12.1.2025</p>
 <aside class="usn-rz-note">
 <p>Dar poskytnutý na základě žádosti.</p>
 </aside>

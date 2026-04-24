@@ -8,7 +8,32 @@ datum: "2025-09-24"
 permalink: /rozpoctova-opatreni/RO-18-2025/
 ---
 
-<p class="usn-back"><a href="/rozpoctova-opatreni/">← Zpět na rozpočtová opatření</a></p>
+
+<p class="usn-back">
+  <a href="/rozpoctova-opatreni/" id="back-link">← Zpět na rozpočtová opatření</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+  if (!a) return;
+
+  const back = new URLSearchParams(location.search).get("back");
+  try {
+    const url = new URL(back, location.origin);
+    if (
+      url.origin === location.origin &&
+      (url.pathname === "/usneseni" || url.pathname.startsWith("/usneseni/") || url.pathname === "/rozpoctova-opatreni" || url.pathname.startsWith("/rozpoctova-opatreni/"))
+    ) {
+      a.href = url.pathname + url.search;
+      a.textContent = "← Zpět na vyhledávání";
+    }
+  } catch (e) {
+    // ignoruj rozbité hodnoty
+  }
+})();
+</script>
+
 <h1>Rozpočtové opatření RO/18/2025</h1>
 <p class="usn-meta">24. 9. 2025 • Rada města Litovel</p>
 <dl class="usn-summary-list">
@@ -111,7 +136,7 @@ permalink: /rozpoctova-opatreni/RO-18-2025/
 <h3><a href="#rz-144-2025-rm">Rozpočtová změna 144/2025/RM</a></h3>
 <p class="usn-rz-count">2 účetní řádky</p>
 </header>
-<p class="usn-rz-title">transfery dle rozhodnutí RM</p>
+<p class="usn-rz-title">DSO Region Moravská cesta - dar na pokrytí akce o nás na Hané</p>
 <aside class="usn-rz-note">
 <p>Dar poskytnutý na základě žádosti.</p>
 </aside>
@@ -138,7 +163,7 @@ permalink: /rozpoctova-opatreni/RO-18-2025/
 <h3><a href="#rz-145-2025-rm">Rozpočtová změna 145/2025/RM</a></h3>
 <p class="usn-rz-count">2 účetní řádky</p>
 </header>
-<p class="usn-rz-title">transfery dle rozhodnutí RM</p>
+<p class="usn-rz-title">Církevní mateřská škola Svatojánek v Litovli - dar na organizační zajištění drakiády, která proběhne 10. října 2025</p>
 <aside class="usn-rz-note">
 <p>Dar poskytnutý na základě žádosti.</p>
 </aside>

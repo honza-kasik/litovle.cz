@@ -8,7 +8,32 @@ datum: "2025-03-13"
 permalink: /rozpoctova-opatreni/RO-5-2025/
 ---
 
-<p class="usn-back"><a href="/rozpoctova-opatreni/">← Zpět na rozpočtová opatření</a></p>
+
+<p class="usn-back">
+  <a href="/rozpoctova-opatreni/" id="back-link">← Zpět na rozpočtová opatření</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+  if (!a) return;
+
+  const back = new URLSearchParams(location.search).get("back");
+  try {
+    const url = new URL(back, location.origin);
+    if (
+      url.origin === location.origin &&
+      (url.pathname === "/usneseni" || url.pathname.startsWith("/usneseni/") || url.pathname === "/rozpoctova-opatreni" || url.pathname.startsWith("/rozpoctova-opatreni/"))
+    ) {
+      a.href = url.pathname + url.search;
+      a.textContent = "← Zpět na vyhledávání";
+    }
+  } catch (e) {
+    // ignoruj rozbité hodnoty
+  }
+})();
+</script>
+
 <h1>Rozpočtové opatření RO/5/2025</h1>
 <p class="usn-meta">13. 3. 2025 • Rada města Litovel</p>
 <dl class="usn-summary-list">
@@ -634,7 +659,7 @@ permalink: /rozpoctova-opatreni/RO-5-2025/
 <h3><a href="#rz-59-2025-rm">Rozpočtová změna 59/2025/RM</a></h3>
 <p class="usn-rz-count">2 účetní řádky</p>
 </header>
-<p class="usn-rz-title">transfery dle rozhodnutí RM</p>
+<p class="usn-rz-title">L.K. - dar na organizační zajištění dětského maškarního karnevalu pro děti MŠ, který se konal 16. úrora 2025</p>
 <aside class="usn-rz-note">
 <p>Dary a dotace poskytnuté z rozpočtu města.</p>
 </aside>
@@ -661,7 +686,7 @@ permalink: /rozpoctova-opatreni/RO-5-2025/
 <h3><a href="#rz-60-2025-rm">Rozpočtová změna 60/2025/RM</a></h3>
 <p class="usn-rz-count">2 účetní řádky</p>
 </header>
-<p class="usn-rz-title">transfery dle rozhodnutí RM</p>
+<p class="usn-rz-title">TJ Sokol Unčovice - dotace na opravu a údržbu sportovního areálu a činnost TJ v roce 2025</p>
 <ul class="usn-rz-totals"><li><span class="usn-rz-total-label">Navýšení výdajů</span> <strong class="usn-amount usn-amount-positive">+20 000,00 Kč</strong></li><li><span class="usn-rz-total-label">Snížení výdajů</span> <strong class="usn-amount usn-amount-negative">-20 000,00 Kč</strong></li><li><span class="usn-rz-total-label">Přesun v rámci výdajů bez změny celku</span></li></ul>
 <div class="usn-rz-rows">
 <div class="usn-rz-row">

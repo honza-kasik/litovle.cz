@@ -8,7 +8,32 @@ datum: "2026-02-12"
 permalink: /rozpoctova-opatreni/RO-3-2026/
 ---
 
-<p class="usn-back"><a href="/rozpoctova-opatreni/">← Zpět na rozpočtová opatření</a></p>
+
+<p class="usn-back">
+  <a href="/rozpoctova-opatreni/" id="back-link">← Zpět na rozpočtová opatření</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+  if (!a) return;
+
+  const back = new URLSearchParams(location.search).get("back");
+  try {
+    const url = new URL(back, location.origin);
+    if (
+      url.origin === location.origin &&
+      (url.pathname === "/usneseni" || url.pathname.startsWith("/usneseni/") || url.pathname === "/rozpoctova-opatreni" || url.pathname.startsWith("/rozpoctova-opatreni/"))
+    ) {
+      a.href = url.pathname + url.search;
+      a.textContent = "← Zpět na vyhledávání";
+    }
+  } catch (e) {
+    // ignoruj rozbité hodnoty
+  }
+})();
+</script>
+
 <h1>Rozpočtové opatření RO/3/2026</h1>
 <p class="usn-meta">12. 2. 2026 • Zastupitelstvo města Litovel</p>
 <dl class="usn-summary-list">

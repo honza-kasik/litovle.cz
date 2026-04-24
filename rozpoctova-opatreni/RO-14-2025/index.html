@@ -8,7 +8,32 @@ datum: "2025-07-22"
 permalink: /rozpoctova-opatreni/RO-14-2025/
 ---
 
-<p class="usn-back"><a href="/rozpoctova-opatreni/">← Zpět na rozpočtová opatření</a></p>
+
+<p class="usn-back">
+  <a href="/rozpoctova-opatreni/" id="back-link">← Zpět na rozpočtová opatření</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+  if (!a) return;
+
+  const back = new URLSearchParams(location.search).get("back");
+  try {
+    const url = new URL(back, location.origin);
+    if (
+      url.origin === location.origin &&
+      (url.pathname === "/usneseni" || url.pathname.startsWith("/usneseni/") || url.pathname === "/rozpoctova-opatreni" || url.pathname.startsWith("/rozpoctova-opatreni/"))
+    ) {
+      a.href = url.pathname + url.search;
+      a.textContent = "← Zpět na vyhledávání";
+    }
+  } catch (e) {
+    // ignoruj rozbité hodnoty
+  }
+})();
+</script>
+
 <h1>Rozpočtové opatření RO/14/2025</h1>
 <p class="usn-meta">22. 7. 2025 • Rada města Litovel</p>
 <dl class="usn-summary-list">
@@ -201,7 +226,7 @@ permalink: /rozpoctova-opatreni/RO-14-2025/
 <h3><a href="#rz-118-2025-rm">Rozpočtová změna 118/2025/RM</a></h3>
 <p class="usn-rz-count">2 účetní řádky</p>
 </header>
-<p class="usn-rz-title">transfery dle rozhodnutí RM</p>
+<p class="usn-rz-title">J.P. - dotace na činnost družstva malé kopané</p>
 <aside class="usn-rz-note">
 <p>Dotace poskytnuté na základě žádosti.</p>
 </aside>
@@ -228,7 +253,7 @@ permalink: /rozpoctova-opatreni/RO-14-2025/
 <h3><a href="#rz-119-2025-rm">Rozpočtová změna 119/2025/RM</a></h3>
 <p class="usn-rz-count">2 účetní řádky</p>
 </header>
-<p class="usn-rz-title">transfery dle rozhodnutí RM</p>
+<p class="usn-rz-title">D.K. - dotace na činnost družstva malé kopané</p>
 <ul class="usn-rz-totals"><li><span class="usn-rz-total-label">Navýšení výdajů</span> <strong class="usn-amount usn-amount-positive">+7 000,00 Kč</strong></li><li><span class="usn-rz-total-label">Snížení výdajů</span> <strong class="usn-amount usn-amount-negative">-7 000,00 Kč</strong></li><li><span class="usn-rz-total-label">Přesun v rámci výdajů bez změny celku</span></li></ul>
 <div class="usn-rz-rows">
 <div class="usn-rz-row">
@@ -252,7 +277,7 @@ permalink: /rozpoctova-opatreni/RO-14-2025/
 <h3><a href="#rz-120-2025-rm">Rozpočtová změna 120/2025/RM</a></h3>
 <p class="usn-rz-count">2 účetní řádky</p>
 </header>
-<p class="usn-rz-title">transfery dle rozhodnutí RM</p>
+<p class="usn-rz-title">M.Š. - dotace na činnost družstva malé kopané</p>
 <ul class="usn-rz-totals"><li><span class="usn-rz-total-label">Navýšení výdajů</span> <strong class="usn-amount usn-amount-positive">+7 000,00 Kč</strong></li><li><span class="usn-rz-total-label">Snížení výdajů</span> <strong class="usn-amount usn-amount-negative">-7 000,00 Kč</strong></li><li><span class="usn-rz-total-label">Přesun v rámci výdajů bez změny celku</span></li></ul>
 <div class="usn-rz-rows">
 <div class="usn-rz-row">
@@ -276,7 +301,7 @@ permalink: /rozpoctova-opatreni/RO-14-2025/
 <h3><a href="#rz-121-2025-rm">Rozpočtová změna 121/2025/RM</a></h3>
 <p class="usn-rz-count">2 účetní řádky</p>
 </header>
-<p class="usn-rz-title">transfery dle rozhodnutí RM</p>
+<p class="usn-rz-title">J.Š. - dotace na činnost družstva malé kopané</p>
 <ul class="usn-rz-totals"><li><span class="usn-rz-total-label">Navýšení výdajů</span> <strong class="usn-amount usn-amount-positive">+7 000,00 Kč</strong></li><li><span class="usn-rz-total-label">Snížení výdajů</span> <strong class="usn-amount usn-amount-negative">-7 000,00 Kč</strong></li><li><span class="usn-rz-total-label">Přesun v rámci výdajů bez změny celku</span></li></ul>
 <div class="usn-rz-rows">
 <div class="usn-rz-row">
@@ -300,7 +325,7 @@ permalink: /rozpoctova-opatreni/RO-14-2025/
 <h3><a href="#rz-122-2025-rm">Rozpočtová změna 122/2025/RM</a></h3>
 <p class="usn-rz-count">2 účetní řádky</p>
 </header>
-<p class="usn-rz-title">transfery dle rozhodnutí RM</p>
+<p class="usn-rz-title">P.Č. - dotace na činnost družstva malé kopané</p>
 <ul class="usn-rz-totals"><li><span class="usn-rz-total-label">Navýšení výdajů</span> <strong class="usn-amount usn-amount-positive">+7 000,00 Kč</strong></li><li><span class="usn-rz-total-label">Snížení výdajů</span> <strong class="usn-amount usn-amount-negative">-7 000,00 Kč</strong></li><li><span class="usn-rz-total-label">Přesun v rámci výdajů bez změny celku</span></li></ul>
 <div class="usn-rz-rows">
 <div class="usn-rz-row">
@@ -324,7 +349,7 @@ permalink: /rozpoctova-opatreni/RO-14-2025/
 <h3><a href="#rz-123-2025-rm">Rozpočtová změna 123/2025/RM</a></h3>
 <p class="usn-rz-count">2 účetní řádky</p>
 </header>
-<p class="usn-rz-title">transfery dle rozhodnutí RM</p>
+<p class="usn-rz-title">FC NASA - dotace na činnost družstva malé kopané</p>
 <ul class="usn-rz-totals"><li><span class="usn-rz-total-label">Navýšení výdajů</span> <strong class="usn-amount usn-amount-positive">+7 000,00 Kč</strong></li><li><span class="usn-rz-total-label">Snížení výdajů</span> <strong class="usn-amount usn-amount-negative">-7 000,00 Kč</strong></li><li><span class="usn-rz-total-label">Přesun v rámci výdajů bez změny celku</span></li></ul>
 <div class="usn-rz-rows">
 <div class="usn-rz-row">
@@ -348,7 +373,7 @@ permalink: /rozpoctova-opatreni/RO-14-2025/
 <h3><a href="#rz-124-2025-rm">Rozpočtová změna 124/2025/RM</a></h3>
 <p class="usn-rz-count">2 účetní řádky</p>
 </header>
-<p class="usn-rz-title">transfery dle rozhodnutí RM</p>
+<p class="usn-rz-title">M.H. - dotace na činnost družstva malé kopané</p>
 <ul class="usn-rz-totals"><li><span class="usn-rz-total-label">Navýšení výdajů</span> <strong class="usn-amount usn-amount-positive">+7 000,00 Kč</strong></li><li><span class="usn-rz-total-label">Snížení výdajů</span> <strong class="usn-amount usn-amount-negative">-7 000,00 Kč</strong></li><li><span class="usn-rz-total-label">Přesun v rámci výdajů bez změny celku</span></li></ul>
 <div class="usn-rz-rows">
 <div class="usn-rz-row">
@@ -396,7 +421,7 @@ permalink: /rozpoctova-opatreni/RO-14-2025/
 <h3><a href="#rz-126-2025-rm">Rozpočtová změna 126/2025/RM</a></h3>
 <p class="usn-rz-count">2 účetní řádky</p>
 </header>
-<p class="usn-rz-title">transfery dle rozhodnutí RM</p>
+<p class="usn-rz-title">T.R. - dotace na činnost družstva malé kopané (7 000 Kč) + org. zaj. 15. roč. nohejbal. turnaje, 21. roč. nočního turnaje v mk, oslava 30. výročí založení mk v Unčovicích (6 000 Kč)</p>
 <ul class="usn-rz-totals"><li><span class="usn-rz-total-label">Navýšení výdajů</span> <strong class="usn-amount usn-amount-positive">+13 000,00 Kč</strong></li><li><span class="usn-rz-total-label">Snížení výdajů</span> <strong class="usn-amount usn-amount-negative">-13 000,00 Kč</strong></li><li><span class="usn-rz-total-label">Přesun v rámci výdajů bez změny celku</span></li></ul>
 <div class="usn-rz-rows">
 <div class="usn-rz-row">

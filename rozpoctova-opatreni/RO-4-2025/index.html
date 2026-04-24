@@ -8,7 +8,32 @@ datum: "2025-02-19"
 permalink: /rozpoctova-opatreni/RO-4-2025/
 ---
 
-<p class="usn-back"><a href="/rozpoctova-opatreni/">← Zpět na rozpočtová opatření</a></p>
+
+<p class="usn-back">
+  <a href="/rozpoctova-opatreni/" id="back-link">← Zpět na rozpočtová opatření</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+  if (!a) return;
+
+  const back = new URLSearchParams(location.search).get("back");
+  try {
+    const url = new URL(back, location.origin);
+    if (
+      url.origin === location.origin &&
+      (url.pathname === "/usneseni" || url.pathname.startsWith("/usneseni/") || url.pathname === "/rozpoctova-opatreni" || url.pathname.startsWith("/rozpoctova-opatreni/"))
+    ) {
+      a.href = url.pathname + url.search;
+      a.textContent = "← Zpět na vyhledávání";
+    }
+  } catch (e) {
+    // ignoruj rozbité hodnoty
+  }
+})();
+</script>
+
 <h1>Rozpočtové opatření RO/4/2025</h1>
 <p class="usn-meta">19. 2. 2025 • Rada města Litovel</p>
 <dl class="usn-summary-list">
@@ -185,7 +210,7 @@ permalink: /rozpoctova-opatreni/RO-4-2025/
 <h3><a href="#rz-43-2025-rm">Rozpočtová změna 43/2025/RM</a></h3>
 <p class="usn-rz-count">2 účetní řádky</p>
 </header>
-<p class="usn-rz-title">transfery dle rozhodnutí RM</p>
+<p class="usn-rz-title">Zdravotní klaun, o.p.s. - dar na podporu činnosti</p>
 <aside class="usn-rz-note">
 <p>Poskytnutí daru na základě žádosti.</p>
 </aside>
@@ -212,7 +237,7 @@ permalink: /rozpoctova-opatreni/RO-4-2025/
 <h3><a href="#rz-44-2025-rm">Rozpočtová změna 44/2025/RM</a></h3>
 <p class="usn-rz-count">2 účetní řádky</p>
 </header>
-<p class="usn-rz-title">transfery dle rozhodnutí RM</p>
+<p class="usn-rz-title">obec Cholina - dar na provoz Pošty Partner v Cholině v roce 2025</p>
 <aside class="usn-rz-note">
 <p>Poskytnutí daru na základě žádosti.</p>
 </aside>
