@@ -8,7 +8,32 @@ datum: "2025-02-13"
 permalink: /rozpoctova-opatreni/RO-3-2025/
 ---
 
-<p class="usn-back"><a href="/rozpoctova-opatreni/">← Zpět na rozpočtová opatření</a></p>
+
+<p class="usn-back">
+  <a href="/rozpoctova-opatreni/" id="back-link">← Zpět na rozpočtová opatření</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+  if (!a) return;
+
+  const back = new URLSearchParams(location.search).get("back");
+  try {
+    const url = new URL(back, location.origin);
+    if (
+      url.origin === location.origin &&
+      (url.pathname === "/usneseni" || url.pathname.startsWith("/usneseni/") || url.pathname === "/rozpoctova-opatreni" || url.pathname.startsWith("/rozpoctova-opatreni/"))
+    ) {
+      a.href = url.pathname + url.search;
+      a.textContent = "← Zpět na vyhledávání";
+    }
+  } catch (e) {
+    // ignoruj rozbité hodnoty
+  }
+})();
+</script>
+
 <h1>Rozpočtové opatření RO/3/2025</h1>
 <p class="usn-meta">13. 2. 2025 • Zastupitelstvo města Litovel</p>
 <dl class="usn-summary-list">
@@ -2152,7 +2177,7 @@ permalink: /rozpoctova-opatreni/RO-3-2025/
 <h3><a href="#rz-48-2025-zm">Rozpočtová změna 48/2025/ZM</a></h3>
 <p class="usn-rz-count">2 účetní řádky</p>
 </header>
-<p class="usn-rz-title">transfery dle rozhodnutí RM</p>
+<p class="usn-rz-title">TJ Vodní sporty Litovel, z.s. - dotace na zajištění sportovní činnosti v roce 2025</p>
 <aside class="usn-rz-note">
 <p>Dotace poskytnuté žadatelům o finanční podporu na rok 2025.</p>
 </aside>
@@ -2237,7 +2262,7 @@ permalink: /rozpoctova-opatreni/RO-3-2025/
 <h3><a href="#rz-50-2025-zm">Rozpočtová změna 50/2025/ZM</a></h3>
 <p class="usn-rz-count">2 účetní řádky</p>
 </header>
-<p class="usn-rz-title">transfery dle rozhodnutí RM</p>
+<p class="usn-rz-title">TJ Vodní sporty Litovel, z.s. - dotace na organizační zajištění sportovní soutěže BOBR CUP 2025</p>
 <ul class="usn-rz-totals"><li><span class="usn-rz-total-label">Navýšení výdajů</span> <strong class="usn-amount usn-amount-positive">+100 000,00 Kč</strong></li><li><span class="usn-rz-total-label">Snížení výdajů</span> <strong class="usn-amount usn-amount-negative">-100 000,00 Kč</strong></li><li><span class="usn-rz-total-label">Přesun v rámci výdajů bez změny celku</span></li></ul>
 <div class="usn-rz-rows">
 <div class="usn-rz-row">
@@ -2261,7 +2286,7 @@ permalink: /rozpoctova-opatreni/RO-3-2025/
 <h3><a href="#rz-51-2025-zm">Rozpočtová změna 51/2025/ZM</a></h3>
 <p class="usn-rz-count">2 účetní řádky</p>
 </header>
-<p class="usn-rz-title">transfery dle rozhodnutí RM</p>
+<p class="usn-rz-title">TJ Tatran Litovel, z.s. - dotace na zajištění činnosti tělovýchovné jednot v roce 2025</p>
 <ul class="usn-rz-totals"><li><span class="usn-rz-total-label">Navýšení výdajů</span> <strong class="usn-amount usn-amount-positive">+4 500 000,00 Kč</strong></li><li><span class="usn-rz-total-label">Snížení výdajů</span> <strong class="usn-amount usn-amount-negative">-4 500 000,00 Kč</strong></li><li><span class="usn-rz-total-label">Přesun v rámci výdajů bez změny celku</span></li></ul>
 <div class="usn-rz-rows">
 <div class="usn-rz-row">

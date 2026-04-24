@@ -372,6 +372,13 @@ h2 {
   text-decoration: none;
 }
 
+.usn-ro-match-more {
+  padding: .1em .2em 0;
+  color: #5f6b64;
+  font-size: .85em;
+  font-weight: 600;
+}
+
 .usn-ro-match-badge {
   font-size: .8em;
   color: #666;
@@ -611,9 +618,13 @@ h2 {
 
 .usn-rz-title {
   margin: 0;
-  padding: 1rem 1.2rem 0;
+  padding: 0.7rem 1.2rem 0.45rem;
   font-size: 1rem;
   font-weight: 700;
+}
+
+.usn-rz-title + .usn-rz-note {
+  padding-top: 0.65rem;
 }
 
 .usn-rz-note {

@@ -8,7 +8,32 @@ datum: "2026-01-29"
 permalink: /rozpoctova-opatreni/RO-2-2026/
 ---
 
-<p class="usn-back"><a href="/rozpoctova-opatreni/">← Zpět na rozpočtová opatření</a></p>
+
+<p class="usn-back">
+  <a href="/rozpoctova-opatreni/" id="back-link">← Zpět na rozpočtová opatření</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+  if (!a) return;
+
+  const back = new URLSearchParams(location.search).get("back");
+  try {
+    const url = new URL(back, location.origin);
+    if (
+      url.origin === location.origin &&
+      (url.pathname === "/usneseni" || url.pathname.startsWith("/usneseni/") || url.pathname === "/rozpoctova-opatreni" || url.pathname.startsWith("/rozpoctova-opatreni/"))
+    ) {
+      a.href = url.pathname + url.search;
+      a.textContent = "← Zpět na vyhledávání";
+    }
+  } catch (e) {
+    // ignoruj rozbité hodnoty
+  }
+})();
+</script>
+
 <h1>Rozpočtové opatření RO/2/2026</h1>
 <p class="usn-meta">29. 1. 2026 • Rada města Litovel</p>
 <dl class="usn-summary-list">
@@ -98,7 +123,7 @@ permalink: /rozpoctova-opatreni/RO-2-2026/
 <h3><a href="#rz-1-2026-rm">Rozpočtová změna 1/2026/RM</a></h3>
 <p class="usn-rz-count">2 účetní řádky</p>
 </header>
-<p class="usn-rz-title">Myslechovice - rezerva</p>
+<p class="usn-rz-title">Myslechovice - oprava kaple</p>
 <aside class="usn-rz-note">
 <p>Dne 15.1.2026 požádal odbor MH a SI o rozpočtovou změnu.</p>
 </aside>
@@ -125,7 +150,7 @@ permalink: /rozpoctova-opatreni/RO-2-2026/
 <h3><a href="#rz-2-2026-rm">Rozpočtová změna 2/2026/RM</a></h3>
 <p class="usn-rz-count">2 účetní řádky</p>
 </header>
-<p class="usn-rz-title">Březové - rezerva</p>
+<p class="usn-rz-title">Březové - úprava travnaté plochy - hřiště</p>
 <aside class="usn-rz-note">
 <p>Dne 15.1.2026 požádal odbor MH a SI o rozpočtovou změnu.</p>
 </aside>
@@ -152,7 +177,7 @@ permalink: /rozpoctova-opatreni/RO-2-2026/
 <h3><a href="#rz-3-2026-rm">Rozpočtová změna 3/2026/RM</a></h3>
 <p class="usn-rz-count">2 účetní řádky</p>
 </header>
-<p class="usn-rz-title">Chořelice - rezerva</p>
+<p class="usn-rz-title">Chořelice - oprava kaple - PD</p>
 <aside class="usn-rz-note">
 <p>Dne 15.1.2026 požádal odbor MH a SI o rozpočtovou změnu.</p>
 </aside>

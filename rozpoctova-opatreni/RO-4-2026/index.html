@@ -8,7 +8,32 @@ datum: "2026-02-19"
 permalink: /rozpoctova-opatreni/RO-4-2026/
 ---
 
-<p class="usn-back"><a href="/rozpoctova-opatreni/">← Zpět na rozpočtová opatření</a></p>
+
+<p class="usn-back">
+  <a href="/rozpoctova-opatreni/" id="back-link">← Zpět na rozpočtová opatření</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+  if (!a) return;
+
+  const back = new URLSearchParams(location.search).get("back");
+  try {
+    const url = new URL(back, location.origin);
+    if (
+      url.origin === location.origin &&
+      (url.pathname === "/usneseni" || url.pathname.startsWith("/usneseni/") || url.pathname === "/rozpoctova-opatreni" || url.pathname.startsWith("/rozpoctova-opatreni/"))
+    ) {
+      a.href = url.pathname + url.search;
+      a.textContent = "← Zpět na vyhledávání";
+    }
+  } catch (e) {
+    // ignoruj rozbité hodnoty
+  }
+})();
+</script>
+
 <h1>Rozpočtové opatření RO/4/2026</h1>
 <p class="usn-meta">19. 2. 2026 • Rada města Litovel</p>
 <dl class="usn-summary-list">
@@ -45,7 +70,7 @@ permalink: /rozpoctova-opatreni/RO-4-2026/
 <h3><a href="#rz-42-2026-rm">Rozpočtová změna 42/2026/RM</a></h3>
 <p class="usn-rz-count">2 účetní řádky</p>
 </header>
-<p class="usn-rz-title">Unčovice - rezerva</p>
+<p class="usn-rz-title">Unčovice - židle a stoly pro KD</p>
 <aside class="usn-rz-note">
 <p>Dne 9.2.2026 požádal odbor MH a SI o rozpočtovou změnu.</p>
 </aside>
@@ -72,7 +97,7 @@ permalink: /rozpoctova-opatreni/RO-4-2026/
 <h3><a href="#rz-43-2026-rm">Rozpočtová změna 43/2026/RM</a></h3>
 <p class="usn-rz-count">2 účetní řádky</p>
 </header>
-<p class="usn-rz-title">Unčovice - rezerva</p>
+<p class="usn-rz-title">Unčovice - Sokolovna - renovace vnitřních prostor</p>
 <aside class="usn-rz-note">
 <p>Dne 9.2.2026 požádal odbor MH a SI o rozpočtovou změnu.</p>
 </aside>
@@ -99,7 +124,7 @@ permalink: /rozpoctova-opatreni/RO-4-2026/
 <h3><a href="#rz-44-2026-rm">Rozpočtová změna 44/2026/RM</a></h3>
 <p class="usn-rz-count">2 účetní řádky</p>
 </header>
-<p class="usn-rz-title">Unčovice - rezerva</p>
+<p class="usn-rz-title">Unčovice - nové oplocení areálu Sokolovny</p>
 <aside class="usn-rz-note">
 <p>Dne 9.2.2026 požádal odbor MH a SI o rozpočtovou změnu.</p>
 </aside>
@@ -126,7 +151,7 @@ permalink: /rozpoctova-opatreni/RO-4-2026/
 <h3><a href="#rz-45-2026-rm">Rozpočtová změna 45/2026/RM</a></h3>
 <p class="usn-rz-count">2 účetní řádky</p>
 </header>
-<p class="usn-rz-title">Březové - rezerva</p>
+<p class="usn-rz-title">Březové - nové osvětlení plochy hřiště</p>
 <aside class="usn-rz-note">
 <p>Dne 9.2.2026 požádal odbor MH a SI o rozpočtovou změnu.</p>
 </aside>

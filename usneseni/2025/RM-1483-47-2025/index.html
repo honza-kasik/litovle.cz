@@ -26,6 +26,7 @@ permalink: /usneseni/2025/RM-1483-47-2025/
       (url.pathname === "/usneseni" || url.pathname.startsWith("/usneseni/"))
     ) {
       a.href = url.pathname + url.search;
+      a.textContent = "← Zpět na vyhledávání";
     }
   } catch (e) {
     // ignoruj rozbité hodnoty

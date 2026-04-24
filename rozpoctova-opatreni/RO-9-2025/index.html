@@ -8,7 +8,32 @@ datum: "2025-04-24"
 permalink: /rozpoctova-opatreni/RO-9-2025/
 ---
 
-<p class="usn-back"><a href="/rozpoctova-opatreni/">← Zpět na rozpočtová opatření</a></p>
+
+<p class="usn-back">
+  <a href="/rozpoctova-opatreni/" id="back-link">← Zpět na rozpočtová opatření</a>
+</p>
+
+<script>
+(function() {
+  const a = document.getElementById("back-link");
+  if (!a) return;
+
+  const back = new URLSearchParams(location.search).get("back");
+  try {
+    const url = new URL(back, location.origin);
+    if (
+      url.origin === location.origin &&
+      (url.pathname === "/usneseni" || url.pathname.startsWith("/usneseni/") || url.pathname === "/rozpoctova-opatreni" || url.pathname.startsWith("/rozpoctova-opatreni/"))
+    ) {
+      a.href = url.pathname + url.search;
+      a.textContent = "← Zpět na vyhledávání";
+    }
+  } catch (e) {
+    // ignoruj rozbité hodnoty
+  }
+})();
+</script>
+
 <h1>Rozpočtové opatření RO/9/2025</h1>
 <p class="usn-meta">24. 4. 2025 • Rada města Litovel</p>
 <dl class="usn-summary-list">
@@ -120,7 +145,7 @@ permalink: /rozpoctova-opatreni/RO-9-2025/
 <h3><a href="#rz-89-2025-rm">Rozpočtová změna 89/2025/RM</a></h3>
 <p class="usn-rz-count">2 účetní řádky</p>
 </header>
-<p class="usn-rz-title">transfery dle rozhodnutí RM</p>
+<p class="usn-rz-title">ZO Český zahrádkářský svaz Litovel - dotace na činnost v roce 2025</p>
 <aside class="usn-rz-note">
 <p>Dne 10.4.2025 bylo RM schváleno usnesení RM/1557/49/2025, kterým se ruší usnesení RM/1417/46/2025/ah. Toto zrušené usnesení se týkalo uzavření smlouvy o poskytnutí dotace mezi městem Litovel a ZO Českého zahrádkářského svazu v předloženém znění a rozpočtové změny týkající se této dotace (RZ 37/2025/RM). V důsledku schváleného usnesení (RM/1557/49/2025) byla dne 16.4. 2025 RZ 37/2025/RM zrušena RZ 87/2025/RM. Usnesením RM/1557/49/2025 bylo schváleno uzavření smlouvy o poskytnutí dotace na činnost ZO Českého zahrádkářského svazu Litovel v roce 2025, bohužel však nebyla současně schválena potřebná související rozpočtová změna týkající se této dotace. Je nutné zjednat nápravu.</p>
 </aside>
