@@ -24,10 +24,27 @@
   const q = document.getElementById("usn-q");
   const res = document.getElementById("usn-results");
   const info = document.getElementById("usn-info");
+  const startBox = document.getElementById("usn-start");
   const yearsBox = document.getElementById("usn-years");
   const sortSel = document.getElementById("usn-sort");
   const typeBox = document.getElementById("usn-type");
   const orgBox = document.getElementById("usn-org");
+  const STARTER_QUERIES = [
+    { label: "Školy a školky", query: "škola" },
+    { label: "Doprava a chodníky", query: "chodník" },
+    { label: "Sport a kultura", query: "sokolovna" },
+    { label: "Místní části", query: "Nová Ves" },
+    { label: "Dotace a dary", query: "dotace" },
+    { label: "Odpady a zeleň", query: "odpad" }
+  ];
+  const STARTER_PLACES = [
+    "Litovel",
+    "Unčovice",
+    "Nasobůrky",
+    "Myslechovice",
+    "Chořelice",
+    "Nová Ves"
+  ];
 
   // ============================================================
   // NORMALIZACE
@@ -140,6 +157,15 @@
     }
 
     return out;
+  }
+
+  function escapeHtml(text) {
+    return String(text || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
   }
 
   function cleanRoSnippet(text) {
@@ -389,6 +415,103 @@
     return `${u.items.length} rozhodnutí`;
   }
 
+  function allLoadedDocuments() {
+    return [
+      ...Object.values(DATA).flat(),
+      ...Object.values(RO_DATA).flat()
+    ];
+  }
+
+  function recentDocuments(limit = 6) {
+    return allLoadedDocuments()
+      .slice()
+      .sort((a, b) => {
+        const aDate = a.datum || a.approval_date || "";
+        const bDate = b.datum || b.approval_date || "";
+        return bDate.localeCompare(aDate);
+      })
+      .slice(0, limit);
+  }
+
+  async function loadLandingData() {
+    const years = [...new Set([...Object.keys(META), ...Object.keys(RO_META)])]
+      .sort()
+      .reverse()
+      .slice(0, 2);
+
+    await Promise.all(years.map(year => loadYear(year)));
+  }
+
+  function renderStartState() {
+    const totalResolutions = Object.values(META).reduce((sum, item) => sum + (item?.count || 0), 0);
+    const totalBudgetDocs = Object.values(RO_META).reduce((sum, item) => sum + (item?.count || 0), 0);
+    const recent = recentDocuments(6);
+
+    startBox.innerHTML = `
+      <section class="usn-start-hero">
+        <span class="usn-start-kicker">Co se ve městě řeší</span>
+        <h2>Najděte usnesení podle tématu, místa nebo služby</h2>
+        <p>
+          Vyhledávání je dobré, když víte co hledat. Začněte některým z témat níže
+          nebo se podívejte na poslední schválené dokumenty města Litovel.
+        </p>
+        <div class="usn-chip-list">
+          ${STARTER_QUERIES.map(item => `
+            <button type="button" class="usn-chip" data-query="${escapeHtml(item.query)}">
+              ${escapeHtml(item.label)}
+            </button>
+          `).join("")}
+        </div>
+      </section>
+
+      <div class="usn-start-grid">
+        <section class="usn-start-section">
+          <h3>Hledejte podle místa</h3>
+          <p>Otevřete si přímo to, co se týká vaší části města nebo školy.</p>
+          <div class="usn-chip-list">
+            ${STARTER_PLACES.map(place => `
+              <button type="button" class="usn-chip usn-chip-secondary" data-query="${escapeHtml(place)}">
+                ${escapeHtml(place)}
+              </button>
+            `).join("")}
+          </div>
+        </section>
+
+        <section class="usn-start-section">
+          <h3>V datech najdete</h3>
+          <p>${totalResolutions} usnesení a ${totalBudgetDocs} rozpočtových opatření v aktuálním období.</p>
+          <div class="usn-start-links">
+            <a href="/usneseni/2026/">Nejnovější rok</a>
+            <a href="/rozpoctova-opatreni/">Rozpočtová opatření</a>
+          </div>
+        </section>
+      </div>
+
+      <section class="usn-start-section">
+        <h3>Poslední schválené dokumenty</h3>
+        <div class="usn-start-recent">
+          ${recent.map(u => {
+            const href = `${staticUrlFromId(u.id)}?back=${encodeURIComponent(location.pathname + location.search)}`;
+            const date = u.datum || u.approval_date || "";
+            const typeLabel = u.id.startsWith("RO/") ? "Rozpočtové opatření" : "Usnesení";
+            const snippet = escapeHtml((firstSentence(u) || "").slice(0, 140));
+            return `
+              <a href="${href}" class="usn-card">
+                <div class="usn-head">
+                  <strong>${escapeHtml(u.id)}</strong>
+                  <span class="usn-date">${escapeHtml(date)}</span>
+                  <span class="usn-doc-type ${u.id.startsWith("RO/") ? "usn-doc-type-ro" : "usn-doc-type-usn"}">${typeLabel}</span>
+                </div>
+                <div class="usn-summary">${escapeHtml(summaryLabel(u))}</div>
+                ${snippet ? `<div class="usn-snippet">${snippet}</div>` : ""}
+              </a>
+            `;
+          }).join("")}
+        </div>
+      </section>
+    `;
+  }
+
   // ============================================================
   // SORT & PAGING
   // ============================================================
@@ -522,12 +645,14 @@
     LAST_PARSED = parsed;
 
     if (!parsed || !parsed.anchor) {
+      startBox.hidden = false;
       setLoading(false);
       res.innerHTML = "";
-      info.textContent = "Zadejte hledaný výraz";
+      info.textContent = "Začněte tématem, místem nebo službou města.";
       return;
     }
 
+    startBox.hidden = true;
     setLoading(true);
 
     const years = selectedYears();
@@ -686,12 +811,20 @@
     }
 
     loadFromUrl();
+    await loadLandingData();
+    renderStartState();
 
     q.addEventListener("input", search);
     yearsBox.addEventListener("change", search);
     typeBox.addEventListener("change", search);
     orgBox.addEventListener("change", search);
     sortSel.addEventListener("change", search);
+    startBox.addEventListener("click", event => {
+      const button = event.target.closest("[data-query]");
+      if (!button) return;
+      q.value = button.dataset.query || "";
+      search();
+    });
 
     search();
   }
