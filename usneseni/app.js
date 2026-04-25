@@ -43,8 +43,8 @@
   const LOCAL_PARTS = ["Unčovice", "Nasobůrky", "Myslechovice", "Chořelice", "Nová Ves"];
   const STARTER_QUERIES = [
     { label: "Školy a školky", query: "škola" },
-    { label: "Doprava a chodníky", query: "chodník" },
-    { label: "Sport a kultura", query: "sokolovna" },
+    { label: "Doprava a chodníky", queries: ["chodník", "silnice"] },
+    { label: "Sport a kultura", queries: ["sport", "hala", "sokolovna"] },
     { label: "Místní části", queries: LOCAL_PARTS },
     { label: "Dotace a dary", query: "dotace" },
     { label: "Odpady a zeleň", query: "odpad" }
