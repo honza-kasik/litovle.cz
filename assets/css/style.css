@@ -600,6 +600,56 @@ h2 {
   color: #666;
 }
 
+.usn-ro-hero {
+  margin: 0 0 1.6rem;
+  padding: 1.1rem 1.2rem;
+  border: 1px solid #dfe8e2;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #f6faf7 0%, #fff 72%);
+}
+
+.usn-ro-kicker {
+  margin: 0 0 0.3rem;
+  color: #55705f;
+  font-size: 0.84rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.usn-ro-hero h1 {
+  margin: 0;
+  font-size: clamp(1.8rem, 4vw, 2.45rem);
+  line-height: 1.05;
+}
+
+.usn-ro-lead {
+  max-width: 42rem;
+  margin: 0.45rem 0 0;
+  color: #445047;
+  font-size: 1.02rem;
+}
+
+.usn-ro-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.9rem;
+}
+
+.usn-ro-facts span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0.28rem 0.65rem;
+  border: 1px solid #d7e1da;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.74);
+  color: #405448;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
 .usn-summary-list {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
