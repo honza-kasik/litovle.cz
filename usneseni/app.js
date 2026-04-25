@@ -20,20 +20,34 @@
   let currentResults = [];
   let LAST_PARSED = null;
   let IS_LOADING = false;
+  let SHOULD_SCROLL_TO_RESULTS = false;
+  let HAS_ACTIVE_SEARCH = false;
+  let LANDING_MANUALLY_OPEN = false;
+  let LANDING_HIDE_TIMER = null;
+  let LANDING_VISIBLE = true;
 
   const q = document.getElementById("usn-q");
   const res = document.getElementById("usn-results");
-  const info = document.getElementById("usn-info");
+  const resultsPanel = document.getElementById("usn-results-panel");
+  const resultsCount = document.getElementById("usn-results-count");
+  const resultsKicker = document.getElementById("usn-results-kicker");
+  const resultsActions = document.getElementById("usn-results-actions");
+  const resultsHeading = document.querySelector(".usn-results-head");
   const startBox = document.getElementById("usn-start");
+  const searchPanel = document.querySelector(".usn-search-panel");
+  const backToTopButton = document.getElementById("usn-back-to-top");
+  const refineToggle = document.getElementById("usn-refine-toggle");
   const yearsBox = document.getElementById("usn-years");
+  const yearPresetsBox = document.getElementById("usn-year-presets");
   const sortSel = document.getElementById("usn-sort");
+  const sortOptions = document.getElementById("usn-sort-options");
   const typeBox = document.getElementById("usn-type");
   const orgBox = document.getElementById("usn-org");
   const STARTER_QUERIES = [
     { label: "Školy a školky", query: "škola" },
     { label: "Doprava a chodníky", query: "chodník" },
     { label: "Sport a kultura", query: "sokolovna" },
-    { label: "Místní části", query: "Nová Ves" },
+    { label: "Místní části", queries: ["Unčovice", "Nasobůrky", "Myslechovice", "Chořelice", "Nová Ves"] },
     { label: "Dotace a dary", query: "dotace" },
     { label: "Odpady a zeleň", query: "odpad" }
   ];
@@ -168,15 +182,49 @@
       .replace(/'/g, "&#39;");
   }
 
+  function starterQueryFor(item) {
+    if (Array.isArray(item.queries) && item.queries.length) {
+      return item.queries[Math.floor(Math.random() * item.queries.length)];
+    }
+    return item.query || "";
+  }
+
   function cleanRoSnippet(text) {
     return (text || "").replace(/\s*\(RZ\s+\d+\/\d{4}\/(?:RM|ZM)\)\s*$/i, "").trim();
   }
 
   function setLoading(loading, text = "Načítám výsledky") {
     IS_LOADING = loading;
-    info.classList.toggle("usn-info-loading", loading);
-    info.textContent = loading ? text : info.textContent;
     res.setAttribute("aria-busy", loading ? "true" : "false");
+  }
+
+  function scrollResultsIntoView() {
+    const target = resultsHeading || resultsPanel || res;
+    const panel = document.querySelector(".usn-search-panel");
+    const isSticky = panel && window.getComputedStyle(panel).position === "sticky";
+    const panelHeight = isSticky && panel ? panel.getBoundingClientRect().height : 0;
+    const targetTop = target.getBoundingClientRect().top + window.scrollY;
+    const offset = panelHeight + 12;
+    window.scrollTo({
+      top: Math.max(0, targetTop - offset),
+      behavior: "smooth"
+    });
+  }
+
+  function scrollSearchIntoView() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
+
+  function updateBackToTopVisibility() {
+    if (!backToTopButton) return;
+    backToTopButton.classList.toggle("is-visible", window.innerWidth <= 700 && window.scrollY > 700);
+  }
+
+  function shouldAutoScrollResults() {
+    return false;
   }
 
   function rankRoChunk(chunk, parsed) {
@@ -389,6 +437,31 @@
     return [...yearsBox.querySelectorAll("input:checked")].map(i => i.value);
   }
 
+  function setSelectedYears(years) {
+    const selected = new Set(years);
+    yearsBox.querySelectorAll("input").forEach(input => {
+      input.checked = selected.has(input.value);
+    });
+  }
+
+  function filtersAreDefault() {
+    return (
+      [...yearsBox.querySelectorAll("input")].every(input => input.checked)
+      && [...typeBox.querySelectorAll("input")].every(input => input.checked)
+      && [...orgBox.querySelectorAll("input")].every(input => input.checked)
+      && sortSel.value === "desc"
+    );
+  }
+
+  function syncSortChips() {
+    if (!sortOptions) return;
+    sortOptions.querySelectorAll("[data-sort-value]").forEach(button => {
+      const active = button.dataset.sortValue === sortSel.value;
+      button.classList.toggle("is-active", active);
+      button.setAttribute("aria-pressed", active ? "true" : "false");
+    });
+  }
+
   function selectedOrgans() {
     return [...orgBox.querySelectorAll("input:checked")].map(i => i.value);
   }
@@ -415,22 +488,60 @@
     return `${u.items.length} rozhodnutí`;
   }
 
-  function allLoadedDocuments() {
-    return [
-      ...Object.values(DATA).flat(),
-      ...Object.values(RO_DATA).flat()
-    ];
+  function renderEmptyResultsState({ title, message, hints = [] }) {
+    res.innerHTML = `
+      <li class="usn-empty-state">
+        <h3>${escapeHtml(title)}</h3>
+        <p>${escapeHtml(message)}</p>
+        ${hints.length
+          ? `<ul class="usn-empty-list">${hints.map(hint => `<li>${escapeHtml(hint)}</li>`).join("")}</ul>`
+          : ""}
+      </li>
+    `;
   }
 
-  function recentDocuments(limit = 6) {
-    return allLoadedDocuments()
-      .slice()
-      .sort((a, b) => {
-        const aDate = a.datum || a.approval_date || "";
-        const bDate = b.datum || b.approval_date || "";
-        return bDate.localeCompare(aDate);
-      })
-      .slice(0, limit);
+  function setLandingVisibility(visible) {
+    LANDING_VISIBLE = visible;
+    if (LANDING_HIDE_TIMER) {
+      clearTimeout(LANDING_HIDE_TIMER);
+      LANDING_HIDE_TIMER = null;
+    }
+
+    if (visible) {
+      startBox.hidden = false;
+      startBox.classList.add("is-collapsed");
+      void startBox.offsetHeight;
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          startBox.classList.remove("is-collapsed");
+        });
+      });
+      return;
+    }
+
+    startBox.classList.add("is-collapsed");
+    LANDING_HIDE_TIMER = window.setTimeout(() => {
+      startBox.hidden = true;
+      LANDING_HIDE_TIMER = null;
+    }, 280);
+  }
+
+  function setMobileFiltersOpen(open) {
+    if (!searchPanel) return;
+    searchPanel.classList.toggle("is-open", open);
+    if (refineToggle) {
+      refineToggle.textContent = open ? "Skrýt upřesnění" : "Upřesnit hledání";
+      refineToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    }
+  }
+
+  function setResultsActions({ showLandingToggle = false } = {}) {
+    if (!resultsActions) return;
+    const isMobile = window.innerWidth <= 700;
+    const toggle = showLandingToggle && !isMobile
+      ? `<button type="button" class="usn-start-toggle" data-toggle-start>${LANDING_VISIBLE ? "Skrýt" : "Zobrazit"} témata a tipy</button>`
+      : "";
+    resultsActions.innerHTML = toggle;
   }
 
   async function loadLandingData() {
@@ -445,7 +556,6 @@
   function renderStartState() {
     const totalResolutions = Object.values(META).reduce((sum, item) => sum + (item?.count || 0), 0);
     const totalBudgetDocs = Object.values(RO_META).reduce((sum, item) => sum + (item?.count || 0), 0);
-    const recent = recentDocuments(6);
 
     startBox.innerHTML = `
       <section class="usn-start-hero">
@@ -457,7 +567,7 @@
         </p>
         <div class="usn-chip-list">
           ${STARTER_QUERIES.map(item => `
-            <button type="button" class="usn-chip" data-query="${escapeHtml(item.query)}">
+            <button type="button" class="usn-chip" data-query="${escapeHtml(starterQueryFor(item))}">
               ${escapeHtml(item.label)}
             </button>
           `).join("")}
@@ -486,29 +596,6 @@
           </div>
         </section>
       </div>
-
-      <section class="usn-start-section">
-        <h3>Poslední schválené dokumenty</h3>
-        <div class="usn-start-recent">
-          ${recent.map(u => {
-            const href = `${staticUrlFromId(u.id)}?back=${encodeURIComponent(location.pathname + location.search)}`;
-            const date = u.datum || u.approval_date || "";
-            const typeLabel = u.id.startsWith("RO/") ? "Rozpočtové opatření" : "Usnesení";
-            const snippet = escapeHtml((firstSentence(u) || "").slice(0, 140));
-            return `
-              <a href="${href}" class="usn-card">
-                <div class="usn-head">
-                  <strong>${escapeHtml(u.id)}</strong>
-                  <span class="usn-date">${escapeHtml(date)}</span>
-                  <span class="usn-doc-type ${u.id.startsWith("RO/") ? "usn-doc-type-ro" : "usn-doc-type-usn"}">${typeLabel}</span>
-                </div>
-                <div class="usn-summary">${escapeHtml(summaryLabel(u))}</div>
-                ${snippet ? `<div class="usn-snippet">${snippet}</div>` : ""}
-              </a>
-            `;
-          }).join("")}
-        </div>
-      </section>
     `;
   }
 
@@ -640,19 +727,62 @@
   async function search() {
     PAGE = 1;
     const seq = ++SEARCH_SEQ;
+    const hasQuery = Boolean(q.value.trim());
 
     const parsed = parseQuery(q.value);
     LAST_PARSED = parsed;
 
     if (!parsed || !parsed.anchor) {
-      startBox.hidden = false;
+      setLandingVisibility(hasQuery ? LANDING_MANUALLY_OPEN : (!HAS_ACTIVE_SEARCH || LANDING_MANUALLY_OPEN));
+      SHOULD_SCROLL_TO_RESULTS = false;
       setLoading(false);
-      res.innerHTML = "";
-      info.textContent = "Začněte tématem, místem nebo službou města.";
+      if (!parsed) {
+        if (HAS_ACTIVE_SEARCH) {
+          resultsPanel.hidden = false;
+          resultsCount.textContent = "";
+          resultsKicker.textContent = "";
+          setResultsActions({ showLandingToggle: true });
+          renderEmptyResultsState({
+            title: "Začněte znovu novým dotazem",
+            message: "Napište téma, místo, službu nebo část města, která vás zajímá.",
+            hints: [
+              "zkuste například „škola“, „Nová Ves“, „dotace“ nebo „chodník“",
+              "můžete použít i filtry pro rok, typ dokumentu nebo schvalující orgán"
+            ]
+          });
+        } else {
+          resultsPanel.hidden = true;
+          resultsCount.textContent = "";
+          resultsKicker.textContent = "";
+          setResultsActions();
+          res.innerHTML = "";
+        }
+        return;
+      }
+
+      resultsPanel.hidden = false;
+      resultsCount.textContent = "";
+      resultsKicker.textContent = q.value.trim()
+        ? `pro dotaz „${q.value.trim()}”`
+        : "";
+      setResultsActions({ showLandingToggle: true });
+      renderEmptyResultsState({
+        title: "Zkuste přidat přesnější výraz",
+        message: "Vyhledávání funguje nejlépe od tří písmen nebo z více slov.",
+        hints: [
+          "místo „šk“ zkuste „škola“, „školka“ nebo konkrétní školu",
+          "místo „no“ zkuste „Nová Ves“ nebo „chodník“",
+          "můžete přidat i místo: „Unčovice“, „Nasobůrky“, „Litovel“"
+        ]
+      });
       return;
     }
 
-    startBox.hidden = true;
+    HAS_ACTIVE_SEARCH = true;
+    if (window.innerWidth <= 700) {
+      setMobileFiltersOpen(false);
+    }
+    setLandingVisibility(LANDING_MANUALLY_OPEN);
     setLoading(true);
 
     const years = selectedYears();
@@ -688,6 +818,10 @@
     updateUrl();
     renderResults(results);
     setLoading(false);
+    if ((SHOULD_SCROLL_TO_RESULTS && window.innerWidth > 700) || shouldAutoScrollResults()) {
+      scrollResultsIntoView();
+      SHOULD_SCROLL_TO_RESULTS = false;
+    }
   }
 
   // ============================================================
@@ -696,9 +830,28 @@
 
   function renderResults(list) {
     res.innerHTML = "";
-    info.textContent = `${list.length} výsledků`;
+    setLandingVisibility(LANDING_MANUALLY_OPEN);
+    setResultsActions({ showLandingToggle: true });
+    resultsPanel.hidden = false;
+    resultsCount.textContent = `${list.length} výsledků`;
+    resultsKicker.textContent = q.value.trim()
+      ? `pro dotaz „${q.value.trim()}”`
+      : "";
 
     currentResults = list;
+    if (!list.length) {
+      renderEmptyResultsState({
+        title: "Nic jsme nenašli",
+        message: "Zkuste jiný výraz nebo uvolněte některý z filtrů.",
+        hints: [
+          "zkuste obecnější pojem, například „škola“, „dotace“ nebo „chodník“",
+          "zkuste konkrétní místo, například „Nová Ves“ nebo „Unčovice“",
+          "pokud nic nenacházíte, zkontrolujte vybraný rok, typ dokumentu a schvalující orgán"
+        ]
+      });
+      return;
+    }
+
     const pageItems = paginate(list);
 
     const parsed = LAST_PARSED;
@@ -715,7 +868,6 @@
         ? highlight(snippetRaw, parsed.longWords)
         : snippetRaw;
 
-      const hasMore = (((roMatch && roMatch.snippet) || firstSentence(u) || "").length > SNIPPET_LEN);
       const isRo = u.id.startsWith("RO/");
       const typeLabel = isRo ? "Rozpočtové opatření" : "Usnesení";
 
@@ -749,8 +901,6 @@
                 : ""
             }</div>`
             : ""}
-
-          ${!isRo && hasMore ? `<div class="usn-more">…</div>` : ""}
         </a>
       `;
 
@@ -781,8 +931,6 @@
   async function init() {
     if (redirectFromHash()) return;
 
-    setLoading(true, "Načítám vyhledávání");
-
     const [metaRes, roMetaRes] = await Promise.allSettled([
       fetch("/assets/usneseni/meta.json"),
       fetch("/assets/usneseni/ro/meta.json")
@@ -810,21 +958,81 @@
       yearsBox.appendChild(label);
     }
 
+    yearPresetsBox.innerHTML = `
+      <button type="button" class="usn-year-preset" data-year-preset="all">Vše</button>
+      <button type="button" class="usn-year-preset" data-year-preset="recent">Poslední 2 roky</button>
+    `;
+
     loadFromUrl();
+    syncSortChips();
     await loadLandingData();
     renderStartState();
 
     q.addEventListener("input", search);
-    yearsBox.addEventListener("change", search);
-    typeBox.addEventListener("change", search);
-    orgBox.addEventListener("change", search);
-    sortSel.addEventListener("change", search);
+    q.addEventListener("search", search);
+    yearPresetsBox?.addEventListener("click", event => {
+      const button = event.target.closest("[data-year-preset]");
+      if (!button) return;
+      const preset = button.dataset.yearPreset;
+      if (preset === "all") {
+        setSelectedYears(years);
+      } else if (preset === "recent") {
+        setSelectedYears(years.slice(0, 2));
+      }
+      setMobileFiltersOpen(true);
+      search();
+    });
+    yearsBox.addEventListener("change", () => {
+      setMobileFiltersOpen(true);
+      search();
+    });
+    typeBox.addEventListener("change", () => {
+      setMobileFiltersOpen(true);
+      search();
+    });
+    orgBox.addEventListener("change", () => {
+      setMobileFiltersOpen(true);
+      search();
+    });
+    sortSel.addEventListener("change", () => {
+      setMobileFiltersOpen(true);
+      syncSortChips();
+      search();
+    });
+    sortOptions?.addEventListener("click", event => {
+      const button = event.target.closest("[data-sort-value]");
+      if (!button) return;
+      sortSel.value = button.dataset.sortValue || "desc";
+      setMobileFiltersOpen(true);
+      syncSortChips();
+      search();
+    });
     startBox.addEventListener("click", event => {
       const button = event.target.closest("[data-query]");
       if (!button) return;
       q.value = button.dataset.query || "";
       search();
     });
+    refineToggle?.addEventListener("click", () => {
+      setMobileFiltersOpen(!searchPanel.classList.contains("is-open"));
+    });
+    resultsActions?.addEventListener("click", event => {
+      const button = event.target.closest("[data-toggle-start]");
+      if (!button) return;
+      const wasVisible = LANDING_VISIBLE;
+      LANDING_MANUALLY_OPEN = !LANDING_VISIBLE;
+      setLandingVisibility(LANDING_MANUALLY_OPEN);
+      if (!wasVisible && window.innerWidth > 700) {
+        scrollSearchIntoView();
+      }
+      setResultsActions({ showLandingToggle: HAS_ACTIVE_SEARCH });
+    });
+    backToTopButton?.addEventListener("click", () => {
+      scrollSearchIntoView();
+    });
+    window.addEventListener("scroll", updateBackToTopVisibility, { passive: true });
+    setMobileFiltersOpen(!filtersAreDefault());
+    updateBackToTopVisibility();
 
     search();
   }
