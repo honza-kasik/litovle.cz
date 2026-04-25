@@ -7,7 +7,7 @@ permalink: /usneseni/
 # Vyhledávání v usneseních
 
 <p class=subtitle>
-Vyhledávání v usneseních vydaných orgány města Litovel v aktuálním volebním období.
+Zjistěte, co město schválilo pro vaše téma, ulici nebo místní část.
 </p>
 
 <style>
@@ -433,6 +433,12 @@ Vyhledávání v usneseních vydaných orgány města Litovel v aktuálním vole
   background: #ece5d7;
 }
 
+.usn-source-note {
+  margin: .2rem 0 0;
+  color: #667168;
+  font-size: .92rem;
+}
+
 @media (max-width: 700px) {
   .usn-back-to-top {
     right: 50%;
@@ -490,8 +496,8 @@ Vyhledávání v usneseních vydaných orgány města Litovel v aktuálním vole
 
 <div class="usn-app">
   <div class="usn-search-panel">
-    <input id="usn-q" type="search" placeholder="Hledejte téma, místo nebo službu města">
-    <button type="button" id="usn-refine-toggle" class="usn-refine-toggle">Upřesnit hledání</button>
+    <input id="usn-q" type="search" placeholder="Např. škola, chodník, Unčovice, dotace">
+    <button type="button" id="usn-refine-toggle" class="usn-refine-toggle">Upřesnit podle roku a typu</button>
 
     <div class="usn-controls">
       <div class="usn-filter-group">
@@ -547,7 +553,7 @@ Vyhledávání v usneseních vydaných orgány města Litovel v aktuálním vole
   <div id="usn-start" class="usn-start"></div>
   <section id="usn-results-panel" class="usn-results-panel" hidden>
     <div class="usn-results-head">
-      <h2>Výsledky hledání</h2>
+      <h2>Výsledky</h2>
       <div class="usn-results-meta">
         <div id="usn-results-count" class="usn-results-count"></div>
         <div id="usn-results-kicker" class="usn-results-kicker"></div>
@@ -558,7 +564,9 @@ Vyhledávání v usneseních vydaných orgány města Litovel v aktuálním vole
   </section>
   <button type="button" id="usn-back-to-top" class="usn-back-to-top" aria-label="Zpět nahoru">Nahoru</button>
 
-  <div class="archiv-label">Archiv podle let</div>
+  <p class="usn-source-note">Data vycházejí z oficiálně zveřejněných dokumentů města Litovel.</p>
+
+  <div class="archiv-label">Procházet podle roku</div>
   <ul class="archiv-years">
   {% assign years = site.pages
       | where_exp: "p", "p.url contains '/usneseni/'"

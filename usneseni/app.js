@@ -525,7 +525,7 @@
     if (!searchPanel) return;
     searchPanel.classList.toggle("is-open", open);
     if (refineToggle) {
-      refineToggle.textContent = open ? "Skrýt upřesnění" : "Upřesnit hledání";
+      refineToggle.textContent = open ? "Skrýt upřesnění" : "Upřesnit podle roku a typu";
       refineToggle.setAttribute("aria-expanded", open ? "true" : "false");
     }
   }
@@ -726,7 +726,7 @@
   function showResultsState({ count = "", query = "", showLandingToggle = false } = {}) {
     resultsPanel.hidden = false;
     resultsCount.textContent = count;
-    resultsKicker.textContent = query ? `pro dotaz „${query}”` : "";
+    resultsKicker.textContent = query ? `pro „${query}”` : "";
     setResultsActions({ showLandingToggle });
   }
 
@@ -904,8 +904,8 @@
     currentResults = list;
     if (!list.length) {
       renderEmptyResultsState({
-        title: "Nic jsme nenašli",
-        message: "Zkuste jiný výraz nebo uvolněte některý z filtrů.",
+        title: "Zkuste jiné slovo nebo širší pojem",
+        message: "Tento dotaz teď v usneseních a rozpočtových opatřeních nevidíme.",
         hints: [
           "zkuste obecnější pojem, například „škola“, „dotace“ nebo „chodník“",
           "zkuste konkrétní místo, například „Nová Ves“ nebo „Unčovice“",
