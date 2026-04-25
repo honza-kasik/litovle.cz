@@ -25,6 +25,7 @@
   let LANDING_VISIBLE = true;
 
   const q = document.getElementById("usn-q");
+  const clearButton = document.getElementById("usn-clear");
   const res = document.getElementById("usn-results");
   const resultsPanel = document.getElementById("usn-results-panel");
   const resultsCount = document.getElementById("usn-results-count");
@@ -40,19 +41,12 @@
   const sortOptions = document.getElementById("usn-sort-options");
   const typeBox = document.getElementById("usn-type");
   const orgBox = document.getElementById("usn-org");
+  const totalResolutionsNode = document.getElementById("usn-total-resolutions");
+  const totalBudgetDocsNode = document.getElementById("usn-total-budget-docs");
+  const latestYearLink = document.getElementById("usn-latest-year-link");
+  const appRoot = document.querySelector(".usn-app");
+  const bootStatus = document.getElementById("usn-boot-status");
   const LOCAL_PARTS = ["Unčovice", "Nasobůrky", "Myslechovice", "Chořelice", "Nová Ves"];
-  const STARTER_QUERIES = [
-    { label: "Školy a školky", query: "škola" },
-    { label: "Doprava a chodníky", queries: ["chodník", "silnice"] },
-    { label: "Sport a kultura", queries: ["sport", "hala", "sokolovna"] },
-    { label: "Místní části", queries: LOCAL_PARTS },
-    { label: "Dotace a dary", query: "dotace" },
-    { label: "Odpady a zeleň", query: "odpad" }
-  ];
-  const STARTER_PLACES = [
-    "Litovel",
-    ...LOCAL_PARTS
-  ];
 
   // ============================================================
   // NORMALIZACE
@@ -183,11 +177,8 @@
   }
 
   // Some landing chips intentionally rotate through several related queries.
-  function starterQueryFor(item) {
-    if (Array.isArray(item.queries) && item.queries.length) {
-      return item.queries[Math.floor(Math.random() * item.queries.length)];
-    }
-    return item.query || "";
+  function randomItem(items) {
+    return items[Math.floor(Math.random() * items.length)];
   }
 
   function cleanRoSnippet(text) {
@@ -197,6 +188,31 @@
   // Keep ARIA busy in sync while async searches are in flight.
   function setBusy(loading) {
     res.setAttribute("aria-busy", loading ? "true" : "false");
+  }
+
+  // Keep the static UI inert until the app has finished booting.
+  function setBootReady(ready) {
+    appRoot?.classList.toggle("is-booting", !ready);
+    appRoot?.querySelectorAll("[data-usn-boot]").forEach(node => {
+      node.disabled = !ready;
+    });
+    if (bootStatus) {
+      bootStatus.textContent = ready ? "" : "Načítám vyhledávání…";
+      bootStatus.hidden = ready;
+    }
+  }
+
+  function setBootFailed() {
+    if (bootStatus) {
+      bootStatus.hidden = false;
+      bootStatus.textContent = "Vyhledávání se nepodařilo načíst. Zkuste obnovit stránku.";
+    }
+  }
+
+  // Show the explicit clear affordance when the query has any text.
+  function syncClearButton() {
+    if (!clearButton) return;
+    clearButton.hidden = !q.value.trim();
   }
 
   // Return to the top where the search panel and page intro live.
@@ -381,6 +397,8 @@
     if (params.get("sort")) {
       sortSel.value = params.get("sort");
     }
+
+    syncClearButton();
   }
 
   // ============================================================
@@ -493,6 +511,36 @@
     `;
   }
 
+  function renderLoadingState(query) {
+    showResultsState({
+      count: "Načítám výsledky",
+      query,
+      showLandingToggle: true
+    });
+    res.innerHTML = `
+      <li class="usn-loading-state" aria-hidden="true">
+        <div class="usn-loading-card">
+          <span class="usn-loading-line usn-loading-line-title"></span>
+          <span class="usn-loading-line usn-loading-line-meta"></span>
+          <span class="usn-loading-line usn-loading-line-body"></span>
+          <span class="usn-loading-line usn-loading-line-body-short"></span>
+        </div>
+        <div class="usn-loading-card">
+          <span class="usn-loading-line usn-loading-line-title"></span>
+          <span class="usn-loading-line usn-loading-line-meta"></span>
+          <span class="usn-loading-line usn-loading-line-body"></span>
+          <span class="usn-loading-line usn-loading-line-body-short"></span>
+        </div>
+        <div class="usn-loading-card">
+          <span class="usn-loading-line usn-loading-line-title"></span>
+          <span class="usn-loading-line usn-loading-line-meta"></span>
+          <span class="usn-loading-line usn-loading-line-body"></span>
+          <span class="usn-loading-line usn-loading-line-body-short"></span>
+        </div>
+      </li>
+    `;
+  }
+
   // Animate the landing/tips block without removing it from layout immediately.
   function setLandingVisibility(visible) {
     LANDING_VISIBLE = visible;
@@ -540,60 +588,29 @@
     resultsActions.innerHTML = toggle;
   }
 
-  // The landing screen needs only light metadata, not the whole archive payload.
-  async function loadLandingData() {
-    const years = [...new Set([...Object.keys(META), ...Object.keys(RO_META)])]
-      .sort()
-      .reverse()
-      .slice(0, 2);
-
-    await Promise.all(years.map(year => loadYear(year)));
-  }
-
-  function renderStartState() {
+  function hydrateStartState() {
     const totalResolutions = Object.values(META).reduce((sum, item) => sum + (item?.count || 0), 0);
     const totalBudgetDocs = Object.values(RO_META).reduce((sum, item) => sum + (item?.count || 0), 0);
+    const years = sortedYearsFromMeta();
+    const latestYear = years[0];
 
-    startBox.innerHTML = `
-      <section class="usn-start-hero">
-        <span class="usn-start-kicker">Co se ve městě řeší</span>
-        <h2>Najděte usnesení podle tématu, místa nebo služby</h2>
-        <p>
-          Vyhledávání je dobré, když víte co hledat. Začněte některým z témat níže
-          nebo si otevřete to, co se týká vaší části města.
-        </p>
-        <div class="usn-chip-list">
-          ${STARTER_QUERIES.map(item => `
-            <button type="button" class="usn-chip" data-query="${escapeHtml(starterQueryFor(item))}">
-              ${escapeHtml(item.label)}
-            </button>
-          `).join("")}
-        </div>
-      </section>
+    if (totalResolutionsNode) {
+      totalResolutionsNode.textContent = String(totalResolutions);
+    }
+    if (totalBudgetDocsNode) {
+      totalBudgetDocsNode.textContent = String(totalBudgetDocs);
+    }
+    if (latestYearLink && latestYear) {
+      latestYearLink.href = `/usneseni/${latestYear}/`;
+    }
 
-      <div class="usn-start-grid">
-        <section class="usn-start-section">
-          <h3>Hledejte podle místa</h3>
-          <p>Otevřete si přímo to, co se týká vaší části města nebo školy.</p>
-          <div class="usn-chip-list">
-            ${STARTER_PLACES.map(place => `
-              <button type="button" class="usn-chip usn-chip-secondary" data-query="${escapeHtml(place)}">
-                ${escapeHtml(place)}
-              </button>
-            `).join("")}
-          </div>
-        </section>
-
-        <section class="usn-start-section">
-          <h3>V datech najdete</h3>
-          <p>${totalResolutions} usnesení a ${totalBudgetDocs} rozpočtových opatření v aktuálním období.</p>
-          <div class="usn-start-links">
-            <a href="/usneseni/2026/">Nejnovější rok</a>
-            <a href="/rozpoctova-opatreni/">Rozpočtová opatření</a>
-          </div>
-        </section>
-      </div>
-    `;
+    startBox.querySelectorAll("[data-queries]").forEach(button => {
+      const queries = (button.dataset.queries || "")
+        .split("|")
+        .map(item => item.trim())
+        .filter(Boolean);
+      button.dataset.query = queries.length ? randomItem(queries) : "";
+    });
   }
 
   // ============================================================
@@ -854,6 +871,7 @@
     PAGE = 1;
     const seq = ++SEARCH_SEQ;
     const hasQuery = Boolean(q.value.trim());
+    syncClearButton();
 
     const parsed = parseQuery(q.value);
     LAST_PARSED = parsed;
@@ -880,6 +898,7 @@
     }
     setLandingVisibility(LANDING_MANUALLY_OPEN);
     setBusy(true);
+    renderLoadingState(q.value.trim());
     const results = await findResults(parsed);
 
     if (seq !== SEARCH_SEQ) return;
@@ -1021,10 +1040,18 @@
     q.addEventListener("input", search);
     q.addEventListener("search", search);
 
+    clearButton?.addEventListener("click", () => {
+      q.value = "";
+      syncClearButton();
+      search();
+      q.focus();
+    });
+
     startBox.addEventListener("click", event => {
       const button = event.target.closest("[data-query]");
       if (!button) return;
       q.value = button.dataset.query || "";
+      syncClearButton();
       search();
     });
 
@@ -1053,23 +1080,29 @@
   // ============================================================
 
   async function init() {
-    if (redirectFromHash()) return;
+    try {
+      if (redirectFromHash()) return;
 
-    await loadMeta();
-    const years = sortedYearsFromMeta();
-    renderYearFilters(years);
-    renderYearPresets();
+      await loadMeta();
+      const years = sortedYearsFromMeta();
+      renderYearFilters(years);
+      renderYearPresets();
 
-    loadFromUrl();
-    syncSortChips();
-    await loadLandingData();
-    renderStartState();
-    bindFilterEvents(years);
-    bindUiEvents();
-    setMobileFiltersOpen(!filtersAreDefault());
-    updateBackToTopVisibility();
+      loadFromUrl();
+      syncClearButton();
+      syncSortChips();
+      hydrateStartState();
+      bindFilterEvents(years);
+      bindUiEvents();
+      setMobileFiltersOpen(!filtersAreDefault());
+      updateBackToTopVisibility();
+      setBootReady(true);
 
-    search();
+      search();
+    } catch (error) {
+      console.error("Nepodařilo se načíst vyhledávání usnesení.", error);
+      setBootFailed();
+    }
   }
 
   init();
