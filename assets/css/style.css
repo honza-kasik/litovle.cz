@@ -725,6 +725,28 @@ h2 {
   margin: 0;
 }
 
+.usn-rz-explanation {
+  margin: 0.75rem 1.2rem 0;
+  padding: 0.65rem 0.8rem;
+  border-left: 3px solid #7aa582;
+  background: #f7faf8;
+  color: #36513b;
+  font-weight: 600;
+}
+
+.usn-rz-details {
+  margin: 0.9rem 0 0;
+  border-top: 1px solid #eee;
+  background: #fbfcfd;
+}
+
+.usn-rz-details > summary {
+  cursor: pointer;
+  padding: 0.85rem 1.2rem;
+  color: #53645a;
+  font-weight: 700;
+}
+
 .usn-rz-totals {
   display: flex;
   flex-wrap: wrap;
@@ -748,7 +770,8 @@ h2 {
 .usn-rz-row {
   display: grid;
   gap: 0.55rem;
-  padding: 1rem 1.2rem;
+  padding: 0.95rem 1.2rem;
+  background: #fff;
 }
 
 .usn-rz-row + .usn-rz-row {
@@ -762,8 +785,18 @@ h2 {
   align-items: baseline;
 }
 
+.usn-rz-row-copy {
+  display: grid;
+  gap: 0.3rem;
+}
+
 .usn-rz-row-main p {
   margin: 0;
+}
+
+.usn-rz-row-section {
+  color: #6c776f;
+  font-size: 0.9rem;
 }
 
 .usn-amount {
