@@ -5,6 +5,7 @@
 
   const PAGE_SIZE = 20;
   const SNIPPET_LEN = 180;
+  const SEARCH_DEBOUNCE_MS = 140;
 
   let META = {};
   let RO_META = {};
@@ -15,16 +16,23 @@
   let RO_DATA = {};
   let RO_DATA_MAP = {};
   let LOADED = {};
+  let LOAD_PROMISES = {};
   let PAGE = 1;
   let SEARCH_SEQ = 0;
+  let SEARCH_TIMER = null;
   let currentResults = [];
   let LAST_PARSED = null;
   let HAS_ACTIVE_SEARCH = false;
   let LANDING_MANUALLY_OPEN = false;
   let LANDING_HIDE_TIMER = null;
   let LANDING_VISIBLE = true;
+  let YEAR_INPUTS = [];
+  let TYPE_INPUTS = [];
+  let ORG_INPUTS = [];
+  let SORT_CHIPS = [];
 
   const q = document.getElementById("usn-q");
+  const clearButton = document.getElementById("usn-clear");
   const res = document.getElementById("usn-results");
   const resultsPanel = document.getElementById("usn-results-panel");
   const resultsCount = document.getElementById("usn-results-count");
@@ -40,19 +48,12 @@
   const sortOptions = document.getElementById("usn-sort-options");
   const typeBox = document.getElementById("usn-type");
   const orgBox = document.getElementById("usn-org");
+  const totalResolutionsNode = document.getElementById("usn-total-resolutions");
+  const totalBudgetDocsNode = document.getElementById("usn-total-budget-docs");
+  const latestYearLink = document.getElementById("usn-latest-year-link");
+  const appRoot = document.querySelector(".usn-app");
+  const bootStatus = document.getElementById("usn-boot-status");
   const LOCAL_PARTS = ["Unčovice", "Nasobůrky", "Myslechovice", "Chořelice", "Nová Ves"];
-  const STARTER_QUERIES = [
-    { label: "Školy a školky", query: "škola" },
-    { label: "Doprava a chodníky", queries: ["chodník", "silnice"] },
-    { label: "Sport a kultura", queries: ["sport", "hala", "sokolovna"] },
-    { label: "Místní části", queries: LOCAL_PARTS },
-    { label: "Dotace a dary", query: "dotace" },
-    { label: "Odpady a zeleň", query: "odpad" }
-  ];
-  const STARTER_PLACES = [
-    "Litovel",
-    ...LOCAL_PARTS
-  ];
 
   // ============================================================
   // NORMALIZACE
@@ -115,8 +116,9 @@
     return "";
   }
 
-  // Build a broad searchable text blob from the exported payload.
-  function extractFullText(u) {
+  // Build the normalized text blob once when data is loaded, then reuse it.
+  // This keeps search cheap while preserving the same broad matching behavior.
+  function buildSearchText(u) {
     if (u.id && u.id.startsWith("RO/")) {
       return normalize(
         [
@@ -146,6 +148,10 @@
         u.tail || ""
       ].join(" ")
     );
+  }
+
+  function searchText(u) {
+    return u._searchText || "";
   }
 
   function escapeRegExp(str) {
@@ -183,11 +189,8 @@
   }
 
   // Some landing chips intentionally rotate through several related queries.
-  function starterQueryFor(item) {
-    if (Array.isArray(item.queries) && item.queries.length) {
-      return item.queries[Math.floor(Math.random() * item.queries.length)];
-    }
-    return item.query || "";
+  function randomItem(items) {
+    return items[Math.floor(Math.random() * items.length)];
   }
 
   function cleanRoSnippet(text) {
@@ -197,6 +200,49 @@
   // Keep ARIA busy in sync while async searches are in flight.
   function setBusy(loading) {
     res.setAttribute("aria-busy", loading ? "true" : "false");
+  }
+
+  // Keep the static UI inert until the app has finished booting.
+  function setBootReady(ready) {
+    appRoot?.classList.toggle("is-booting", !ready);
+    appRoot?.querySelectorAll("[data-usn-boot]").forEach(node => {
+      node.disabled = !ready;
+    });
+    if (bootStatus) {
+      bootStatus.textContent = ready ? "" : "Načítám vyhledávání…";
+      bootStatus.hidden = ready;
+    }
+  }
+
+  function setBootFailed() {
+    if (bootStatus) {
+      bootStatus.hidden = false;
+      bootStatus.textContent = "Vyhledávání se nepodařilo načíst. Zkuste obnovit stránku.";
+    }
+  }
+
+  // Show the explicit clear affordance when the query has any text.
+  function syncClearButton() {
+    if (!clearButton) return;
+    clearButton.hidden = !q.value.trim();
+  }
+
+  // Typing on mobile can fire many rapid input events, so queue one search
+  // slightly later instead of recomputing results on every keystroke.
+  function queueSearch(delay = SEARCH_DEBOUNCE_MS) {
+    if (SEARCH_TIMER) {
+      clearTimeout(SEARCH_TIMER);
+    }
+    SEARCH_TIMER = window.setTimeout(() => {
+      SEARCH_TIMER = null;
+      search();
+    }, delay);
+  }
+
+  function cancelQueuedSearch() {
+    if (!SEARCH_TIMER) return;
+    clearTimeout(SEARCH_TIMER);
+    SEARCH_TIMER = null;
   }
 
   // Return to the top where the search panel and page intro live.
@@ -359,21 +405,21 @@
 
     const years = params.getAll("y");
     if (years.length) {
-      yearsBox.querySelectorAll("input").forEach(i => {
+      YEAR_INPUTS.forEach(i => {
         i.checked = years.includes(i.value);
       });
     }
 
     const types = params.getAll("type");
     if (types.length) {
-      typeBox.querySelectorAll("input").forEach(i => {
+      TYPE_INPUTS.forEach(i => {
         i.checked = types.includes(i.value);
       });
     }
 
     const orgs = params.getAll("org");
     if (orgs.length) {
-      orgBox.querySelectorAll("input").forEach(i => {
+      ORG_INPUTS.forEach(i => {
         i.checked = orgs.includes(i.value);
       });
     }
@@ -381,6 +427,8 @@
     if (params.get("sort")) {
       sortSel.value = params.get("sort");
     }
+
+    syncClearButton();
   }
 
   // ============================================================
@@ -388,65 +436,78 @@
   // ============================================================
 
   // Load one year's index and detail payload lazily on demand.
+  // Concurrent callers share the same promise so the same year is never fetched twice.
   async function loadYear(year) {
     if (LOADED[year]) return;
+    if (LOAD_PROMISES[year]) return LOAD_PROMISES[year];
 
-    const [indexRes, dataRes, roIndexRes, roDataRes] = await Promise.allSettled([
-      fetch(`/assets/usneseni/index/${year}.json`),
-      fetch(`/assets/usneseni/data/${year}.json`),
-      fetch(`/assets/usneseni/ro/index/${year}.json`),
-      fetch(`/assets/usneseni/ro/data/${year}.json`)
-    ]);
+    LOAD_PROMISES[year] = (async () => {
+      const [indexRes, dataRes, roIndexRes, roDataRes] = await Promise.allSettled([
+        fetch(`/assets/usneseni/index/${year}.json`),
+        fetch(`/assets/usneseni/data/${year}.json`),
+        fetch(`/assets/usneseni/ro/index/${year}.json`),
+        fetch(`/assets/usneseni/ro/data/${year}.json`)
+      ]);
 
-    INDEX[year] = {};
-    DATA[year] = [];
-    DATA_MAP[year] = {};
-    RO_INDEX[year] = {};
-    RO_DATA[year] = [];
-    RO_DATA_MAP[year] = {};
+      INDEX[year] = {};
+      DATA[year] = [];
+      DATA_MAP[year] = {};
+      RO_INDEX[year] = {};
+      RO_DATA[year] = [];
+      RO_DATA_MAP[year] = {};
 
-    if (indexRes.status === "fulfilled" && indexRes.value.ok) {
-      INDEX[year] = await indexRes.value.json();
-    }
-    if (dataRes.status === "fulfilled" && dataRes.value.ok) {
-      DATA[year] = await dataRes.value.json();
-      DATA_MAP[year] = Object.fromEntries(DATA[year].map(u => [u.id, u]));
-    }
-    if (roIndexRes.status === "fulfilled" && roIndexRes.value.ok) {
-      RO_INDEX[year] = await roIndexRes.value.json();
-    }
-    if (roDataRes.status === "fulfilled" && roDataRes.value.ok) {
-      RO_DATA[year] = await roDataRes.value.json();
-      RO_DATA_MAP[year] = Object.fromEntries(RO_DATA[year].map(u => [u.id, u]));
-    }
+      if (indexRes.status === "fulfilled" && indexRes.value.ok) {
+        INDEX[year] = await indexRes.value.json();
+      }
+      if (dataRes.status === "fulfilled" && dataRes.value.ok) {
+        DATA[year] = await dataRes.value.json();
+        DATA[year].forEach(u => {
+          u._searchText = buildSearchText(u);
+        });
+        DATA_MAP[year] = Object.fromEntries(DATA[year].map(u => [u.id, u]));
+      }
+      if (roIndexRes.status === "fulfilled" && roIndexRes.value.ok) {
+        RO_INDEX[year] = await roIndexRes.value.json();
+      }
+      if (roDataRes.status === "fulfilled" && roDataRes.value.ok) {
+        RO_DATA[year] = await roDataRes.value.json();
+        RO_DATA[year].forEach(u => {
+          u._searchText = buildSearchText(u);
+        });
+        RO_DATA_MAP[year] = Object.fromEntries(RO_DATA[year].map(u => [u.id, u]));
+      }
 
-    LOADED[year] = true;
+      LOADED[year] = true;
+      delete LOAD_PROMISES[year];
+    })();
+
+    return LOAD_PROMISES[year];
   }
 
   // Read the current filter UI state.
   function selectedYears() {
-    return [...yearsBox.querySelectorAll("input:checked")].map(i => i.value);
+    return YEAR_INPUTS.filter(input => input.checked).map(i => i.value);
   }
 
   function setSelectedYears(years) {
     const selected = new Set(years);
-    yearsBox.querySelectorAll("input").forEach(input => {
+    YEAR_INPUTS.forEach(input => {
       input.checked = selected.has(input.value);
     });
   }
 
   function filtersAreDefault() {
     return (
-      [...yearsBox.querySelectorAll("input")].every(input => input.checked)
-      && [...typeBox.querySelectorAll("input")].every(input => input.checked)
-      && [...orgBox.querySelectorAll("input")].every(input => input.checked)
+      YEAR_INPUTS.every(input => input.checked)
+      && TYPE_INPUTS.every(input => input.checked)
+      && ORG_INPUTS.every(input => input.checked)
       && sortSel.value === "desc"
     );
   }
 
   function syncSortChips() {
     if (!sortOptions) return;
-    sortOptions.querySelectorAll("[data-sort-value]").forEach(button => {
+    SORT_CHIPS.forEach(button => {
       const active = button.dataset.sortValue === sortSel.value;
       button.classList.toggle("is-active", active);
       button.setAttribute("aria-pressed", active ? "true" : "false");
@@ -454,11 +515,11 @@
   }
 
   function selectedOrgans() {
-    return [...orgBox.querySelectorAll("input:checked")].map(i => i.value);
+    return ORG_INPUTS.filter(input => input.checked).map(i => i.value);
   }
 
   function selectedTypes() {
-    return [...typeBox.querySelectorAll("input:checked")].map(i => i.value);
+    return TYPE_INPUTS.filter(input => input.checked).map(i => i.value);
   }
 
   // ============================================================
@@ -489,6 +550,36 @@
         ${hints.length
           ? `<ul class="usn-empty-list">${hints.map(hint => `<li>${escapeHtml(hint)}</li>`).join("")}</ul>`
           : ""}
+      </li>
+    `;
+  }
+
+  function renderLoadingState(query) {
+    showResultsState({
+      count: "Načítám výsledky",
+      query,
+      showLandingToggle: true
+    });
+    res.innerHTML = `
+      <li class="usn-loading-state" aria-hidden="true">
+        <div class="usn-loading-card">
+          <span class="usn-loading-line usn-loading-line-title"></span>
+          <span class="usn-loading-line usn-loading-line-meta"></span>
+          <span class="usn-loading-line usn-loading-line-body"></span>
+          <span class="usn-loading-line usn-loading-line-body-short"></span>
+        </div>
+        <div class="usn-loading-card">
+          <span class="usn-loading-line usn-loading-line-title"></span>
+          <span class="usn-loading-line usn-loading-line-meta"></span>
+          <span class="usn-loading-line usn-loading-line-body"></span>
+          <span class="usn-loading-line usn-loading-line-body-short"></span>
+        </div>
+        <div class="usn-loading-card">
+          <span class="usn-loading-line usn-loading-line-title"></span>
+          <span class="usn-loading-line usn-loading-line-meta"></span>
+          <span class="usn-loading-line usn-loading-line-body"></span>
+          <span class="usn-loading-line usn-loading-line-body-short"></span>
+        </div>
       </li>
     `;
   }
@@ -540,60 +631,29 @@
     resultsActions.innerHTML = toggle;
   }
 
-  // The landing screen needs only light metadata, not the whole archive payload.
-  async function loadLandingData() {
-    const years = [...new Set([...Object.keys(META), ...Object.keys(RO_META)])]
-      .sort()
-      .reverse()
-      .slice(0, 2);
-
-    await Promise.all(years.map(year => loadYear(year)));
-  }
-
-  function renderStartState() {
+  function hydrateStartState() {
     const totalResolutions = Object.values(META).reduce((sum, item) => sum + (item?.count || 0), 0);
     const totalBudgetDocs = Object.values(RO_META).reduce((sum, item) => sum + (item?.count || 0), 0);
+    const years = sortedYearsFromMeta();
+    const latestYear = years[0];
 
-    startBox.innerHTML = `
-      <section class="usn-start-hero">
-        <span class="usn-start-kicker">Co se ve městě řeší</span>
-        <h2>Najděte usnesení podle tématu, místa nebo služby</h2>
-        <p>
-          Vyhledávání je dobré, když víte co hledat. Začněte některým z témat níže
-          nebo si otevřete to, co se týká vaší části města.
-        </p>
-        <div class="usn-chip-list">
-          ${STARTER_QUERIES.map(item => `
-            <button type="button" class="usn-chip" data-query="${escapeHtml(starterQueryFor(item))}">
-              ${escapeHtml(item.label)}
-            </button>
-          `).join("")}
-        </div>
-      </section>
+    if (totalResolutionsNode) {
+      totalResolutionsNode.textContent = String(totalResolutions);
+    }
+    if (totalBudgetDocsNode) {
+      totalBudgetDocsNode.textContent = String(totalBudgetDocs);
+    }
+    if (latestYearLink && latestYear) {
+      latestYearLink.href = `/usneseni/${latestYear}/`;
+    }
 
-      <div class="usn-start-grid">
-        <section class="usn-start-section">
-          <h3>Hledejte podle místa</h3>
-          <p>Otevřete si přímo to, co se týká vaší části města nebo školy.</p>
-          <div class="usn-chip-list">
-            ${STARTER_PLACES.map(place => `
-              <button type="button" class="usn-chip usn-chip-secondary" data-query="${escapeHtml(place)}">
-                ${escapeHtml(place)}
-              </button>
-            `).join("")}
-          </div>
-        </section>
-
-        <section class="usn-start-section">
-          <h3>V datech najdete</h3>
-          <p>${totalResolutions} usnesení a ${totalBudgetDocs} rozpočtových opatření v aktuálním období.</p>
-          <div class="usn-start-links">
-            <a href="/usneseni/2026/">Nejnovější rok</a>
-            <a href="/rozpoctova-opatreni/">Rozpočtová opatření</a>
-          </div>
-        </section>
-      </div>
-    `;
+    startBox.querySelectorAll("[data-queries]").forEach(button => {
+      const queries = (button.dataset.queries || "")
+        .split("|")
+        .map(item => item.trim())
+        .filter(Boolean);
+      button.dataset.query = queries.length ? randomItem(queries) : "";
+    });
   }
 
   // ============================================================
@@ -693,9 +753,10 @@
   async function collectCandidates(anchor, years) {
     const out = new Map();
 
-    for (const y of years) {
-      await loadYear(y);
+    // Load all selected years in parallel, then resolve indexed hits from memory.
+    await Promise.all(years.map(year => loadYear(year)));
 
+    for (const y of years) {
       const resolutionHit = INDEX[y][anchor] || [];
       const roHit = RO_INDEX[y][anchor] || [];
 
@@ -714,11 +775,11 @@
   }
 
   function matchesPhrase(u, phrase) {
-    return extractFullText(u).includes(phrase);
+    return searchText(u).includes(phrase);
   }
 
   function matchesAllTerms(u, terms) {
-    const text = extractFullText(u);
+    const text = searchText(u);
     return terms.every(t => text.includes(t));
   }
 
@@ -854,6 +915,7 @@
     PAGE = 1;
     const seq = ++SEARCH_SEQ;
     const hasQuery = Boolean(q.value.trim());
+    syncClearButton();
 
     const parsed = parseQuery(q.value);
     LAST_PARSED = parsed;
@@ -880,6 +942,7 @@
     }
     setLandingVisibility(LANDING_MANUALLY_OPEN);
     setBusy(true);
+    renderLoadingState(q.value.trim());
     const results = await findResults(parsed);
 
     if (seq !== SEARCH_SEQ) return;
@@ -893,7 +956,6 @@
   // ============================================================
 
   function renderResults(list) {
-    res.innerHTML = "";
     setLandingVisibility(LANDING_MANUALLY_OPEN);
     showResultsState({
       count: `${list.length} výsledků`,
@@ -917,9 +979,13 @@
 
     const pageItems = paginate(list);
     const parsed = LAST_PARSED;
+    // Batch card insertion to avoid repeated layout work while filling one page.
+    const fragment = document.createDocumentFragment();
+    res.innerHTML = "";
     for (const u of pageItems) {
-      res.appendChild(renderResultCard(u, parsed));
+      fragment.appendChild(renderResultCard(u, parsed));
     }
+    res.appendChild(fragment);
 
     renderPager(list.length);
   }
@@ -969,6 +1035,7 @@
       `;
       yearsBox.appendChild(label);
     }
+    YEAR_INPUTS = [...yearsBox.querySelectorAll("input")];
   }
 
   function renderYearPresets() {
@@ -976,10 +1043,14 @@
       <button type="button" class="usn-year-preset" data-year-preset="all">Vše</button>
       <button type="button" class="usn-year-preset" data-year-preset="recent">Poslední 2 roky</button>
     `;
+    TYPE_INPUTS = [...typeBox.querySelectorAll("input")];
+    ORG_INPUTS = [...orgBox.querySelectorAll("input")];
+    SORT_CHIPS = sortOptions ? [...sortOptions.querySelectorAll("[data-sort-value]")] : [];
   }
 
   function searchWithOpenFilters() {
     setMobileFiltersOpen(true);
+    cancelQueuedSearch();
     search();
   }
 
@@ -1018,13 +1089,28 @@
   }
 
   function bindUiEvents() {
-    q.addEventListener("input", search);
-    q.addEventListener("search", search);
+    q.addEventListener("input", () => {
+      queueSearch();
+    });
+    q.addEventListener("search", () => {
+      cancelQueuedSearch();
+      search();
+    });
+
+    clearButton?.addEventListener("click", () => {
+      cancelQueuedSearch();
+      q.value = "";
+      syncClearButton();
+      search();
+      q.focus();
+    });
 
     startBox.addEventListener("click", event => {
       const button = event.target.closest("[data-query]");
       if (!button) return;
+      cancelQueuedSearch();
       q.value = button.dataset.query || "";
+      syncClearButton();
       search();
     });
 
@@ -1053,23 +1139,29 @@
   // ============================================================
 
   async function init() {
-    if (redirectFromHash()) return;
+    try {
+      if (redirectFromHash()) return;
 
-    await loadMeta();
-    const years = sortedYearsFromMeta();
-    renderYearFilters(years);
-    renderYearPresets();
+      await loadMeta();
+      const years = sortedYearsFromMeta();
+      renderYearFilters(years);
+      renderYearPresets();
 
-    loadFromUrl();
-    syncSortChips();
-    await loadLandingData();
-    renderStartState();
-    bindFilterEvents(years);
-    bindUiEvents();
-    setMobileFiltersOpen(!filtersAreDefault());
-    updateBackToTopVisibility();
+      loadFromUrl();
+      syncClearButton();
+      syncSortChips();
+      hydrateStartState();
+      bindFilterEvents(years);
+      bindUiEvents();
+      setMobileFiltersOpen(!filtersAreDefault());
+      updateBackToTopVisibility();
+      setBootReady(true);
 
-    search();
+      search();
+    } catch (error) {
+      console.error("Nepodařilo se načíst vyhledávání usnesení.", error);
+      setBootFailed();
+    }
   }
 
   init();

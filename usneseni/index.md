@@ -16,6 +16,39 @@ Zjistěte, co město schválilo pro vaše téma, ulici nebo místní část.
   gap: 1.25rem;
 }
 
+.usn-app.is-booting .usn-search-panel,
+.usn-app.is-booting .usn-start {
+  opacity: .72;
+}
+
+.usn-boot-status {
+  display: none;
+  align-items: center;
+  gap: .55rem;
+  color: #4a5d4b;
+  font-size: .94rem;
+}
+
+.usn-app.is-booting .usn-boot-status {
+  display: inline-flex;
+}
+
+.usn-boot-status::before {
+  content: "";
+  width: .85rem;
+  height: .85rem;
+  border: 2px solid rgba(47, 90, 65, 0.18);
+  border-top-color: #2f5a41;
+  border-radius: 999px;
+  animation: usn-boot-spin .8s linear infinite;
+}
+
+@keyframes usn-boot-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .usn-search-panel {
   position: sticky;
   top: 0;
@@ -30,11 +63,15 @@ Zjistěte, co město schválilo pro vaše téma, ulici nebo místní část.
   backdrop-filter: blur(8px);
 }
 
+.usn-search-row {
+  position: relative;
+}
+
 .usn-search-panel input[type="search"] {
   width: 100%;
   border: 1px solid rgba(57, 79, 61, 0.16);
   border-radius: 12px;
-  padding: 1rem 1.15rem;
+  padding: 1rem 3.7rem 1rem 1.15rem;
   background: linear-gradient(180deg, #fffdf9 0%, #ffffff 100%);
   color: #1f2b22;
   font-size: 1.05rem;
@@ -71,6 +108,37 @@ Zjistěte, co město schválilo pro vaše téma, ulici nebo místní část.
   box-shadow: 0 10px 24px rgba(44, 55, 47, 0.08);
 }
 
+.usn-search-clear {
+  position: absolute;
+  top: 50%;
+  right: .7rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 0;
+  border-radius: 999px;
+  padding: 0;
+  background: rgba(57, 79, 61, 0.10);
+  color: #294132;
+  font: inherit;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: background .16s ease;
+}
+
+.usn-search-clear:hover,
+.usn-search-clear:focus-visible {
+  background: rgba(57, 79, 61, 0.18);
+}
+
+.usn-search-clear[hidden] {
+  display: none;
+}
+
 .usn-refine-toggle {
   display: inline-flex;
   align-items: center;
@@ -88,6 +156,28 @@ Zjistěte, co město schválilo pro vaše téma, ulici nebo místní část.
 .usn-refine-toggle:hover,
 .usn-refine-toggle:focus-visible {
   background: #e7efe8;
+}
+
+.usn-search-panel input[type="search"]:disabled,
+.usn-search-clear:disabled,
+.usn-refine-toggle:disabled,
+.usn-chip:disabled,
+.usn-sort-chip:disabled,
+.usn-filter-options input:disabled + span {
+  cursor: not-allowed;
+}
+
+.usn-search-panel input[type="search"]:disabled {
+  opacity: .82;
+  transform: none;
+}
+
+.usn-search-clear:disabled,
+.usn-refine-toggle:disabled,
+.usn-chip:disabled,
+.usn-sort-chip:disabled {
+  opacity: .6;
+  box-shadow: none;
 }
 
 .usn-refine-toggle,
@@ -295,6 +385,55 @@ Zjistěte, co město schválilo pro vaše téma, ulici nebo místní část.
   background: #faf8f2;
 }
 
+.usn-loading-state {
+  display: grid;
+  gap: .75rem;
+}
+
+.usn-loading-card {
+  display: grid;
+  gap: .65rem;
+  padding: 1rem 1.05rem;
+  border: 1px solid rgba(74, 93, 75, 0.10);
+  border-radius: 18px;
+  background: #fff;
+}
+
+.usn-loading-line {
+  display: block;
+  height: .88rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(230, 236, 231, 0.92) 0%, rgba(244, 247, 244, 1) 45%, rgba(230, 236, 231, 0.92) 100%);
+  background-size: 220% 100%;
+  animation: usn-loading-shimmer 1.15s linear infinite;
+}
+
+.usn-loading-line-title {
+  width: 38%;
+  height: 1rem;
+}
+
+.usn-loading-line-meta {
+  width: 26%;
+}
+
+.usn-loading-line-body {
+  width: 100%;
+}
+
+.usn-loading-line-body-short {
+  width: 72%;
+}
+
+@keyframes usn-loading-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+
 .usn-empty-state h3 {
   margin: 0 0 .45rem;
   font-size: 1rem;
@@ -478,6 +617,7 @@ Zjistěte, co město schválilo pro vaše téma, ulici nebo místní část.
 
   .usn-search-panel input[type="search"] {
     position: static;
+    padding-right: 3.5rem;
   }
 
   .usn-controls {
@@ -494,10 +634,14 @@ Zjistěte, co město schválilo pro vaše téma, ulici nebo místní část.
 }
 </style>
 
-<div class="usn-app">
+<div class="usn-app is-booting">
   <div class="usn-search-panel">
-    <input id="usn-q" type="search" placeholder="Např. škola, chodník, Unčovice, dotace">
-    <button type="button" id="usn-refine-toggle" class="usn-refine-toggle">Upřesnit podle roku a typu</button>
+    <div class="usn-search-row">
+      <input id="usn-q" type="search" placeholder="Např. škola, chodník, Unčovice, dotace" data-usn-boot disabled>
+      <button type="button" id="usn-clear" class="usn-search-clear" aria-label="Vymazat hledání" data-usn-boot disabled hidden>&times;</button>
+    </div>
+    <div id="usn-boot-status" class="usn-boot-status" aria-live="polite">Načítám vyhledávání…</div>
+    <button type="button" id="usn-refine-toggle" class="usn-refine-toggle" data-usn-boot disabled>Upřesnit podle roku a typu</button>
 
     <div class="usn-controls">
       <div class="usn-filter-group">
@@ -512,11 +656,11 @@ Zjistěte, co město schválilo pro vaše téma, ulici nebo místní část.
         <div class="usn-filter-label">Typ dokumentu</div>
         <div id="usn-type" class="usn-filter-options">
           <label>
-            <input type="checkbox" value="usneseni" checked>
+            <input type="checkbox" value="usneseni" checked data-usn-boot disabled>
             Usnesení
           </label>
           <label>
-            <input type="checkbox" value="ro" checked>
+            <input type="checkbox" value="ro" checked data-usn-boot disabled>
             Rozpočtová opatření
           </label>
         </div>
@@ -526,11 +670,11 @@ Zjistěte, co město schválilo pro vaše téma, ulici nebo místní část.
         <div class="usn-filter-label">Schvalující orgán</div>
         <div id="usn-org" class="usn-filter-options">
           <label>
-            <input type="checkbox" value="Rada města Litovel" checked>
+            <input type="checkbox" value="Rada města Litovel" checked data-usn-boot disabled>
             Rada města
           </label>
           <label>
-            <input type="checkbox" value="Zastupitelstvo města Litovel" checked>
+            <input type="checkbox" value="Zastupitelstvo města Litovel" checked data-usn-boot disabled>
             Zastupitelstvo
           </label>
         </div>
@@ -539,10 +683,10 @@ Zjistěte, co město schválilo pro vaše téma, ulici nebo místní část.
       <div class="usn-filter-group">
         <label class="usn-filter-label" for="usn-sort">Řazení</label>
         <div id="usn-sort-options" class="usn-sort-options">
-          <button type="button" class="usn-sort-chip" data-sort-value="desc" aria-pressed="true">Nejnovější</button>
-          <button type="button" class="usn-sort-chip" data-sort-value="asc" aria-pressed="false">Nejstarší</button>
+          <button type="button" class="usn-sort-chip" data-sort-value="desc" aria-pressed="true" data-usn-boot disabled>Nejnovější</button>
+          <button type="button" class="usn-sort-chip" data-sort-value="asc" aria-pressed="false" data-usn-boot disabled>Nejstarší</button>
         </div>
-        <select id="usn-sort" class="usn-sort-select">
+        <select id="usn-sort" class="usn-sort-select" data-usn-boot disabled>
           <option value="desc">Nejnovější</option>
           <option value="asc">Nejstarší</option>
         </select>
@@ -550,7 +694,48 @@ Zjistěte, co město schválilo pro vaše téma, ulici nebo místní část.
     </div>
   </div>
 
-  <div id="usn-start" class="usn-start"></div>
+  <div id="usn-start" class="usn-start">
+    <section class="usn-start-hero">
+      <span class="usn-start-kicker">Co se ve městě řeší</span>
+      <h2>Najděte usnesení podle tématu, místa nebo služby</h2>
+      <p>
+        Vyhledávání je dobré, když víte co hledat. Začněte některým z témat níže
+        nebo si otevřete to, co se týká vaší části města.
+      </p>
+      <div class="usn-chip-list">
+        <button type="button" class="usn-chip" data-queries="škola" data-usn-boot disabled>Školy a školky</button>
+        <button type="button" class="usn-chip" data-queries="chodník|silnice" data-usn-boot disabled>Doprava a chodníky</button>
+        <button type="button" class="usn-chip" data-queries="sport|hala|sokolovna" data-usn-boot disabled>Sport a kultura</button>
+        <button type="button" class="usn-chip" data-queries="Unčovice|Nasobůrky|Myslechovice|Chořelice|Nová Ves" data-usn-boot disabled>Místní části</button>
+        <button type="button" class="usn-chip" data-queries="dotace" data-usn-boot disabled>Dotace a dary</button>
+        <button type="button" class="usn-chip" data-queries="odpad" data-usn-boot disabled>Odpady a zeleň</button>
+      </div>
+    </section>
+
+    <div class="usn-start-grid">
+      <section class="usn-start-section">
+        <h3>Hledejte podle místa</h3>
+        <p>Otevřete si přímo to, co se týká vaší části města nebo školy.</p>
+        <div class="usn-chip-list">
+          <button type="button" class="usn-chip usn-chip-secondary" data-query="Litovel" data-usn-boot disabled>Litovel</button>
+          <button type="button" class="usn-chip usn-chip-secondary" data-query="Unčovice" data-usn-boot disabled>Unčovice</button>
+          <button type="button" class="usn-chip usn-chip-secondary" data-query="Nasobůrky" data-usn-boot disabled>Nasobůrky</button>
+          <button type="button" class="usn-chip usn-chip-secondary" data-query="Myslechovice" data-usn-boot disabled>Myslechovice</button>
+          <button type="button" class="usn-chip usn-chip-secondary" data-query="Chořelice" data-usn-boot disabled>Chořelice</button>
+          <button type="button" class="usn-chip usn-chip-secondary" data-query="Nová Ves" data-usn-boot disabled>Nová Ves</button>
+        </div>
+      </section>
+
+      <section class="usn-start-section">
+        <h3>V datech najdete</h3>
+        <p><span id="usn-total-resolutions">…</span> usnesení a <span id="usn-total-budget-docs">…</span> rozpočtových opatření v aktuálním období.</p>
+        <div class="usn-start-links">
+          <a id="usn-latest-year-link" href="/usneseni/">Nejnovější rok</a>
+          <a href="/rozpoctova-opatreni/">Rozpočtová opatření</a>
+        </div>
+      </section>
+    </div>
+  </div>
   <section id="usn-results-panel" class="usn-results-panel" hidden>
     <div class="usn-results-head">
       <h2>Výsledky</h2>
