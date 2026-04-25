@@ -19,8 +19,6 @@
   let SEARCH_SEQ = 0;
   let currentResults = [];
   let LAST_PARSED = null;
-  let IS_LOADING = false;
-  let SHOULD_SCROLL_TO_RESULTS = false;
   let HAS_ACTIVE_SEARCH = false;
   let LANDING_MANUALLY_OPEN = false;
   let LANDING_HIDE_TIMER = null;
@@ -32,7 +30,6 @@
   const resultsCount = document.getElementById("usn-results-count");
   const resultsKicker = document.getElementById("usn-results-kicker");
   const resultsActions = document.getElementById("usn-results-actions");
-  const resultsHeading = document.querySelector(".usn-results-head");
   const startBox = document.getElementById("usn-start");
   const searchPanel = document.querySelector(".usn-search-panel");
   const backToTopButton = document.getElementById("usn-back-to-top");
@@ -43,27 +40,25 @@
   const sortOptions = document.getElementById("usn-sort-options");
   const typeBox = document.getElementById("usn-type");
   const orgBox = document.getElementById("usn-org");
+  const LOCAL_PARTS = ["Unčovice", "Nasobůrky", "Myslechovice", "Chořelice", "Nová Ves"];
   const STARTER_QUERIES = [
     { label: "Školy a školky", query: "škola" },
     { label: "Doprava a chodníky", query: "chodník" },
     { label: "Sport a kultura", query: "sokolovna" },
-    { label: "Místní části", queries: ["Unčovice", "Nasobůrky", "Myslechovice", "Chořelice", "Nová Ves"] },
+    { label: "Místní části", queries: LOCAL_PARTS },
     { label: "Dotace a dary", query: "dotace" },
     { label: "Odpady a zeleň", query: "odpad" }
   ];
   const STARTER_PLACES = [
     "Litovel",
-    "Unčovice",
-    "Nasobůrky",
-    "Myslechovice",
-    "Chořelice",
-    "Nová Ves"
+    ...LOCAL_PARTS
   ];
 
   // ============================================================
   // NORMALIZACE
   // ============================================================
 
+  // Normalize both indexed text and user input to a comparable ASCII form.
   function normalize(s) {
     return s
       .toLowerCase()
@@ -77,6 +72,7 @@
   // UTIL
   // ============================================================
 
+  // Convert exported IDs into slug-like fragments used in URLs and anchors.
   function anchorFromId(id) {
     return id.replace(/\//g, "-");
   }
@@ -100,6 +96,7 @@
     return location.hash.substring(1).replace(/-/g, "/");
   }
 
+  // Pick a short sentence that can stand in as a result snippet.
   function firstSentence(u) {
     if (u.id && u.id.startsWith("RO/")) {
       const note = u.notes && u.notes.length ? u.notes[0].text : "";
@@ -118,6 +115,7 @@
     return "";
   }
 
+  // Build a broad searchable text blob from the exported payload.
   function extractFullText(u) {
     if (u.id && u.id.startsWith("RO/")) {
       return normalize(
@@ -154,6 +152,7 @@
     return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   }
 
+  // Expand compact organ codes to the reader-facing labels used by filters.
   function normalizedOrgan(u) {
     if (!u || !u.organ) return "";
     if (u.organ === "RM") return "Rada města Litovel";
@@ -173,6 +172,7 @@
     return out;
   }
 
+  // Result cards are rendered from templates, so snippets must be escaped.
   function escapeHtml(text) {
     return String(text || "")
       .replace(/&/g, "&amp;")
@@ -182,6 +182,7 @@
       .replace(/'/g, "&#39;");
   }
 
+  // Some landing chips intentionally rotate through several related queries.
   function starterQueryFor(item) {
     if (Array.isArray(item.queries) && item.queries.length) {
       return item.queries[Math.floor(Math.random() * item.queries.length)];
@@ -193,24 +194,12 @@
     return (text || "").replace(/\s*\(RZ\s+\d+\/\d{4}\/(?:RM|ZM)\)\s*$/i, "").trim();
   }
 
-  function setLoading(loading, text = "Načítám výsledky") {
-    IS_LOADING = loading;
+  // Keep ARIA busy in sync while async searches are in flight.
+  function setBusy(loading) {
     res.setAttribute("aria-busy", loading ? "true" : "false");
   }
 
-  function scrollResultsIntoView() {
-    const target = resultsHeading || resultsPanel || res;
-    const panel = document.querySelector(".usn-search-panel");
-    const isSticky = panel && window.getComputedStyle(panel).position === "sticky";
-    const panelHeight = isSticky && panel ? panel.getBoundingClientRect().height : 0;
-    const targetTop = target.getBoundingClientRect().top + window.scrollY;
-    const offset = panelHeight + 12;
-    window.scrollTo({
-      top: Math.max(0, targetTop - offset),
-      behavior: "smooth"
-    });
-  }
-
+  // Return to the top where the search panel and page intro live.
   function scrollSearchIntoView() {
     window.scrollTo({
       top: 0,
@@ -218,15 +207,13 @@
     });
   }
 
+  // The mobile-only shortcut appears only after the user scrolls deeper down.
   function updateBackToTopVisibility() {
     if (!backToTopButton) return;
     backToTopButton.classList.toggle("is-visible", window.innerWidth <= 700 && window.scrollY > 700);
   }
 
-  function shouldAutoScrollResults() {
-    return false;
-  }
-
+  // Rank RO note/row snippets so the best contextual match appears first.
   function rankRoChunk(chunk, parsed) {
     const text = chunk.text;
     const hasPhrase = text.includes(parsed.raw);
@@ -337,18 +324,19 @@
       }
     }
 
-      return {
-        anchor: topMatches[0].anchor,
-        snippet: cleanRoSnippet(topMatches[0].snippet),
-        matches: topMatches,
-        totalMatches
-      };
-    }
+    return {
+      anchor: topMatches[0].anchor,
+      snippet: cleanRoSnippet(topMatches[0].snippet),
+      matches: topMatches,
+      totalMatches
+    };
+  }
 
   // ============================================================
   // URL STATE
   // ============================================================
 
+  // Keep the current search state in the URL so reload/share works.
   function updateUrl() {
     const params = new URLSearchParams();
 
@@ -363,6 +351,7 @@
     history.replaceState(null, "", "?" + params.toString());
   }
 
+  // Restore filters and the current query from the page URL.
   function loadFromUrl() {
     const params = new URLSearchParams(location.search);
 
@@ -398,6 +387,7 @@
   // DATA LOAD
   // ============================================================
 
+  // Load one year's index and detail payload lazily on demand.
   async function loadYear(year) {
     if (LOADED[year]) return;
 
@@ -433,6 +423,7 @@
     LOADED[year] = true;
   }
 
+  // Read the current filter UI state.
   function selectedYears() {
     return [...yearsBox.querySelectorAll("input:checked")].map(i => i.value);
   }
@@ -474,6 +465,7 @@
   // SUMMARY
   // ============================================================
 
+  // Produce the short line shown under each result header.
   function summaryLabel(u) {
     if (u.id && u.id.startsWith("RO/")) {
       return normalizedOrgan(u) || u.approved_by || "";
@@ -488,6 +480,7 @@
     return `${u.items.length} rozhodnutí`;
   }
 
+  // Shared renderer for “too short”, “not found” and cleared-search states.
   function renderEmptyResultsState({ title, message, hints = [] }) {
     res.innerHTML = `
       <li class="usn-empty-state">
@@ -500,6 +493,7 @@
     `;
   }
 
+  // Animate the landing/tips block without removing it from layout immediately.
   function setLandingVisibility(visible) {
     LANDING_VISIBLE = visible;
     if (LANDING_HIDE_TIMER) {
@@ -526,6 +520,7 @@
     }, 280);
   }
 
+  // Mobile uses a collapsed filter tray; desktop keeps filters visible.
   function setMobileFiltersOpen(open) {
     if (!searchPanel) return;
     searchPanel.classList.toggle("is-open", open);
@@ -535,6 +530,7 @@
     }
   }
 
+  // Secondary actions belong only in the results header.
   function setResultsActions({ showLandingToggle = false } = {}) {
     if (!resultsActions) return;
     const isMobile = window.innerWidth <= 700;
@@ -544,6 +540,7 @@
     resultsActions.innerHTML = toggle;
   }
 
+  // The landing screen needs only light metadata, not the whole archive payload.
   async function loadLandingData() {
     const years = [...new Set([...Object.keys(META), ...Object.keys(RO_META)])]
       .sort()
@@ -563,7 +560,7 @@
         <h2>Najděte usnesení podle tématu, místa nebo služby</h2>
         <p>
           Vyhledávání je dobré, když víte co hledat. Začněte některým z témat níže
-          nebo se podívejte na poslední schválené dokumenty města Litovel.
+          nebo si otevřete to, co se týká vaší části města.
         </p>
         <div class="usn-chip-list">
           ${STARTER_QUERIES.map(item => `
@@ -692,6 +689,7 @@
     return { raw, words, longWords, anchor };
   }
 
+  // Pull likely candidates only from selected years and the strongest anchor term.
   async function collectCandidates(anchor, years) {
     const out = new Map();
 
@@ -724,6 +722,134 @@
     return terms.every(t => text.includes(t));
   }
 
+  // Keep all header/result-state toggles in one place.
+  function showResultsState({ count = "", query = "", showLandingToggle = false } = {}) {
+    resultsPanel.hidden = false;
+    resultsCount.textContent = count;
+    resultsKicker.textContent = query ? `pro dotaz „${query}”` : "";
+    setResultsActions({ showLandingToggle });
+  }
+
+  function clearResultsState() {
+    resultsPanel.hidden = true;
+    resultsCount.textContent = "";
+    resultsKicker.textContent = "";
+    setResultsActions();
+    res.innerHTML = "";
+  }
+
+  function renderClearedSearchState() {
+    showResultsState({ showLandingToggle: true });
+    renderEmptyResultsState({
+      title: "Začněte znovu novým dotazem",
+      message: "Napište téma, místo, službu nebo část města, která vás zajímá.",
+      hints: [
+        "zkuste například „škola“, „Nová Ves“, „dotace“ nebo „chodník“",
+        "můžete použít i filtry pro rok, typ dokumentu nebo schvalující orgán"
+      ]
+    });
+  }
+
+  function renderShortQueryState(query) {
+    showResultsState({
+      query,
+      showLandingToggle: true
+    });
+    renderEmptyResultsState({
+      title: "Zkuste přidat přesnější výraz",
+      message: "Vyhledávání funguje nejlépe od tří písmen nebo z více slov.",
+      hints: [
+        "místo „šk“ zkuste „škola“, „školka“ nebo konkrétní školu",
+        "místo „no“ zkuste „Nová Ves“ nebo „chodník“",
+        "můžete přidat i místo: „Unčovice“, „Nasobůrky“, „Litovel“"
+      ]
+    });
+  }
+
+  function documentMatchesCurrentFilters(u, types, organs) {
+    const matchesType = (u.id.startsWith("RO/") && types.includes("ro"))
+      || (!u.id.startsWith("RO/") && types.includes("usneseni"));
+    return matchesType && organs.includes(normalizedOrgan(u));
+  }
+
+  function filterByCurrentFilters(list, types, organs) {
+    return list.filter(u => documentMatchesCurrentFilters(u, types, organs));
+  }
+
+  // Search in two passes: exact normalized phrase first, all terms second.
+  async function findResults(parsed) {
+    const candidates = await collectCandidates(parsed.anchor, selectedYears());
+    const types = selectedTypes();
+    const organs = selectedOrgans();
+
+    let results = filterByCurrentFilters(
+      candidates.filter(u => matchesPhrase(u, parsed.raw)),
+      types,
+      organs
+    );
+
+    if (!results.length && parsed.longWords.length > 1) {
+      results = filterByCurrentFilters(
+        candidates.filter(u => matchesAllTerms(u, parsed.longWords)),
+        types,
+        organs
+      );
+    }
+
+    return sortResults(results);
+  }
+
+  function renderResultCard(u, parsed) {
+    const staticUrl = staticUrlFromId(u.id);
+    const roMatch = u.id.startsWith("RO/")
+      ? findRoMatchContext(u, parsed)
+      : null;
+    const href = `${staticUrl}?back=${encodeURIComponent(location.pathname + location.search)}`;
+
+    const snippetRaw = ((roMatch && roMatch.snippet) || firstSentence(u) || "").slice(0, SNIPPET_LEN);
+    const snippet = parsed
+      ? highlight(snippetRaw, parsed.longWords)
+      : snippetRaw;
+
+    const isRo = u.id.startsWith("RO/");
+    const typeLabel = isRo ? "Rozpočtové opatření" : "Usnesení";
+    const li = document.createElement("li");
+
+    li.className = "usn-result";
+    li.innerHTML = `
+      <a href="${href}" class="usn-card">
+        <div class="usn-head">
+          <strong>${u.id}</strong>
+          <span class="usn-date">${u.datum || u.approval_date || ""}</span>
+          <span class="usn-doc-type ${isRo ? "usn-doc-type-ro" : "usn-doc-type-usn"}">${typeLabel}</span>
+        </div>
+
+        <div class="usn-summary">${summaryLabel(u)}</div>
+
+        ${isRo ? "" : `<div class="usn-snippet">${snippet}</div>`}
+
+        ${roMatch && roMatch.matches && roMatch.matches.length
+          ? `<div class="usn-ro-matches">${
+            roMatch.matches.map((match, index) => `
+              <a href="${href}${match.anchor ? `#${match.anchor}` : ""}" class="usn-ro-match-item">
+                <span class="usn-ro-match-badge">${index === 0 ? "Shoda" : "Další"}</span>
+                <strong>${match.label}</strong>
+                <span>${highlight((cleanRoSnippet(match.snippet) || match.label).slice(0, SNIPPET_LEN), parsed.longWords)}</span>
+              </a>
+            `).join("")
+          }${
+            roMatch.totalMatches > roMatch.matches.length
+              ? `<div class="usn-ro-match-more">+${roMatch.totalMatches - roMatch.matches.length} další shody v tomto rozpočtovém opatření</div>`
+              : ""
+          }</div>`
+          : ""}
+      </a>
+    `;
+
+    return li;
+  }
+
+  // Main search orchestration: parse input, load candidates, then render state/results.
   async function search() {
     PAGE = 1;
     const seq = ++SEARCH_SEQ;
@@ -734,47 +860,17 @@
 
     if (!parsed || !parsed.anchor) {
       setLandingVisibility(hasQuery ? LANDING_MANUALLY_OPEN : (!HAS_ACTIVE_SEARCH || LANDING_MANUALLY_OPEN));
-      SHOULD_SCROLL_TO_RESULTS = false;
-      setLoading(false);
+      setBusy(false);
       if (!parsed) {
         if (HAS_ACTIVE_SEARCH) {
-          resultsPanel.hidden = false;
-          resultsCount.textContent = "";
-          resultsKicker.textContent = "";
-          setResultsActions({ showLandingToggle: true });
-          renderEmptyResultsState({
-            title: "Začněte znovu novým dotazem",
-            message: "Napište téma, místo, službu nebo část města, která vás zajímá.",
-            hints: [
-              "zkuste například „škola“, „Nová Ves“, „dotace“ nebo „chodník“",
-              "můžete použít i filtry pro rok, typ dokumentu nebo schvalující orgán"
-            ]
-          });
+          renderClearedSearchState();
         } else {
-          resultsPanel.hidden = true;
-          resultsCount.textContent = "";
-          resultsKicker.textContent = "";
-          setResultsActions();
-          res.innerHTML = "";
+          clearResultsState();
         }
         return;
       }
 
-      resultsPanel.hidden = false;
-      resultsCount.textContent = "";
-      resultsKicker.textContent = q.value.trim()
-        ? `pro dotaz „${q.value.trim()}”`
-        : "";
-      setResultsActions({ showLandingToggle: true });
-      renderEmptyResultsState({
-        title: "Zkuste přidat přesnější výraz",
-        message: "Vyhledávání funguje nejlépe od tří písmen nebo z více slov.",
-        hints: [
-          "místo „šk“ zkuste „škola“, „školka“ nebo konkrétní školu",
-          "místo „no“ zkuste „Nová Ves“ nebo „chodník“",
-          "můžete přidat i místo: „Unčovice“, „Nasobůrky“, „Litovel“"
-        ]
-      });
+      renderShortQueryState(q.value.trim());
       return;
     }
 
@@ -783,45 +879,13 @@
       setMobileFiltersOpen(false);
     }
     setLandingVisibility(LANDING_MANUALLY_OPEN);
-    setLoading(true);
-
-    const years = selectedYears();
-    const candidates = await collectCandidates(parsed.anchor, years);
-    const types = selectedTypes();
-
-    let results = candidates.filter(u =>
-      matchesPhrase(u, parsed.raw)
-    );
-
-    results = results.filter(u =>
-      (u.id.startsWith("RO/") && types.includes("ro"))
-      || (!u.id.startsWith("RO/") && types.includes("usneseni"))
-    );
-
-    const organs = selectedOrgans();
-    results = results.filter(u => organs.includes(normalizedOrgan(u)));
-
-    if (!results.length && parsed.longWords.length > 1) {
-      results = candidates.filter(u =>
-        matchesAllTerms(u, parsed.longWords)
-      );
-      results = results.filter(u =>
-        (u.id.startsWith("RO/") && types.includes("ro"))
-        || (!u.id.startsWith("RO/") && types.includes("usneseni"))
-      );
-      results = results.filter(u => organs.includes(normalizedOrgan(u)));
-    }
-
-    results = sortResults(results);
+    setBusy(true);
+    const results = await findResults(parsed);
 
     if (seq !== SEARCH_SEQ) return;
     updateUrl();
     renderResults(results);
-    setLoading(false);
-    if ((SHOULD_SCROLL_TO_RESULTS && window.innerWidth > 700) || shouldAutoScrollResults()) {
-      scrollResultsIntoView();
-      SHOULD_SCROLL_TO_RESULTS = false;
-    }
+    setBusy(false);
   }
 
   // ============================================================
@@ -831,12 +895,11 @@
   function renderResults(list) {
     res.innerHTML = "";
     setLandingVisibility(LANDING_MANUALLY_OPEN);
-    setResultsActions({ showLandingToggle: true });
-    resultsPanel.hidden = false;
-    resultsCount.textContent = `${list.length} výsledků`;
-    resultsKicker.textContent = q.value.trim()
-      ? `pro dotaz „${q.value.trim()}”`
-      : "";
+    showResultsState({
+      count: `${list.length} výsledků`,
+      query: q.value.trim(),
+      showLandingToggle: true
+    });
 
     currentResults = list;
     if (!list.length) {
@@ -853,58 +916,9 @@
     }
 
     const pageItems = paginate(list);
-
     const parsed = LAST_PARSED;
-
     for (const u of pageItems) {
-      const staticUrl = staticUrlFromId(u.id);
-      const roMatch = u.id.startsWith("RO/")
-        ? findRoMatchContext(u, parsed)
-        : null;
-      const href = `${staticUrl}?back=${encodeURIComponent(location.pathname + location.search)}`;
-
-      const snippetRaw = ((roMatch && roMatch.snippet) || firstSentence(u) || "").slice(0, SNIPPET_LEN);
-      const snippet = parsed
-        ? highlight(snippetRaw, parsed.longWords)
-        : snippetRaw;
-
-      const isRo = u.id.startsWith("RO/");
-      const typeLabel = isRo ? "Rozpočtové opatření" : "Usnesení";
-
-      const li = document.createElement("li");
-      li.className = "usn-result";
-
-      li.innerHTML = `
-        <a href="${href}" class="usn-card">
-          <div class="usn-head">
-            <strong>${u.id}</strong>
-            <span class="usn-date">${u.datum || u.approval_date || ""}</span>
-            <span class="usn-doc-type ${isRo ? "usn-doc-type-ro" : "usn-doc-type-usn"}">${typeLabel}</span>
-          </div>
-
-          <div class="usn-summary">${summaryLabel(u)}</div>
-
-          ${isRo ? "" : `<div class="usn-snippet">${snippet}</div>`}
-
-          ${roMatch && roMatch.matches && roMatch.matches.length
-            ? `<div class="usn-ro-matches">${
-              roMatch.matches.map((match, index) => `
-                <a href="${href}${match.anchor ? `#${match.anchor}` : ""}" class="usn-ro-match-item">
-                  <span class="usn-ro-match-badge">${index === 0 ? "Shoda" : "Další"}</span>
-                  <strong>${match.label}</strong>
-                  <span>${highlight((cleanRoSnippet(match.snippet) || match.label).slice(0, SNIPPET_LEN), parsed.longWords)}</span>
-                </a>
-              `).join("")
-            }${
-              roMatch.totalMatches > roMatch.matches.length
-                ? `<div class="usn-ro-match-more">+${roMatch.totalMatches - roMatch.matches.length} další shody v tomto rozpočtovém opatření</div>`
-                : ""
-            }</div>`
-            : ""}
-        </a>
-      `;
-
-      res.appendChild(li);
+      res.appendChild(renderResultCard(u, parsed));
     }
 
     renderPager(list.length);
@@ -924,13 +938,7 @@
     return true;
   }
 
-  // ============================================================
-  // INIT
-  // ============================================================
-
-  async function init() {
-    if (redirectFromHash()) return;
-
+  async function loadMeta() {
     const [metaRes, roMetaRes] = await Promise.allSettled([
       fetch("/assets/usneseni/meta.json"),
       fetch("/assets/usneseni/ro/meta.json")
@@ -942,11 +950,15 @@
     RO_META = roMetaRes.status === "fulfilled" && roMetaRes.value.ok
       ? await roMetaRes.value.json()
       : {};
+  }
 
-    const years = [...new Set([...Object.keys(META), ...Object.keys(RO_META)])]
+  function sortedYearsFromMeta() {
+    return [...new Set([...Object.keys(META), ...Object.keys(RO_META)])]
       .sort()
       .reverse();
+  }
 
+  function renderYearFilters(years) {
     for (const year of years) {
       const count = (META[year]?.count || 0) + (RO_META[year]?.count || 0);
       const label = document.createElement("label");
@@ -957,19 +969,22 @@
       `;
       yearsBox.appendChild(label);
     }
+  }
 
+  function renderYearPresets() {
     yearPresetsBox.innerHTML = `
       <button type="button" class="usn-year-preset" data-year-preset="all">Vše</button>
       <button type="button" class="usn-year-preset" data-year-preset="recent">Poslední 2 roky</button>
     `;
+  }
 
-    loadFromUrl();
-    syncSortChips();
-    await loadLandingData();
-    renderStartState();
+  function searchWithOpenFilters() {
+    setMobileFiltersOpen(true);
+    search();
+  }
 
-    q.addEventListener("input", search);
-    q.addEventListener("search", search);
+  // Split event binding by concern so init stays readable.
+  function bindFilterEvents(years) {
     yearPresetsBox?.addEventListener("click", event => {
       const button = event.target.closest("[data-year-preset]");
       if (!button) return;
@@ -979,26 +994,19 @@
       } else if (preset === "recent") {
         setSelectedYears(years.slice(0, 2));
       }
-      setMobileFiltersOpen(true);
-      search();
+      searchWithOpenFilters();
     });
-    yearsBox.addEventListener("change", () => {
-      setMobileFiltersOpen(true);
-      search();
-    });
-    typeBox.addEventListener("change", () => {
-      setMobileFiltersOpen(true);
-      search();
-    });
-    orgBox.addEventListener("change", () => {
-      setMobileFiltersOpen(true);
-      search();
-    });
+
+    yearsBox.addEventListener("change", searchWithOpenFilters);
+    typeBox.addEventListener("change", searchWithOpenFilters);
+    orgBox.addEventListener("change", searchWithOpenFilters);
+
     sortSel.addEventListener("change", () => {
       setMobileFiltersOpen(true);
       syncSortChips();
       search();
     });
+
     sortOptions?.addEventListener("click", event => {
       const button = event.target.closest("[data-sort-value]");
       if (!button) return;
@@ -1007,15 +1015,23 @@
       syncSortChips();
       search();
     });
+  }
+
+  function bindUiEvents() {
+    q.addEventListener("input", search);
+    q.addEventListener("search", search);
+
     startBox.addEventListener("click", event => {
       const button = event.target.closest("[data-query]");
       if (!button) return;
       q.value = button.dataset.query || "";
       search();
     });
+
     refineToggle?.addEventListener("click", () => {
       setMobileFiltersOpen(!searchPanel.classList.contains("is-open"));
     });
+
     resultsActions?.addEventListener("click", event => {
       const button = event.target.closest("[data-toggle-start]");
       if (!button) return;
@@ -1027,10 +1043,29 @@
       }
       setResultsActions({ showLandingToggle: HAS_ACTIVE_SEARCH });
     });
-    backToTopButton?.addEventListener("click", () => {
-      scrollSearchIntoView();
-    });
+
+    backToTopButton?.addEventListener("click", scrollSearchIntoView);
     window.addEventListener("scroll", updateBackToTopVisibility, { passive: true });
+  }
+
+  // ============================================================
+  // INIT
+  // ============================================================
+
+  async function init() {
+    if (redirectFromHash()) return;
+
+    await loadMeta();
+    const years = sortedYearsFromMeta();
+    renderYearFilters(years);
+    renderYearPresets();
+
+    loadFromUrl();
+    syncSortChips();
+    await loadLandingData();
+    renderStartState();
+    bindFilterEvents(years);
+    bindUiEvents();
     setMobileFiltersOpen(!filtersAreDefault());
     updateBackToTopVisibility();
 
