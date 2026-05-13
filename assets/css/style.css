@@ -975,3 +975,15 @@ mark {
 .archiv-years a:hover {
     text-decoration: underline;
 }
+.sample-letter {
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 1rem;
+  border-left: 4px solid #777;
+  background: #f7f7f7;
+  overflow-wrap: anywhere;
+}
+
+.sample-letter p {
+  margin: 0 0 1rem;
+}
