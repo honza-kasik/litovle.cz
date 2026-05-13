@@ -987,3 +987,35 @@ mark {
 .sample-letter p {
   margin: 0 0 1rem;
 }
+
+.note {
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 1.5rem 0;
+  padding: 1rem;
+  border-left: 4px solid #777;
+  background: #f7f7f7;
+  overflow-wrap: anywhere;
+}
+
+.note p {
+  margin: 0 0 0.75rem;
+}
+
+.note p:last-child {
+  margin-bottom: 0;
+}
+
+.note a {
+  font-weight: 600;
+}
+
+.note.unofficial {
+  border-left-color: #999;
+  background: #fafafa;
+}
+
+.note.warning {
+  border-left-color: #555;
+  background: #f3f3f3;
+}
