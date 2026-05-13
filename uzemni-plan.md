@@ -12,6 +12,10 @@ Tento přehled je určený pro běžné lidi, kteří nejsou právníci, archite
 Vychází z veřejné vyhlášky Městského úřadu Litovel č. j. **LIT 9986/2026**, ze zveřejněných podkladů návrhu Územního plánu Litovel, z obecné úpravy připomínek ve stavebním zákoně a z formulářů odboru výstavby.  
 [Zdroj: veřejná vyhláška](https://www.litovel.eu/filemanager/files/file.php?file=5038163), [zdroj: návrh územního plánu](https://www.litovel.eu/cs/urad/uzemni-planovani-dokumentace/litovel/porizovana-uzemne-planovaci-dokumentace/navrh-uzemniho-planu-litovel-1.html), [zdroj: § 97 stavebního zákona](https://www.zakonyprolidi.cz/cs/2021-283), [zdroj: formuláře odboru výstavby](https://www.litovel.eu/cs/urad/formulare-a-dokumenty-ke-stazeni/odbor-vystavby.html)
 
+<div class="note unofficial">
+<strong>Neoficiální přehled:</strong> tento text není dokument města, nenahrazuje veřejnou vyhlášku ani územně plánovací dokumentaci. Je to jen praktické shrnutí pro lepší orientaci. Závazné jsou vždy zveřejněné dokumenty města a platné právní předpisy.
+</div>
+
 <div class="note">
 <strong>Krátce:</strong> veřejné projednání bude <strong>11. 6. 2026 v 15:00</strong> ve Velkém sále Záložny v Litovli. Připomínku může podat <strong>opravdu každý</strong>. Připomínka musí být <strong>písemná</strong>; konečný termín podle vyhlášky je <strong>26. 6. 2026 včetně</strong>. Pozor: připomínky se teď netýkají celého územního plánu obecně, ale jen <strong>měněných částí po podstatné úpravě návrhu</strong>. <a href="https://www.litovel.eu/filemanager/files/file.php?file=5038163">Zdroj: veřejná vyhláška</a>
 </div>
