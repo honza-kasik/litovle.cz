@@ -113,6 +113,19 @@ h2 {
     gap: 25px;
 }
 
+.landing-section {
+    text-align: center;
+}
+
+.landing-section h2 {
+    margin-bottom: 0.5rem;
+}
+
+.landing-section p {
+    margin: 0 auto;
+    max-width: 38rem;
+}
+
 .item-card {
     background: #ffffff;
     border-radius: 12px;
