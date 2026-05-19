@@ -27,6 +27,12 @@ title: Litovle.cz
 </div>
 
 <div class="item-card landing-card">
+    <h2>📱 Aplikace Svoz odpadu Litovel</h2>
+    <p>Android aplikace s kalendářem svozu odpadu podle ulic a upozorněním před svozem.</p>
+    <a class="button" href="{{ '/aplikace/' | relative_url }}">Zobrazit aplikaci</a>
+</div>
+
+<div class="item-card landing-card">
     <h2>🔍 Vyhledávání v usneseních</h2>
     <p>Vyhledávání v usneseních rady a zastupitelstva města Litovel.</p>
     <a href="{{ '/usneseni/' | relative_url }}" class="button">
