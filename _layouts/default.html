@@ -10,6 +10,51 @@
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
     <link rel="icon" type="image/png" href="{{ '/favicon.png' | relative_url }}" />
 
+    <script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+        "@type": "Organization",
+        "@id": "{{ site.url }}/#organization",
+        "name": "Litovle.cz",
+        "url": "{{ site.url }}",
+        "description": "Nezávislý občanský web s praktickými informacemi a nástroji pro Litovel.",
+        "sameAs": [
+            "https://www.facebook.com/litovle/",
+            "https://github.com/honza-kasik/litovle.cz"
+        ]
+        },
+        {
+        "@type": "WebSite",
+        "@id": "{{ site.url }}/#website",
+        "name": "Litovle.cz",
+        "url": "{{ site.url }}",
+        "description": "Nezávislý občanský web s praktickými informacemi a nástroji pro Litovel.",
+        "publisher": {
+            "@id": "{{ site.url }}/#organization"
+        },
+        "inLanguage": "cs",
+        "hasPart": [
+            {
+            "@type": "WebSite",
+            "name": "Svoz odpadu Litovel",
+            "url": "https://svoz.litovle.cz/",
+            "description": "Kalendář svozu odpadu pro Litovel podle ulic."
+            },
+            {
+            "@type": "SoftwareApplication",
+            "name": "Svoz odpadu Litovel",
+            "operatingSystem": "Android",
+            "applicationCategory": "UtilitiesApplication",
+            "url": "https://play.google.com/store/apps/details?id=cz.litovle.svoz"
+            }
+        ]
+        }
+    ]
+    }
+    </script>
+
     {% if page.layout == "usneseni" %}
     <script type="application/ld+json">
     {
