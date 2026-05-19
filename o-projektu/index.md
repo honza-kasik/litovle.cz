@@ -70,4 +70,10 @@ Zdrojové soubory a navazující nástroje jsou veřejně dohledatelné na GitHu
     <p><a href="https://github.com/honza-kasik/meeting-summarizer">github.com/honza-kasik/meeting-summarizer</a></p>
 </div>
 
+<div class="item-card">
+    <h2>Svoz odpadu Litovel</h2>
+    <p>Zdrojové soubory webu a aplikace pro přehled svozu odpadu podle ulic.</p>
+    <p><a href="https://github.com/honza-kasik/svoz_odpadu_litovel">github.com/honza-kasik/svoz_odpadu_litovel</a></p>
+</div>
+
 Tam, kde jsou použity jazykové modely, slouží jako pomocný nástroj pro formulaci textu nad předem strukturovanými daty. Nejsou autoritou, která rozhoduje o významu témat.
