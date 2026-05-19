@@ -20,9 +20,16 @@ title: Litovle.cz
     </a>
 </div>
 
+<section class="landing-section">
+    <h2>Co tu najdete</h2>
+    <p>
+        Praktické odkazy pro Litovel na jednom místě: svoz odpadu, aplikace, usnesení, zastupitelstvo a novinky.
+    </p>
+</section>
+
 <div class="item-card landing-card primary">
     <h2>🗑️ Svoz odpadu Litovel</h2>
-    <p>Vždy aktuální přehled svozů a kalendář pro obyvatele se všemi změnami.</p>
+    <p>Kalendář svozu odpadu podle ulice, včetně změn termínů.</p>
     <a class="button" href="https://svoz.litovle.cz">Přejít na svoz.litovle.cz</a>
 </div>
 
@@ -34,7 +41,7 @@ title: Litovle.cz
 
 <div class="item-card landing-card">
     <h2>🔍 Vyhledávání v usneseních</h2>
-    <p>Vyhledávání v usneseních rady a zastupitelstva města Litovel.</p>
+    <p>Najděte, co rada nebo zastupitelstvo schválilo k určitému tématu, ulici nebo místu.</p>
     <a href="{{ '/usneseni/' | relative_url }}" class="button">
         Zobrazit vyhledávání
     </a>
@@ -42,16 +49,18 @@ title: Litovle.cz
 
 <div class="item-card landing-card">
     <h2>🗣️ Report ze zastupitelstva</h2>
-    <p>Stručné shrnutí ze zasedání zastupitelstva vytvořené pomocí AI.</p>
+    <p>Stručné shrnutí z jednání zastupitelstva s odkazy na podklady.</p>
     <a href="{{ '/zastupitelstvo/' | relative_url }}" class="button">
         Zobrazit reporty
     </a>
 </div>
 
 <div class="item-card landing-card">
-    <h2>🚧 Připravované projekty</h2>
-    <p class="coming-soon">
-        Další projekty pro Litovel jsou ve vývoji.<br>
-        Brzy zde najdete nové odkazy.
-    </p>
+    <h2>Facebook Litovle.cz</h2>
+    <p>Nové odkazy a upozornění na aktuální věci kolem Litovle.cz.</p>
+    <a href="https://www.facebook.com/litovle/" class="button">
+        Přejít na Facebook
+    </a>
+</div>
+
 </div>
