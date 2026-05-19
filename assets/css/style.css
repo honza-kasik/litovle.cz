@@ -1019,3 +1019,65 @@ mark {
   border-left-color: #555;
   background: #f3f3f3;
 }
+
+.app-intro {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.app-icon {
+  width: 96px;
+  height: 96px;
+  border-radius: 20px;
+  flex: 0 0 auto;
+}
+
+.app-intro p:first-child {
+  margin-top: 0;
+}
+
+.app-store-link {
+  margin-top: .5rem;
+}
+
+.app-screenshots {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0 2rem;
+}
+
+.app-screenshots figure {
+  margin: 0;
+}
+
+.app-screenshots img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.app-screenshots figcaption {
+  margin-top: .5rem;
+  color: #666;
+  font-size: .9rem;
+}
+
+@media (max-width: 640px) {
+  .app-intro {
+    display: block;
+  }
+
+  .app-icon {
+    display: block;
+    margin: 0 auto 1rem;
+  }
+
+  .app-screenshots {
+    grid-template-columns: 1fr;
+  }
+}
