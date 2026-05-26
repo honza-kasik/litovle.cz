@@ -1,11 +1,11 @@
 ---
 layout: default
-title: "Nový územní plán Litovel: co můžu udělat?"
-description: "Jednoduchý přehled pro veřejnost: kdy je veřejné projednání, kdo může podat připomínku, do kdy a jak."
-permalink: /uzemni-plan-litovel-faq/
+title: "Nový územní plán Litovel: praktický průvodce"
+description: "Praktický průvodce pro veřejnost: kdy je veřejné projednání, kdo může podat připomínku, do kdy a jak."
+permalink: /uzemni-plan/
 ---
 
-# Nový územní plán Litovel: co můžu udělat?
+# Nový územní plán Litovel: praktický průvodce
 
 Tento přehled je určený pro běžné lidi, kteří nejsou právníci, architekti ani úředníci, ale chtějí vědět, co se děje, jestli se jich to týká a co případně můžou udělat.
 
