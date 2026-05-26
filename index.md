@@ -8,15 +8,15 @@ title: Litovle.cz
 <div class="item-card landing-card notice">
     <h2>🗺️ Nový územní plán Litovel</h2>
     <p>
-        Praktické FAQ k veřejnému projednání upraveného návrhu územního plánu:
+        Praktický průvodce k veřejnému projednání upraveného návrhu územního plánu:
         kdo může podat připomínku, do kdy, jak a k čemu.
     </p>
     <p class="coming-soon">
         Veřejné projednání: <strong>11. 6. 2026 v 15:00</strong><br>
         Konečný termín připomínek: <strong>26. 6. 2026</strong>
     </p>
-    <a href="{{ '/uzemni-plan-litovel-faq/' | relative_url }}" class="button">
-        Zobrazit FAQ
+    <a href="{{ '/uzemni-plan/' | relative_url }}" class="button">
+        Zobrazit průvodce
     </a>
 </div>
 
