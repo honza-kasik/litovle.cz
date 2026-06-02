@@ -6,15 +6,20 @@
   const PAGE_SIZE = 20;
   const SNIPPET_LEN = 180;
   const SEARCH_DEBOUNCE_MS = 140;
+  const DEFAULT_SEARCH_YEARS = 5;
 
   let META = {};
   let RO_META = {};
+  let ARCHIVE_META = {};
   let INDEX = {};
   let DATA = {};
   let DATA_MAP = {};
   let RO_INDEX = {};
   let RO_DATA = {};
   let RO_DATA_MAP = {};
+  let ARCHIVE_INDEX = {};
+  let ARCHIVE_DATA = {};
+  let ARCHIVE_DATA_MAP = {};
   let LOADED = {};
   let LOAD_PROMISES = {};
   let PAGE = 1;
@@ -92,6 +97,18 @@
     return `/usneseni/${year}/${slug}/`;
   }
 
+  function isArchiveRecord(u) {
+    return u.type === "archive_document" || u.type === "archive_resolution";
+  }
+
+  function hrefFromRecord(u) {
+    if (isArchiveRecord(u)) {
+      return u.permalink || u.source_url || u.original_file_url || "#";
+    }
+
+    return `${staticUrlFromId(u.id)}?back=${encodeURIComponent(location.pathname + location.search)}`;
+  }
+
   function idFromHash() {
     if (!location.hash) return null;
     return location.hash.substring(1).replace(/-/g, "/");
@@ -99,6 +116,10 @@
 
   // Pick a short sentence that can stand in as a result snippet.
   function firstSentence(u) {
+    if (isArchiveRecord(u)) {
+      return (u.display_text || u.search_text || "").replace(/\s+/g, " ").trim();
+    }
+
     if (u.id && u.id.startsWith("RO/")) {
       const note = u.notes && u.notes.length ? u.notes[0].text : "";
       if (note) return note;
@@ -119,6 +140,20 @@
   // Build the normalized text blob once when data is loaded, then reuse it.
   // This keeps search cheap while preserving the same broad matching behavior.
   function buildSearchText(u) {
+    if (isArchiveRecord(u)) {
+      return normalize(
+        [
+          u.id || "",
+          u.title || "",
+          u.date || "",
+          u.period || "",
+          u.organ || "",
+          u.search_text || "",
+          u.display_text || ""
+        ].join(" ")
+      );
+    }
+
     if (u.id && u.id.startsWith("RO/")) {
       return normalize(
         [
@@ -442,11 +477,20 @@
     if (LOAD_PROMISES[year]) return LOAD_PROMISES[year];
 
     LOAD_PROMISES[year] = (async () => {
-      const [indexRes, dataRes, roIndexRes, roDataRes] = await Promise.allSettled([
+      const [
+        indexRes,
+        dataRes,
+        roIndexRes,
+        roDataRes,
+        archiveIndexRes,
+        archiveDataRes
+      ] = await Promise.allSettled([
         fetch(`/assets/usneseni/index/${year}.json`),
         fetch(`/assets/usneseni/data/${year}.json`),
         fetch(`/assets/usneseni/ro/index/${year}.json`),
-        fetch(`/assets/usneseni/ro/data/${year}.json`)
+        fetch(`/assets/usneseni/ro/data/${year}.json`),
+        fetch(`/assets/usneseni/archive/index/${year}.json`),
+        fetch(`/assets/usneseni/archive/data/${year}.json`)
       ]);
 
       INDEX[year] = {};
@@ -455,6 +499,9 @@
       RO_INDEX[year] = {};
       RO_DATA[year] = [];
       RO_DATA_MAP[year] = {};
+      ARCHIVE_INDEX[year] = {};
+      ARCHIVE_DATA[year] = [];
+      ARCHIVE_DATA_MAP[year] = {};
 
       if (indexRes.status === "fulfilled" && indexRes.value.ok) {
         INDEX[year] = await indexRes.value.json();
@@ -476,6 +523,16 @@
         });
         RO_DATA_MAP[year] = Object.fromEntries(RO_DATA[year].map(u => [u.id, u]));
       }
+      if (archiveIndexRes.status === "fulfilled" && archiveIndexRes.value.ok) {
+        ARCHIVE_INDEX[year] = await archiveIndexRes.value.json();
+      }
+      if (archiveDataRes.status === "fulfilled" && archiveDataRes.value.ok) {
+        ARCHIVE_DATA[year] = await archiveDataRes.value.json();
+        ARCHIVE_DATA[year].forEach(u => {
+          u._searchText = buildSearchText(u);
+        });
+        ARCHIVE_DATA_MAP[year] = Object.fromEntries(ARCHIVE_DATA[year].map(u => [u.id, u]));
+      }
 
       LOADED[year] = true;
       delete LOAD_PROMISES[year];
@@ -496,9 +553,13 @@
     });
   }
 
+  function defaultYears(years) {
+    return years.slice(0, DEFAULT_SEARCH_YEARS);
+  }
+
   function filtersAreDefault() {
     return (
-      YEAR_INPUTS.every(input => input.checked)
+      selectedYears().join("|") === defaultYears(sortedYearsFromMeta()).join("|")
       && TYPE_INPUTS.every(input => input.checked)
       && ORG_INPUTS.every(input => input.checked)
       && sortSel.value === "desc"
@@ -528,6 +589,15 @@
 
   // Produce the short line shown under each result header.
   function summaryLabel(u) {
+    if (isArchiveRecord(u)) {
+      return [
+        u.organ || "Zastupitelstvo města Litovel",
+        u.period ? `období ${u.period}` : "",
+        u.meeting_no ? `${u.meeting_no}. zasedání` : "",
+        u.type === "archive_resolution" && u.resolution_no ? `usnesení ${u.resolution_no}` : ""
+      ].filter(Boolean).join(" · ");
+    }
+
     if (u.id && u.id.startsWith("RO/")) {
       return normalizedOrgan(u) || u.approved_by || "";
     }
@@ -662,8 +732,8 @@
 
   function sortResults(list) {
     return list.sort((a, b) => {
-      const aDate = a.datum || a.approval_date || "";
-      const bDate = b.datum || b.approval_date || "";
+      const aDate = a.datum || a.approval_date || a.date || "";
+      const bDate = b.datum || b.approval_date || b.date || "";
 
       if (!aDate || !bDate) return 0;
       return sortSel.value === "asc"
@@ -759,6 +829,7 @@
     for (const y of years) {
       const resolutionHit = INDEX[y][anchor] || [];
       const roHit = RO_INDEX[y][anchor] || [];
+      const archiveHit = ARCHIVE_INDEX[y][anchor] || [];
 
       for (const id of resolutionHit) {
         const u = DATA_MAP[y][id];
@@ -767,6 +838,11 @@
 
       for (const id of roHit) {
         const u = RO_DATA_MAP[y][id];
+        if (u) out.set(id, u);
+      }
+
+      for (const id of archiveHit) {
+        const u = ARCHIVE_DATA_MAP[y][id];
         if (u) out.set(id, u);
       }
     }
@@ -828,8 +904,9 @@
   }
 
   function documentMatchesCurrentFilters(u, types, organs) {
-    const matchesType = (u.id.startsWith("RO/") && types.includes("ro"))
-      || (!u.id.startsWith("RO/") && types.includes("usneseni"));
+    const isRo = u.id && u.id.startsWith("RO/");
+    const matchesType = (isRo && types.includes("ro"))
+      || (!isRo && types.includes("usneseni"));
     return matchesType && organs.includes(normalizedOrgan(u));
   }
 
@@ -861,31 +938,37 @@
   }
 
   function renderResultCard(u, parsed) {
-    const staticUrl = staticUrlFromId(u.id);
+    const isArchive = isArchiveRecord(u);
     const roMatch = u.id.startsWith("RO/")
       ? findRoMatchContext(u, parsed)
       : null;
-    const href = `${staticUrl}?back=${encodeURIComponent(location.pathname + location.search)}`;
+    const href = hrefFromRecord(u);
+    const linkAttrs = "";
 
     const snippetRaw = ((roMatch && roMatch.snippet) || firstSentence(u) || "").slice(0, SNIPPET_LEN);
+    const snippetSafe = escapeHtml(snippetRaw);
     const snippet = parsed
-      ? highlight(snippetRaw, parsed.longWords)
-      : snippetRaw;
+      ? highlight(snippetSafe, parsed.longWords)
+      : snippetSafe;
 
     const isRo = u.id.startsWith("RO/");
-    const typeLabel = isRo ? "Rozpočtové opatření" : "Usnesení";
+    const typeLabel = u.type === "archive_document" ? "Archivní dokument" : (isArchive ? "Archivní usnesení" : (isRo ? "Rozpočtové opatření" : "Usnesení"));
+    const typeClass = isArchive ? "usn-doc-type-archive" : (isRo ? "usn-doc-type-ro" : "usn-doc-type-usn");
+    const title = isArchive ? (u.title || u.id) : u.id;
+    const date = u.datum || u.approval_date || u.date || "";
     const li = document.createElement("li");
 
     li.className = "usn-result";
+
     li.innerHTML = `
-      <a href="${href}" class="usn-card">
+      <a href="${escapeHtml(href)}" class="usn-card"${linkAttrs}>
         <div class="usn-head">
-          <strong>${u.id}</strong>
-          <span class="usn-date">${u.datum || u.approval_date || ""}</span>
-          <span class="usn-doc-type ${isRo ? "usn-doc-type-ro" : "usn-doc-type-usn"}">${typeLabel}</span>
+          <strong>${escapeHtml(title)}</strong>
+          <span class="usn-date">${escapeHtml(date)}</span>
+          <span class="usn-doc-type ${typeClass}">${typeLabel}</span>
         </div>
 
-        <div class="usn-summary">${summaryLabel(u)}</div>
+        <div class="usn-summary">${escapeHtml(summaryLabel(u))}</div>
 
         ${isRo ? "" : `<div class="usn-snippet">${snippet}</div>`}
 
@@ -967,7 +1050,7 @@
     if (!list.length) {
       renderEmptyResultsState({
         title: "Zkuste jiné slovo nebo širší pojem",
-        message: "Tento dotaz teď v usneseních a rozpočtových opatřeních nevidíme.",
+        message: "Tento dotaz teď v usneseních, archivu ani rozpočtových opatřeních nevidíme.",
         hints: [
           "zkuste obecnější pojem, například „škola“, „dotace“ nebo „chodník“",
           "zkuste konkrétní místo, například „Nová Ves“ nebo „Unčovice“",
@@ -1005,9 +1088,10 @@
   }
 
   async function loadMeta() {
-    const [metaRes, roMetaRes] = await Promise.allSettled([
+    const [metaRes, roMetaRes, archiveMetaRes] = await Promise.allSettled([
       fetch("/assets/usneseni/meta.json"),
-      fetch("/assets/usneseni/ro/meta.json")
+      fetch("/assets/usneseni/ro/meta.json"),
+      fetch("/assets/usneseni/archive/meta.json")
     ]);
 
     META = metaRes.status === "fulfilled" && metaRes.value.ok
@@ -1016,21 +1100,24 @@
     RO_META = roMetaRes.status === "fulfilled" && roMetaRes.value.ok
       ? await roMetaRes.value.json()
       : {};
+    ARCHIVE_META = archiveMetaRes.status === "fulfilled" && archiveMetaRes.value.ok
+      ? await archiveMetaRes.value.json()
+      : {};
   }
 
   function sortedYearsFromMeta() {
-    return [...new Set([...Object.keys(META), ...Object.keys(RO_META)])]
+    return [...new Set([...Object.keys(META), ...Object.keys(RO_META), ...Object.keys(ARCHIVE_META)])]
       .sort()
       .reverse();
   }
 
   function renderYearFilters(years) {
     for (const year of years) {
-      const count = (META[year]?.count || 0) + (RO_META[year]?.count || 0);
+      const count = (META[year]?.count || 0) + (RO_META[year]?.count || 0) + (ARCHIVE_META[year]?.count || 0);
       const label = document.createElement("label");
       label.className = "usn-year";
       label.innerHTML = `
-        <input type="checkbox" value="${year}" checked>
+        <input type="checkbox" value="${year}">
         ${year} (${count})
       `;
       yearsBox.appendChild(label);
@@ -1040,6 +1127,7 @@
 
   function renderYearPresets() {
     yearPresetsBox.innerHTML = `
+      <button type="button" class="usn-year-preset" data-year-preset="default">Posledních 5 let</button>
       <button type="button" class="usn-year-preset" data-year-preset="all">Vše</button>
       <button type="button" class="usn-year-preset" data-year-preset="recent">Poslední 2 roky</button>
     `;
@@ -1060,7 +1148,9 @@
       const button = event.target.closest("[data-year-preset]");
       if (!button) return;
       const preset = button.dataset.yearPreset;
-      if (preset === "all") {
+      if (preset === "default") {
+        setSelectedYears(defaultYears(years));
+      } else if (preset === "all") {
         setSelectedYears(years);
       } else if (preset === "recent") {
         setSelectedYears(years.slice(0, 2));
@@ -1145,6 +1235,7 @@
       await loadMeta();
       const years = sortedYearsFromMeta();
       renderYearFilters(years);
+      setSelectedYears(defaultYears(years));
       renderYearPresets();
 
       loadFromUrl();
