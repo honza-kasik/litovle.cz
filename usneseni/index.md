@@ -732,6 +732,7 @@ Zjistěte, co město schválilo pro vaše téma, ulici nebo místní část.
         <div class="usn-start-links">
           <a id="usn-latest-year-link" href="/usneseni/">Nejnovější rok</a>
           <a href="/rozpoctova-opatreni/">Rozpočtová opatření</a>
+          <a href="/usneseni/archiv/">Archiv usnesení</a>
         </div>
       </section>
     </div>
