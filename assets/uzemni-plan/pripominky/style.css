@@ -212,4 +212,9 @@ mark {
   .uzp-filters {
     grid-template-columns: 1fr;
   }
+
+  .uzp-search-panel {
+    position: static;
+    padding: 18px;
+  }
 }
