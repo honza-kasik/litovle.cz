@@ -1,0 +1,118 @@
+{
+  "pages_total": 658,
+  "parsed_page_range": [
+    521,
+    655
+  ],
+  "records_total": 636,
+  "records_by_section": {
+    "N.1.1": 631,
+    "N.1.2": 2,
+    "N.1.3": 3
+  },
+  "records_by_result": {
+    "nevyhoveno": 124,
+    "castecne_vyhoveno": 27,
+    "vyhoveno": 364,
+    "mixed": 117,
+    "unknown": 2,
+    "neprihlizi_se": 2
+  },
+  "records_by_confidence": {
+    "high": 636
+  },
+  "records_with_subids": 479,
+  "records_missing_request_text": [
+    "pripominka-166b"
+  ],
+  "records_missing_evaluation_text": [],
+  "records_missing_reasoning_text": [],
+  "first_records_preview": [
+    {
+      "id": "pripominka-001",
+      "display_id": "001",
+      "section": "N.1.1",
+      "page_start": 521,
+      "result": "nevyhoveno",
+      "request_text": "požaduje změnu parc.č. 263/1, 263/3 v k.ú. Rozvadovice na plochu smíšenou obytnou – ostatní, polovinu plochy využití na RD (zástavba řadovými domky), druhou polovinu sousedící ze Z"
+    },
+    {
+      "id": "pripominka-002",
+      "display_id": "002",
+      "section": "N.1.1",
+      "page_start": 521,
+      "result": "castecne_vyhoveno",
+      "request_text": "požaduje změnu parc.č. 172/1 v k.ú. Unčovice do plochy smíšené obytné anebo plochu bydlení, nesouhlasí se zařazením do plochy pro komunikaci, požaduji aby bylo na mém pozemku možné"
+    },
+    {
+      "id": "pripominka-003",
+      "display_id": "003",
+      "section": "N.1.1",
+      "page_start": 522,
+      "result": "vyhoveno",
+      "request_text": "nesouhlasí se zahrnutím objektu fary do plochy OV, objekt je využíván pro trvalé bydlení osob, požaduje změnu pozemku st.p. 53/1 v k.ú. Chudobín do plochy pro bydlení v bytovém dom"
+    },
+    {
+      "id": "pripominka-004",
+      "display_id": "004",
+      "section": "N.1.1",
+      "page_start": 522,
+      "result": "nevyhoveno",
+      "request_text": "požaduje zařazení parc.č. 981/1, 981/2 v k.ú. Litovel do plochy smíšené obytné všeobecné"
+    },
+    {
+      "id": "pripominka-005",
+      "display_id": "005",
+      "section": "N.1.1",
+      "page_start": 522,
+      "result": "vyhoveno",
+      "request_text": "požaduje zařazení parc.č. 1546/2 v k.ú. Litovel do plochy smíšené obytné"
+    },
+    {
+      "id": "pripominka-006",
+      "display_id": "006",
+      "section": "N.1.1",
+      "page_start": 522,
+      "result": "castecne_vyhoveno",
+      "request_text": "požaduje zařazení parc.č. 187/10, 187/12 v k.ú. Nasobůrky do plochy HU- smíšené výrobní všeobecné, kde by bylo možné vytvořit auto-myčku, stanici PHM či parkoviště, prostor pro inv"
+    },
+    {
+      "id": "pripominka-007",
+      "display_id": "007",
+      "section": "N.1.1",
+      "page_start": 523,
+      "result": "vyhoveno",
+      "request_text": "požaduje odstranění podmínky na zpracování územní studie pro parc.č. 1477/3, 1477/9, 1477/29, 1477/24, 1688/9, 1688/10 v k.ú. Litovel a zapracování aktuální podkladové studie"
+    },
+    {
+      "id": "pripominka-008",
+      "display_id": "008",
+      "section": "N.1.1",
+      "page_start": 523,
+      "result": "nevyhoveno",
+      "request_text": "požaduje možnost stavby RD na parc.č. 1814/1 v k.ú. Litovel, byla přiložena i předběžná stanoviska Povodí Moravy z 10/2021 a AOPK z 05/2021."
+    },
+    {
+      "id": "pripominka-009",
+      "display_id": "009",
+      "section": "N.1.1",
+      "page_start": 524,
+      "result": "vyhoveno",
+      "request_text": "požaduje zapracování územní studie pro parc.č. 82/1 v k.ú. Nasobůrky do územního plánu, územní studie je v souladu s návrhem nového ÚP"
+    },
+    {
+      "id": "pripominka-010",
+      "display_id": "010",
+      "section": "N.1.1",
+      "page_start": 524,
+      "result": "nevyhoveno",
+      "request_text": "požaduje o zařazení pozemků parc.č. 130/51, 130/50, 130/52, 131/2, 131/1, 121 v k.ú. Myslechovice do plochy zeleně zahradní a sadové ZZ, požadavek uplatnili žadatelé již do zadání "
+    }
+  ],
+  "warnings": [
+    "129-149-397: text before first subrecord was kept with first subrecord",
+    "159: text before first subrecord was kept with first subrecord",
+    "166: text before first subrecord was kept with first subrecord",
+    "268: text before first subrecord was kept with first subrecord"
+  ]
+}
