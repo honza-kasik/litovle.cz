@@ -97,6 +97,8 @@
     {{ content }}
 </main>
 
+<button type="button" id="site-back-to-top" class="site-back-to-top" aria-label="Zpět nahoru">↑ Nahoru</button>
+
 <footer class="site-footer">
     © 2026 Litovle.cz · nezávislá občanská iniciativa<br>
     Vytvořil a spravuje Honza Kašík · <a href="https://honzakasik.cz" target="_blank" rel="noopener">honzakasik.cz</a>
@@ -104,6 +106,26 @@
 
 <!-- 100% privacy-first analytics -->
 <script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+
+<script>
+(() => {
+    const button = document.getElementById("site-back-to-top");
+    if (!button || document.getElementById("usn-back-to-top")) return;
+
+    const syncVisibility = () => {
+        button.classList.toggle("is-visible", window.innerWidth <= 700 && window.scrollY > 700);
+    };
+
+    button.addEventListener("click", () => {
+        const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        window.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" });
+    });
+
+    window.addEventListener("scroll", syncVisibility, { passive: true });
+    window.addEventListener("resize", syncVisibility);
+    syncVisibility();
+})();
+</script>
 
 </body>
 </html>
