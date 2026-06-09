@@ -1,0 +1,18 @@
+{
+  "document_id": "uzemni-plan-litovel-ovp-2026-05-oduvodneni",
+  "title": "Odůvodnění územního plánu Litovel – textová část",
+  "indexed_section": "N. Vyhodnocení připomínek, včetně jeho odůvodnění",
+  "phase": "návrh pro OVP",
+  "phase_label": "květen 2026",
+  "public_context_label": "spojené opakované společné jednání a veřejné projednání – červen 2026",
+  "source_pdf": "data/uzemni-plan/source/up_litovel_ovp_ii_0_text_oduvodneni.pdf",
+  "source_url": "https://www.litovel.eu/filemanager/files/file.php?file=5038108&xuser=981195827674277749",
+  "source_page_url": "https://www.litovel.eu/cs/urad/uzemni-planovani-dokumentace/litovel/porizovana-uzemne-planovaci-dokumentace/navrh-uzemniho-planu-litovel-1.html",
+  "pdf_pages_total": 658,
+  "indexed_pdf_pages": [
+    521,
+    655
+  ],
+  "parser_version": "2026-06-09",
+  "extraction_method": "pdfplumber"
+}

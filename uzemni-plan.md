@@ -1,26 +1,317 @@
 ---
 layout: default
-title: "Nový územní plán Litovel: praktický průvodce"
+title: "Územní plán Litovel: praktický průvodce"
 description: "Praktický průvodce pro veřejnost: kdy je veřejné projednání, kdo může podat připomínku, do kdy a jak."
 permalink: /uzemni-plan/
 ---
 
-# Nový územní plán Litovel: praktický průvodce
+<style>
+.up-deadlines h2,
+.up-search-box h2 {
+  margin-top: 0;
+}
 
-Tento přehled je určený pro běžné lidi, kteří nejsou právníci, architekti ani úředníci, ale chtějí vědět, co se děje, jestli se jich to týká a co případně můžou udělat.
+.up-action-grid,
+.up-top-grid,
+.up-doc-grid {
+  display: grid;
+  gap: 1rem;
+}
 
-Vychází z veřejné vyhlášky Městského úřadu Litovel č. j. **LIT 9986/2026**, ze zveřejněných podkladů návrhu Územního plánu Litovel, z obecné úpravy připomínek ve stavebním zákoně a z formulářů odboru výstavby.  
-[Zdroj: veřejná vyhláška](https://www.litovel.eu/filemanager/files/file.php?file=5038163), [zdroj: návrh územního plánu](https://www.litovel.eu/cs/urad/uzemni-planovani-dokumentace/litovel/porizovana-uzemne-planovaci-dokumentace/navrh-uzemniho-planu-litovel-1.html), [zdroj: § 97 stavebního zákona](https://www.zakonyprolidi.cz/cs/2021-283), [zdroj: formuláře odboru výstavby](https://www.litovel.eu/cs/urad/formulare-a-dokumenty-ke-stazeni/odbor-vystavby.html)
+.up-top-grid {
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr);
+  align-items: start;
+  margin: 1rem 0 1.8rem;
+}
 
-<div class="note unofficial">
-<strong>Neoficiální přehled:</strong> tento text není dokument města, nenahrazuje veřejnou vyhlášku ani územně plánovací dokumentaci. Je to jen praktické shrnutí pro lepší orientaci. Závazné jsou vždy zveřejněné dokumenty města a platné právní předpisy.
+.up-top-grid > .item-card {
+  margin-bottom: 0;
+}
+
+.up-top-side {
+  display: grid;
+  gap: .75rem;
+}
+
+.up-deadlines {
+  padding: 1rem 1.1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+}
+
+.up-deadlines h2 {
+  font-size: 1.05rem;
+}
+
+.up-deadline-list {
+  display: grid;
+  gap: .75rem;
+  margin: .8rem 0 0;
+}
+
+.up-deadline-list dt {
+  color: #555;
+  font-size: .9rem;
+  font-weight: 700;
+}
+
+.up-deadline-list dd {
+  margin: .2rem 0 0;
+  font-weight: 600;
+}
+
+.up-card p,
+.up-doc-item dd,
+.up-muted {
+  color: #555;
+}
+
+.up-meta-note {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem .8rem;
+  align-items: baseline;
+  margin: -1rem 0 2rem;
+  color: #555;
+  font-size: .95rem;
+}
+
+.up-meta-note p {
+  margin: 0;
+}
+
+.up-action-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-bottom: 3rem;
+}
+
+.up-card {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  margin-bottom: 0;
+  border: 1px solid transparent;
+  color: inherit;
+  text-align: left;
+  text-decoration: none;
+}
+
+.up-card:hover {
+  background: #f5f5f5;
+  border-color: #2f855a;
+}
+
+.up-card:focus-visible {
+  outline: 2px solid #2f855a;
+  outline-offset: 2px;
+}
+
+.up-card h3,
+.up-card p {
+  margin: 0;
+}
+
+.up-card h3 {
+  font-size: 1.05rem;
+}
+
+.up-primary-card {
+  border-left: 5px solid #2f855a;
+}
+
+.up-primary-card h2 {
+  margin-top: 0;
+}
+
+.up-card-link {
+  margin-top: 1rem;
+  color: #2f855a;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.up-doc-grid {
+  grid-template-columns: 1fr;
+}
+
+.up-doc-item {
+  border-bottom: 1px solid #e5e7eb;
+  margin: 0;
+  padding: .8rem 0;
+}
+
+.up-doc-item dt {
+  font-weight: 700;
+}
+
+.up-doc-item dd {
+  margin: .25rem 0 0;
+}
+
+.up-doc-note {
+  margin-top: .4rem;
+}
+
+.up-section {
+  margin-top: 2rem;
+}
+
+.up-quick-links {
+  margin: 0;
+  font-weight: 600;
+}
+
+.up-term-link {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .18em;
+}
+
+.up-actions {
+  display: flow-root;
+  margin-bottom: 3rem;
+}
+
+.up-actions + h2 {
+  clear: both;
+  margin-top: 3rem;
+}
+
+@media (max-width: 760px) {
+  .up-top-grid,
+  .up-action-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
+# Územní plán Litovel: praktický průvodce
+
+Praktický přehled pro lepší orientaci v návrhu územního plánu, veřejném projednání, připomínkách a zveřejněných dokumentech.
+
+<div class="up-top-grid">
+  <a class="item-card up-card up-primary-card" href="/uzemni-plan/pripominky/">
+    <h2>Hledat ve vypořádání připomínek</h2>
+    <p>Vyhledávání v kapitole N podle čísla připomínky, lokality, ulice, parcely nebo tématu.</p>
+    <span class="up-card-link">Otevřít vyhledávání</span>
+  </a>
+
+  <div class="up-top-side">
+    <section class="up-deadlines" aria-labelledby="up-deadlines-title">
+      <h2 id="up-deadlines-title">Termíny</h2>
+      <dl class="up-deadline-list">
+        <div>
+          <dt>Veřejné projednání</dt>
+          <dd>11. 6. 2026 v 15:00, Velký sál Záložny, Litovel</dd>
+        </div>
+        <div>
+          <dt>Termín pro připomínky</dt>
+          <dd>26. 6. 2026 včetně</dd>
+        </div>
+      </dl>
+    </section>
+
+  </div>
 </div>
 
-<div class="note">
-<strong>Krátce:</strong> veřejné projednání bude <strong>11. 6. 2026 v 15:00</strong> ve Velkém sále Záložny v Litovli. Připomínku může podat <strong>opravdu každý</strong>. Připomínka musí být <strong>písemná</strong>; konečný termín podle vyhlášky je <strong>26. 6. 2026 včetně</strong>. Pozor: připomínky se teď netýkají celého územního plánu obecně, ale jen <strong>měněných částí po podstatné úpravě návrhu</strong>. <a href="https://www.litovel.eu/filemanager/files/file.php?file=5038163">Zdroj: veřejná vyhláška</a>
+<div class="up-meta-note">
+  <p><strong>Neoficiální přehled:</strong> závazné jsou dokumenty města a platné právní předpisy.</p>
+  <p class="up-quick-links"><a href="#podrobne-otazky">Přejít na podrobné otázky a odpovědi</a></p>
 </div>
 
-## Obsah {#obsah}
+<section class="up-section up-actions" aria-labelledby="up-actions-title">
+  <h2 id="up-actions-title">Co chcete udělat?</h2>
+
+  <div class="up-action-grid">
+    <a class="item-card up-card" href="#jak-podat-pripominku">
+      <h3>Chci podat připomínku</h3>
+      <p>Termín, pravidla, co musí připomínka obsahovat a kam ji doručit.</p>
+      <span class="up-card-link">Přejít na návod</span>
+    </a>
+
+    <a class="item-card up-card" href="#jak-se-vyznat">
+      <h3>Chci zjistit, co se mění</h3>
+      <p>Kde hledat měněné části návrhu, mapy, plochy a označení lokalit.</p>
+      <span class="up-card-link">Jak se vyznat v dokumentech</span>
+    </a>
+
+  </div>
+</section>
+
+## Co je teď nejdůležitější
+
+- Teď se neprojednává celý územní plán od začátku.
+- Připomínky lze podat jen k [měněným částem po podstatné úpravě návrhu](#menene-casti){:.up-term-link}.
+- Připomínka musí být písemná.
+- Musí být jasné, jakého území se týká a proč.
+
+## Jak postupovat {#jak-podat-pripominku}
+
+1. Najděte místo v mapě nebo dokumentaci.
+2. Zapište si označení plochy, koridoru, lokality nebo parcely.
+3. Ověřte, jestli jde o [měněnou část po podstatné úpravě návrhu](#menene-casti){:.up-term-link}.
+4. Napište konkrétní připomínku.
+5. Podejte ji písemně do termínu.
+
+<section id="jak-se-vyznat" class="up-section" aria-labelledby="jak-se-vyznat-title">
+  <h2 id="jak-se-vyznat-title">Jak se vyznat v dokumentech</h2>
+
+  <p>Dokument „Odůvodnění územního plánu – textová část“ má stovky stran. Není nutné číst ho celý od začátku. Každá část slouží k něčemu jinému.</p>
+
+  <dl class="up-doc-grid">
+    <div class="up-doc-item">
+      <dt>Když hledáte, jak proces probíhal</dt>
+      <dd>Začněte kapitolou A – Postup pořízení územního plánu.</dd>
+    </div>
+    <div class="up-doc-item">
+      <dt>Když hledáte, co řekly úřady</dt>
+      <dd>Začněte kapitolou C – Stanoviska dotčených orgánů.</dd>
+    </div>
+    <div class="up-doc-item">
+      <dt>Když hledáte pokyny a úpravy návrhu</dt>
+      <dd>Začněte kapitolou E – Soulad se zadáním a pokyny.</dd>
+    </div>
+    <div class="up-doc-item">
+      <dt>Když hledáte podstatnou úpravu návrhu</dt>
+      <dd>Začněte kapitolou F.4 – Podstatná úprava návrhu pro opakované veřejné projednání.</dd>
+    </div>
+    <div class="up-doc-item">
+      <dt>Když hledáte, proč je něco navrženo</dt>
+      <dd>Začněte kapitolou I – Komplexní zdůvodnění přijatého řešení.</dd>
+    </div>
+    <div class="up-doc-item">
+      <dt>Když hledáte zábory zemědělské půdy nebo lesa</dt>
+      <dd>Začněte kapitolou M – ZPF a PUPFL.</dd>
+    </div>
+    <div class="up-doc-item">
+      <dt>Když hledáte vypořádání připomínek</dt>
+      <dd>
+        Začněte kapitolou N – Vyhodnocení připomínek.
+        <div class="up-doc-note">Pro kapitolu N je dostupné samostatné vyhledávání: <a href="/uzemni-plan/pripominky/">Hledat ve vyhodnocení připomínek</a>.</div>
+      </dd>
+    </div>
+    <div class="up-doc-item">
+      <dt>Když hledáte technický standard dokumentu</dt>
+      <dd>Začněte kapitolou O – Jednotný standard.</dd>
+    </div>
+  </dl>
+</section>
+
+<section class="item-card up-search-box" aria-labelledby="up-search-title">
+  <h2 id="up-search-title">Vyhledávání ve vypořádání připomínek</h2>
+  <p>Kapitola N obsahuje vyhodnocení připomínek k návrhu územního plánu. Pro rychlejší orientaci je možné v ní hledat podle čísla připomínky, lokality, ulice, parcely nebo tématu.</p>
+  <p><a class="button" href="/uzemni-plan/pripominky/">Otevřít vyhledávání v připomínkách</a></p>
+</section>
+
+## Podrobné otázky a odpovědi {#podrobne-otazky}
+
+Následující část zachovává původní podrobnější vysvětlení: kdo může podat připomínku, k čemu ji lze podat, co má obsahovat, jak ji doručit a co se stane po termínu.
+
+## Obsah podrobných otázek {#obsah}
 
 - [O co jde?](#o-co-jde)
 - [Proč bych se měl zajímat?](#proc-se-zajimat)
@@ -78,7 +369,7 @@ Například:
 
 Územní plán není jen barevná mapa pro úředníky. Je to dokument, podle kterého se pak dlouhodobě rozhoduje o využití území.
 
-V této fázi je ale důležité jedno omezení: připomínkovat lze jen **měněné části po podstatné úpravě návrhu**, ne celý územní plán obecně.  
+V této fázi je ale důležité jedno omezení: připomínkovat lze jen [měněné části po podstatné úpravě návrhu](#menene-casti){:.up-term-link}, ne celý územní plán obecně.  
 [Zdroj: veřejná vyhláška](https://www.litovel.eu/filemanager/files/file.php?file=5038163)
 
 Nemusí se tě týkat všechno. Stačí si ověřit, jestli se něco nemění v místě, kde bydlíš, pracuješ, podnikáš, máš pozemek, jezdíš kolem, nebo které je pro tebe důležité.
@@ -165,7 +456,7 @@ Stavební zákon k připomínkám obecně uvádí, že **do 15 dnů ode dne veř
 
 Prakticky tedy dává smysl připomínku podat kdykoliv po zveřejnění návrhu, nejpozději ale do **26. 6. 2026 včetně**.
 
-I tady ale platí stejné omezení: připomínka má směřovat jen k **měněným částem po podstatné úpravě návrhu**. Pokud si nejsi jistý, můžeš si připomínku připravit předem, na veřejném projednání se ještě doptat, jestli jde opravdu o měněnou část, a potom ji případně upravit nebo doplnit.
+I tady ale platí stejné omezení: připomínka má směřovat jen k [měněným částem po podstatné úpravě návrhu](#menene-casti){:.up-term-link}. Pokud si nejsi jistý, můžeš si připomínku připravit předem, na veřejném projednání se ještě doptat, jestli jde opravdu o měněnou část, a potom ji případně upravit nebo doplnit.
 
 [Zpět na obsah](#obsah)
 
@@ -211,7 +502,7 @@ Vyhláška uvádí lhůtu 15 dnů ode dne konání spojeného opakovaného spole
 Stavební zákon obecně uvádí, že připomínky lze uplatnit do 15 dnů ode dne veřejného projednání. K připomínkám podaným po stanovené lhůtě se nepřihlíží.  
 [Zdroj: § 97 stavebního zákona](https://www.zakonyprolidi.cz/cs/2021-283)
 
-Pozor: ani včasné podání samo o sobě nestačí. Připomínka se má týkat **měněných částí po podstatné úpravě návrhu**.  
+Pozor: ani včasné podání samo o sobě nestačí. Připomínka se má týkat [měněných částí po podstatné úpravě návrhu](#menene-casti){:.up-term-link}.  
 [Zdroj: veřejná vyhláška](https://www.litovel.eu/filemanager/files/file.php?file=5038163)
 
 [Zpět na obsah](#obsah)
@@ -244,7 +535,7 @@ Připomínku může podat například:
 
 Nemusíš dokazovat, že jsi „dost místní“.
 
-Ale pořád platí, že připomínka se má týkat jen **měněných částí po podstatné úpravě návrhu**.
+Ale pořád platí, že připomínka se má týkat jen [měněných částí po podstatné úpravě návrhu](#menene-casti){:.up-term-link}.
 
 [Zpět na obsah](#obsah)
 
@@ -256,12 +547,12 @@ Tady je nejdůležitější omezení:
 
 Připomínky lze podat **jen k podstatné úpravě návrhu**, tedy jen k tomu, co se v upraveném návrhu po předchozím projednání změnilo.
 
-Veřejná vyhláška uvádí, že návrh bude projednán pouze v rozsahu měněných částí po podstatné úpravě. Připomínky je možné uplatnit jen k této podstatné úpravě. Jinak se k nim nepřihlíží.  
+Veřejná vyhláška uvádí, že návrh bude projednán pouze v rozsahu [měněných částí po podstatné úpravě](#menene-casti){:.up-term-link}. Připomínky je možné uplatnit jen k této podstatné úpravě. Jinak se k nim nepřihlíží.  
 [Zdroj: veřejná vyhláška](https://www.litovel.eu/filemanager/files/file.php?file=5038163)
 
 Nejde tedy o nové připomínkování celého územního plánu od začátku.
 
-Prakticky: nestačí napsat jen „nesouhlasím s územním plánem“. Je potřeba napsat konkrétně, čeho se připomínka týká, a pokud možno ukázat, že jde o měněnou část po podstatné úpravě.
+Prakticky: nestačí napsat jen „nesouhlasím s územním plánem“. Je potřeba napsat konkrétně, čeho se připomínka týká, a pokud možno ukázat, že jde o [měněnou část po podstatné úpravě](#menene-casti){:.up-term-link}.
 
 Například:
 
@@ -281,34 +572,50 @@ Měněné části je potřeba hledat v dokumentaci k opakovanému veřejnému pr
 
 ## Co jsou měněné části a kde je najdu? {#menene-casti}
 
-„Měněné části“ jsou části návrhu územního plánu, které byly po předchozím projednání upraveny. Teď se znovu neotevírá úplně celý územní plán, ale jen ty části, které se změnily po podstatné úpravě návrhu.
+„Měněné části“ jsou části návrhu územního plánu, které byly po předchozím společném jednání a veřejném projednání upraveny.
 
-Veřejná vyhláška výslovně uvádí, že návrh bude projednán pouze v rozsahu měněných částí po podstatné úpravě a že připomínky lze uplatnit jen k této podstatné úpravě.  
+Teď se znovu neprojednává celý územní plán od začátku. Opakované projednání se týká jen těch částí návrhu, které byly po vyhodnocení výsledků projednání podstatně upraveny.
+
+Veřejná vyhláška uvádí, že návrh bude projednán pouze v rozsahu měněných částí po podstatné úpravě a že připomínky lze uplatnit jen k této podstatné úpravě.  
 [Zdroj: veřejná vyhláška](https://www.litovel.eu/filemanager/files/file.php?file=5038163)
 
-Kde je hledat:
+Prakticky to znamená, že měněnou částí nemusí být jen nově zakreslená plocha ve výkresu. Může jít také o úpravu, která vznikla na základě vypořádání připomínky, stanoviska dotčeného orgánu nebo navazujících pokynů pro úpravu návrhu.
 
-- v dokumentu **Odůvodnění územního plánu**,
-- v textové části návrhu územního plánu,
-- ve výkresech návrhu,
-- v dokumentech zveřejněných městem k opakovanému veřejnému projednání.
+V odůvodnění návrhu je podstatná úprava popsána zejména ve vazbě na:
 
-Nejdůležitější je dokument **Odůvodnění územního plánu**. Má přes 600 stran právě proto, že obsahuje podrobný popis postupu, vyhodnocení, změn a odůvodnění návrhu. V něm jsou popsané i podstatné úpravy návrhu pro opakované veřejné projednání.
+- vyhodnocení stanovisek dotčených orgánů,
+- vyhodnocení připomínek,
+- pokyny pro úpravu návrhu,
+- navazující změny ve výrokové části, výkresech nebo podmínkách pro rozhodování v území.
 
-Podle odůvodnění jsou jednotlivé úpravy popsány zejména v kapitolách **E.2** a **C.2**. Kapitola **F.4** pak shrnuje podstatnou úpravu návrhu pro opakované veřejné projednání.  
+Důležité části dokumentu:
+
+- **kapitola C.2** – stanoviska dotčených orgánů a jejich vypořádání,
+- **kapitola E.2** – pokyny pro úpravu návrhu pro opakované projednání,
+- **kapitola F.4** – podstatná úprava návrhu pro opakované veřejné projednání,
+- **kapitola N** – vyhodnocení připomínek.
+
 [Zdroj: návrh územního plánu](https://www.litovel.eu/cs/urad/uzemni-planovani-dokumentace/litovel/porizovana-uzemne-planovaci-dokumentace/navrh-uzemniho-planu-litovel-1.html)
 
-Prakticky hledej hlavně označení konkrétní plochy, koridoru, lokality, veřejně prospěšné stavby, veřejně prospěšného opatření nebo územní rezervy. Pokud je ve výkresu nebo textu uvedený kód nebo název, napiš si ho.
+Prakticky hledej hlavně konkrétní úpravu návrhu:
 
-U připomínky je dobré uvést například:
+- změnu vymezení plochy,
+- vypuštění nebo redukci návrhové plochy,
+- změnu využití plochy,
+- doplnění podmínky pro rozhodování v území,
+- doplnění nebo změnu podmínky plánovací smlouvy,
+- změnu koridoru,
+- změnu veřejně prospěšné stavby nebo opatření,
+- změnu podmínek pro konkrétní lokalitu,
+- úpravu provedenou na základě konkrétní připomínky nebo stanoviska.
 
-- „připomínka se týká plochy označené …“,
-- „připomínka se týká koridoru označeného …“,
-- „připomínka se týká lokality …“,
-- „připomínka se týká změny využití pozemku parc. č. … v k. ú. …“,
-- „připomínka se týká měněné části návrhu popsané v části …“.
+Pokud připomínka navazuje na dřívější vypořádání, nestačí obvykle napsat jen „nesouhlasím s vypořádáním připomínky“. Bezpečnější je popsat, jaká konkrétní úprava návrhu z vypořádání vznikla a proč je podle vás nedostatečná.
 
-Když si nejsi jistý, jestli jde o měněnou část, napiš do připomínky co nejpřesnější popis místa a důvodu. Na veřejném projednání se také můžeš zeptat, kde jsou v dokumentaci vyznačené změny proti předchozí verzi.
+Příklad:
+
+> Připomínka směřuje k měněné části návrhu, ve které bylo rozhodování v ploše … nově podmíněno uzavřením plánovací smlouvy. Tuto úpravu považuji za nedostatečnou, protože náležitosti plánovací smlouvy neobsahují požadavek na řešení hlukové zátěže vůči okolní obytné zástavbě.
+
+Když si nejsi jistý, jestli jde o měněnou část, uveď v připomínce co nejpřesněji místo, označení plochy nebo kapitolu dokumentace a důvod, proč se domníváš, že připomínka směřuje k úpravě návrhu po předchozím projednání.
 
 [Zpět na obsah](#obsah)
 

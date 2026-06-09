@@ -1,0 +1,75 @@
+---
+layout: default
+title: "Vyhledávání ve vyhodnocení připomínek k územnímu plánu Litovel"
+description: "Vyhledávání v kapitole N vyhodnocení připomínek k návrhu územního plánu Litovel. Indexována je pouze část dokumentu Odůvodnění územního plánu Litovel – textová část, návrh pro OVP, květen 2026."
+canonical_url: "https://litovle.cz/uzemni-plan/pripominky/"
+permalink: /uzemni-plan/pripominky/
+---
+
+<link rel="stylesheet" href="/assets/uzemni-plan/pripominky/style.css">
+
+<div class="content uzp-page">
+  <header class="uzp-hero">
+    <p class="uzp-back"><a href="/uzemni-plan/">← Zpět na průvodce územním plánem</a></p>
+    <p class="uzp-eyebrow">Dočasná vyhledávací pomůcka · kapitola N · květen 2026</p>
+    <h1>Hledat ve vyhodnocení připomínek</h1>
+    <p class="uzp-lead">
+      Vyhledávání v kapitole N dokumentu „Odůvodnění územního plánu Litovel – textová část“.
+    </p>
+  </header>
+
+  <section class="item-card uzp-search-panel" aria-label="Vyhledávání v připomínkách">
+    <label for="search">Hledat v připomínkách</label>
+    <input id="search" type="search" autocomplete="off" placeholder="Např. Nasobůrky, cyklostezka, záplavy">
+
+    <div class="uzp-filters" aria-label="Filtry">
+      <label>
+        Výsledek
+        <select id="result-filter">
+          <option value="">Všechny výsledky</option>
+        </select>
+      </label>
+      <label>
+        Sekce
+        <select id="section-filter">
+          <option value="">Všechny sekce</option>
+        </select>
+      </label>
+    </div>
+  </section>
+
+  <p class="uzp-notice">
+    <strong>Ověřujte v PDF.</strong>
+    Dokument se vztahuje ke konkrétní fázi pořizování územního plánu, nejde o konečné ani obecně aktuální znění.
+  </p>
+
+  <details class="item-card uzp-meta" id="meta">
+    <summary>Zdroj, rozsah indexu a omezení</summary>
+    <dl>
+      <dt>Dokument</dt>
+      <dd>Odůvodnění územního plánu Litovel – textová část</dd>
+      <dt>Indexovaná část</dt>
+      <dd>N. Vyhodnocení připomínek, včetně jeho odůvodnění</dd>
+      <dt>Verze dokumentu</dt>
+      <dd>návrh pro OVP, květen 2026</dd>
+      <dt>Veřejný kontext</dt>
+      <dd>spojené opakované společné jednání a veřejné projednání – červen 2026</dd>
+      <dt>PDF strany</dt>
+      <dd>521–655 z 658</dd>
+      <dt>Zdroje</dt>
+      <dd>
+        <a href="https://www.litovel.eu/filemanager/files/file.php?file=5038108&xuser=981195827674277749" rel="noopener">původní PDF</a>
+        · <a href="https://www.litovel.eu/cs/urad/uzemni-planovani-dokumentace/litovel/porizovana-uzemne-planovaci-dokumentace/navrh-uzemniho-planu-litovel-1.html" rel="noopener">stránka města</a>
+      </dd>
+    </dl>
+    <p class="uzp-note">
+      Stránka není výkladem ani shrnutím dokumentu. U rozsáhlých nebo obdobných připomínek může dokument uvádět
+      stručný obsah nebo společné vyhodnocení; zobrazený text proto nemusí být doslovným úplným zněním původního podání.
+    </p>
+  </details>
+
+  <section class="uzp-summary" id="summary" aria-live="polite"></section>
+  <section class="uzp-results" id="results" aria-live="polite"></section>
+</div>
+
+<script src="/assets/uzemni-plan/pripominky/app.js"></script>
