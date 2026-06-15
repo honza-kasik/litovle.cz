@@ -82,6 +82,21 @@ permalink: /uzemni-plan/
   margin: 0;
 }
 
+.up-source-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem .7rem;
+  align-items: baseline;
+  margin: 0 0 1.8rem;
+  padding: .75rem 1rem;
+  border-left: 4px solid #2f855a;
+  background: rgba(255,255,255,.65);
+}
+
+.up-source-strip strong {
+  margin-right: .15rem;
+}
+
 .up-action-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   margin-bottom: 3rem;
@@ -223,6 +238,13 @@ Praktický přehled pro lepší orientaci v návrhu územního plánu, veřejné
   <p class="up-quick-links"><a href="#podrobne-otazky">Přejít na podrobné otázky a odpovědi</a></p>
 </div>
 
+<div class="up-source-strip">
+  <strong>Oficiální podklady města</strong>
+  <a href="https://www.litovel.eu/redakce/index.php?clanek=395564&slozka=364876&xsekce=364878&lanG=cs&xuser=981195827674277749">Dokumentace k návrhu územního plánu</a>
+  <span>·</span>
+  <a href="https://web.archive.org/web/20260615102219/https://www.litovel.eu/redakce/index.php?clanek=395564&slozka=364876&xsekce=364878&lanG=cs&xuser=981195827674277749">Archivní kopie</a>
+</div>
+
 <section class="up-section up-actions" aria-labelledby="up-actions-title">
   <h2 id="up-actions-title">Co chcete udělat?</h2>
 
@@ -261,6 +283,12 @@ Praktický přehled pro lepší orientaci v návrhu územního plánu, veřejné
   <h2 id="jak-se-vyznat-title">Jak se vyznat v dokumentech</h2>
 
   <p>Dokument „Odůvodnění územního plánu – textová část“ má stovky stran. Není nutné číst ho celý od začátku. Každá část slouží k něčemu jinému.</p>
+
+  <p>
+    Textové odůvodnění a související výkresy hledejte v oficiální dokumentaci města:
+    <a href="https://www.litovel.eu/redakce/index.php?clanek=395564&slozka=364876&xsekce=364878&lanG=cs&xuser=981195827674277749">dokumentace k návrhu územního plánu</a>
+    · <a href="https://web.archive.org/web/20260615102219/https://www.litovel.eu/redakce/index.php?clanek=395564&slozka=364876&xsekce=364878&lanG=cs&xuser=981195827674277749">archivní kopie dokumentace</a>.
+  </p>
 
   <dl class="up-doc-grid">
     <div class="up-doc-item">
@@ -685,8 +713,11 @@ Identifikátor z výkresu nebo textu územního plánu není náhrada za popis m
 
 ## Kde se dá návrh vidět? {#kde-najit-navrh}
 
-Návrh je dostupný online na webu města.  
+Návrh a související dokumentace jsou dostupné online na webu města. Pokud odkaz z webu města dočasně zmizí nebo se změní, použijte archivní kopii.  
 [Zdroj: návrh územního plánu](https://www.litovel.eu/cs/urad/uzemni-planovani-dokumentace/litovel/porizovana-uzemne-planovaci-dokumentace/navrh-uzemniho-planu-litovel-1.html)
+
+[Oficiální dokumentace města k návrhu územního plánu](https://www.litovel.eu/redakce/index.php?clanek=395564&slozka=364876&xsekce=364878&lanG=cs&xuser=981195827674277749)  
+[Archivní kopie oficiální dokumentace města](https://web.archive.org/web/20260615102219/https://www.litovel.eu/redakce/index.php?clanek=395564&slozka=364876&xsekce=364878&lanG=cs&xuser=981195827674277749)
 
 Zároveň veřejná vyhláška uvádí možnost nahlédnutí v tištěné podobě na odboru výstavby Městského úřadu v Litovli:
 
@@ -888,6 +919,8 @@ Podpis: …
 - [Veřejná vyhláška Městského úřadu Litovel, č. j. LIT 9986/2026](https://www.litovel.eu/filemanager/files/file.php?file=5038163)
 - [Návrh Územního plánu Litovel na webu města](https://www.litovel.eu/cs/urad/uzemni-planovani-dokumentace/litovel/porizovana-uzemne-planovaci-dokumentace/navrh-uzemniho-planu-litovel-1.html)
 - [Archivní kopie stránky na Wayback Machine](https://web.archive.org/web/20260512030540/https://www.litovel.eu/cs/urad/uzemni-planovani-dokumentace/litovel/porizovana-uzemne-planovaci-dokumentace/navrh-uzemniho-planu-litovel-1.html)
+- [Oficiální dokumentace města k návrhu územního plánu](https://www.litovel.eu/redakce/index.php?clanek=395564&slozka=364876&xsekce=364878&lanG=cs&xuser=981195827674277749)
+- [Archivní kopie oficiální dokumentace města](https://web.archive.org/web/20260615102219/https://www.litovel.eu/redakce/index.php?clanek=395564&slozka=364876&xsekce=364878&lanG=cs&xuser=981195827674277749)
 - [Formuláře a dokumenty ke stažení – odbor výstavby](https://www.litovel.eu/cs/urad/formulare-a-dokumenty-ke-stazeni/odbor-vystavby.html)
 - [Stavební zákon č. 283/2021 Sb., zejména § 97 Připomínky](https://www.zakonyprolidi.cz/cs/2021-283)
 
