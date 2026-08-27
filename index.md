@@ -1,23 +1,40 @@
 ---
 layout: landing
 title: Litovle.cz
+description: "Zastupitelstvo má 3. září projednat vydání územního plánu. Připomínky z červnového projednání ani jejich vypořádání zatím město nezveřejnilo."
 ---
 
 <div class="landing">
 
-<div class="item-card landing-card notice">
-    <h2>🗺️ Nový územní plán Litovel</h2>
+<div class="item-card landing-card notice-card notice-card--warning">
+    <p class="notice-card__label">Územní plán · chybějí veřejné podklady</p>
+    <h2>🗺️ Zastupitelstvo má rozhodovat. Veřejnost nevidí připomínky ani jejich vypořádání.</h2>
     <p>
-        Praktický průvodce k veřejnému projednání upraveného návrhu územního plánu:
-        kdo může podat připomínku, do kdy, jak a k čemu.
+        V programu veřejného zasedání je jako bod 6.8 uvedeno
+        <strong>„Vydání Územního plánu Litovel“</strong>.
     </p>
-    <p class="coming-soon">
-        Veřejné projednání: <strong>11. 6. 2026 v 15:00</strong><br>
-        Konečný termín připomínek: <strong>26. 6. 2026</strong>
+    <p class="notice-card__highlight">
+        <strong>Čtvrtek 3. 9. 2026 v 15:00</strong><br>
+        Velká zasedací místnost budovy 2 Městského úřadu v Litovli
     </p>
-    <a href="{{ '/uzemni-plan/' | relative_url }}" class="button">
-        Zobrazit průvodce
-    </a>
+    <p>
+        Na veřejné stránce města jsou ale k 27. 8. stále jen podklady připravené
+        před červnovým projednáním. Připomínky podané v červnu ani jejich vypořádání
+        zveřejněné nejsou. Před jednáním tak nejde veřejně ověřit, co lidé připomínkovali
+        a jak pořizovatel navrhuje jejich podněty vyřešit.
+    </p>
+    <p class="notice-panel notice-panel--warning notice-card__detail">
+        Naše vyhledávání zachycuje pouze starší vypořádání obsažené v květnovém návrhu.
+        Neobsahuje připomínky z červnového projednání.
+    </p>
+    <div class="notice-card__actions">
+        <a href="{{ '/uzemni-plan/' | relative_url }}" class="button">
+            Co je a není zveřejněné
+        </a>
+        <a href="https://www.litovel.eu/cs/urad/uredni-deska/aktualni-informace/pozvanka-na-28-zasedani-zastupitelstva-mesta-litovel-2.html" class="button secondary">
+            Oficiální pozvánka
+        </a>
+    </div>
 </div>
 
 <section class="landing-section">

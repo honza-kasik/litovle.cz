@@ -3,8 +3,6 @@
   --uzp-line: #d9e1e7;
   --uzp-accent: #2f855a;
   --uzp-accent-dark: #276749;
-  --uzp-warn-bg: #fff8e6;
-  --uzp-warn-line: #d69e2e;
   max-width: 980px;
   line-height: 1.55;
 }
@@ -41,14 +39,6 @@
   max-width: 680px;
   margin: 10px 0 0;
   color: var(--uzp-muted);
-}
-
-.uzp-notice {
-  margin: 12px 0;
-  padding: 10px 12px;
-  border-left: 4px solid var(--uzp-warn-line);
-  background: var(--uzp-warn-bg);
-  color: #4a3a13;
 }
 
 .uzp-meta {

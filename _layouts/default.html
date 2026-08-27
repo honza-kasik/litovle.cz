@@ -8,7 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
-    <link rel="icon" type="image/png" href="{{ '/favicon.png' | relative_url }}" />
+    <link rel="icon" type="image/png" sizes="512x512" href="{{ '/assets/img/favicon.png' | relative_url }}">
+    <link rel="apple-touch-icon" href="{{ '/assets/img/favicon.png' | relative_url }}">
 
     <script type="application/ld+json">
     {
@@ -81,10 +82,10 @@
 
 <header class="site-header">
     <a href="{{ '/' | relative_url }}" class="logo">
-        <img src="{{ '/assets/img/litovle_cz_small_transparent.png' | relative_url }}" alt="Litovle.cz">
+        <img src="{{ '/assets/img/logo_cele.svg' | relative_url }}" alt="Litovle.cz – nezávislá občanská iniciativa">
     </a>
 
-    <nav class="site-nav">
+    <nav class="site-nav" aria-label="Hlavní navigace">
         <a href="{{ '/' | relative_url }}">Úvod</a>
         <a href="{{ '/zastupitelstvo/' | relative_url }}">Zastupitelstvo</a>
         <a href="{{ '/usneseni/' | relative_url }}">Usnesení</a>
