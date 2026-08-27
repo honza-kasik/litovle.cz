@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "Územní plán Litovel: praktický průvodce"
-description: "Praktický průvodce pro veřejnost: kdy je veřejné projednání, kdo může podat připomínku, do kdy a jak."
+description: "Co je zveřejněno před projednáním vydání územního plánu Litovel 3. září 2026 a které podklady k červnovým připomínkám veřejnosti chybějí."
 permalink: /uzemni-plan/
 ---
 
@@ -206,28 +206,33 @@ permalink: /uzemni-plan/
 
 # Územní plán Litovel: praktický průvodce
 
-Praktický přehled pro lepší orientaci v návrhu územního plánu, veřejném projednání, připomínkách a zveřejněných dokumentech.
+Praktický přehled toho, co je zveřejněno před rozhodováním zastupitelstva, které důležité podklady chybějí a jak se zorientovat ve starší dokumentaci.
 
 <div class="up-top-grid">
   <a class="item-card up-card up-primary-card" href="/uzemni-plan/pripominky/">
-    <h2>Hledat ve vypořádání připomínek</h2>
-    <p>Vyhledávání v kapitole N podle čísla připomínky, lokality, ulice, parcely nebo tématu.</p>
+    <h2>Hledat ve starším vypořádání připomínek</h2>
+    <p>Vyhledávání v kapitole N květnového návrhu. Neobsahuje připomínky podané při červnovém projednání.</p>
     <span class="up-card-link">Otevřít vyhledávání</span>
   </a>
 
   <div class="up-top-side">
     <section class="up-deadlines" aria-labelledby="up-deadlines-title">
-      <h2 id="up-deadlines-title">Termíny</h2>
+      <h2 id="up-deadlines-title">Aktuálně</h2>
       <dl class="up-deadline-list">
         <div>
-          <dt>Veřejné projednání</dt>
-          <dd>11. 6. 2026 v 15:00, Velký sál Záložny, Litovel</dd>
+          <dt>Zasedání zastupitelstva</dt>
+          <dd>3. 9. 2026 v 15:00, velká zasedací místnost budovy 2 Městského úřadu v Litovli</dd>
         </div>
         <div>
-          <dt>Termín pro připomínky</dt>
-          <dd>26. 6. 2026 včetně</dd>
+          <dt>Program</dt>
+          <dd>Bod 6.8 – Vydání Územního plánu Litovel</dd>
         </div>
       </dl>
+      <p><a href="https://www.litovel.eu/cs/urad/uredni-deska/aktualni-informace/pozvanka-na-28-zasedani-zastupitelstva-mesta-litovel-2.html">Oficiální pozvánka a celý program</a></p>
+      <div class="notice-panel notice-panel--warning">
+        <strong>Co zatím veřejně chybí</strong>
+        <p>Připomínky z červnového projednání a dokument, který ukazuje, jak mají být vypořádány. Veřejná stránka města obsahuje pouze návrh zveřejněný před projednáním a uvádí poslední aktualizaci 11. 5. 2026.</p>
+      </div>
     </section>
 
   </div>
@@ -239,8 +244,8 @@ Praktický přehled pro lepší orientaci v návrhu územního plánu, veřejné
 </div>
 
 <div class="up-source-strip">
-  <strong>Oficiální podklady města</strong>
-  <a href="https://www.litovel.eu/redakce/index.php?clanek=395564&slozka=364876&xsekce=364878&lanG=cs&xuser=981195827674277749">Dokumentace k návrhu územního plánu</a>
+  <strong>Zveřejněné podklady města</strong>
+  <a href="https://www.litovel.eu/cs/urad/uzemni-planovani-dokumentace/litovel/porizovana-uzemne-planovaci-dokumentace/navrh-uzemniho-planu-litovel-1.html">Návrh pro červnové projednání</a>
   <span>·</span>
   <a href="https://web.archive.org/web/20260615102219/https://www.litovel.eu/redakce/index.php?clanek=395564&slozka=364876&xsekce=364878&lanG=cs&xuser=981195827674277749">Archivní kopie</a>
 </div>
@@ -250,9 +255,9 @@ Praktický přehled pro lepší orientaci v návrhu územního plánu, veřejné
 
   <div class="up-action-grid">
     <a class="item-card up-card" href="#jak-podat-pripominku">
-      <h3>Chci podat připomínku</h3>
-      <p>Termín, pravidla, co musí připomínka obsahovat a kam ji doručit.</p>
-      <span class="up-card-link">Přejít na návod</span>
+      <h3>Chci zjistit, jak proběhlo připomínkování</h3>
+      <p>Veřejné projednání i lhůta pro připomínky už skončily. Původní postup zachováváme pro orientaci v procesu.</p>
+      <span class="up-card-link">Přejít na přehled</span>
     </a>
 
     <a class="item-card up-card" href="#jak-se-vyznat">
@@ -266,12 +271,14 @@ Praktický přehled pro lepší orientaci v návrhu územního plánu, veřejné
 
 ## Co je teď nejdůležitější
 
-- Teď se neprojednává celý územní plán od začátku.
-- Připomínky lze podat jen k [měněným částem po podstatné úpravě návrhu](#menene-casti){:.up-term-link}.
-- Připomínka musí být písemná.
-- Musí být jasné, jakého území se týká a proč.
+- Zastupitelstvo má **3. září 2026** projednat vydání nového územního plánu.
+- Tento bod je v oficiálním programu uveden pod číslem **6.8**.
+- Veřejné projednání proběhlo 11. června a lhůta pro připomínky skončila 26. června 2026, ale podané připomínky ani jejich aktuální vypořádání nejsou na stránce města zveřejněné.
+- [Naše vyhledávání](/uzemni-plan/pripominky/) pokrývá pouze starší kapitolu N z květnového návrhu. **Nejde o připomínky z června 2026 ani jejich vypořádání.**
 
-## Jak postupovat {#jak-podat-pripominku}
+## Jak probíhalo podání připomínek {#jak-podat-pripominku}
+
+Následující postup se vztahuje k už ukončenému veřejnému projednání. Zachováváme ho jako kontext k návrhu a vypořádání připomínek.
 
 1. Najděte místo v mapě nebo dokumentaci.
 2. Zapište si označení plochy, koridoru, lokality nebo parcely.
@@ -316,10 +323,10 @@ Praktický přehled pro lepší orientaci v návrhu územního plánu, veřejné
       <dd>Začněte kapitolou M – ZPF a PUPFL.</dd>
     </div>
     <div class="up-doc-item">
-      <dt>Když hledáte vypořádání připomínek</dt>
+      <dt>Když hledáte starší vypořádání připomínek</dt>
       <dd>
-        Začněte kapitolou N – Vyhodnocení připomínek.
-        <div class="up-doc-note">Pro kapitolu N je dostupné samostatné vyhledávání: <a href="/uzemni-plan/pripominky/">Hledat ve vyhodnocení připomínek</a>.</div>
+        Začněte kapitolou N – Vyhodnocení připomínek v květnovém návrhu.
+        <div class="up-doc-note">Pro tuto starší kapitolu N je dostupné samostatné vyhledávání: <a href="/uzemni-plan/pripominky/">Hledat ve starším vyhodnocení připomínek</a>.</div>
       </dd>
     </div>
     <div class="up-doc-item">
@@ -330,14 +337,14 @@ Praktický přehled pro lepší orientaci v návrhu územního plánu, veřejné
 </section>
 
 <section class="item-card up-search-box" aria-labelledby="up-search-title">
-  <h2 id="up-search-title">Vyhledávání ve vypořádání připomínek</h2>
-  <p>Kapitola N obsahuje vyhodnocení připomínek k návrhu územního plánu. Pro rychlejší orientaci je možné v ní hledat podle čísla připomínky, lokality, ulice, parcely nebo tématu.</p>
-  <p><a class="button" href="/uzemni-plan/pripominky/">Otevřít vyhledávání v připomínkách</a></p>
+  <h2 id="up-search-title">Vyhledávání ve starším vypořádání připomínek</h2>
+  <p>Kapitola N květnového návrhu obsahuje vyhodnocení připomínek z dřívější fáze. Pro rychlejší orientaci je možné v ní hledat podle čísla připomínky, lokality, ulice, parcely nebo tématu. Připomínky z června 2026 v ní nejsou.</p>
+  <p><a class="button" href="/uzemni-plan/pripominky/">Otevřít starší vyhledávání</a></p>
 </section>
 
 ## Podrobné otázky a odpovědi {#podrobne-otazky}
 
-Následující část zachovává původní podrobnější vysvětlení: kdo může podat připomínku, k čemu ji lze podat, co má obsahovat, jak ji doručit a co se stane po termínu.
+**Aktualizace 27. 8. 2026:** veřejné projednání i lhůta pro připomínky skončily. Následující část zachovává původní podrobnější vysvětlení jako dokumentaci procesu: kdo mohl podat připomínku, k čemu, co měla obsahovat, jak ji doručit a co se stalo po termínu.
 
 ## Obsah podrobných otázek {#obsah}
 
