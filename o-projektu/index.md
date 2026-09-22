@@ -48,6 +48,16 @@ Projekt není oficiálním webem města Litovel. Nevydává stanoviska města, n
     <p><a href="{{ '/zastupitelstvo/' | relative_url }}">Zobrazit přehledy ze zastupitelstva</a></p>
 </div>
 
+## Archiv občanských informačních projektů
+
+Některé části webu vznikají jako reakce na konkrétní veřejné dění. Po jeho skončení zůstávají dostupné jako dokumentace a připomínka toho, jaké informace byly v danou dobu veřejně k dispozici.
+
+<div class="item-card">
+    <h2>Územní plán Litovel 2026</h2>
+    <p>Dočasný informační servis k veřejnému projednání a vydání nového územního plánu: praktický průvodce, vyhledávání ve starším vypořádání připomínek a dokumentace debaty o zveřejňování podkladů. Po vydání plánu 3. září 2026 zůstává jako archiv.</p>
+    <p><a href="{{ '/uzemni-plan/' | relative_url }}">Otevřít archiv průvodce</a> · <a href="https://www.litovel.eu/cs/urad/uzemni-planovani-dokumentace/litovel/porizovana-uzemne-planovaci-dokumentace/vydany-uzemni-plan-litovel.html">Oficiální vydané znění</a></p>
+</div>
+
 ## Transparentnost
 
 Zdrojové soubory a navazující nástroje jsou veřejně dohledatelné na GitHubu. Odkazy slouží hlavně k ověření původu dat, způsobu zpracování a historie změn.
