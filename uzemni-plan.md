@@ -1,7 +1,7 @@
 ---
 layout: default
-title: "Územní plán Litovel: praktický průvodce"
-description: "Co je zveřejněno před projednáním vydání územního plánu Litovel 3. září 2026 a které podklady k červnovým připomínkám veřejnosti chybějí."
+title: "Územní plán Litovel: dokumenty a archiv průvodce"
+description: "Oficiální vydané znění územního plánu Litovel, související články a archiv průvodce veřejným projednáním z června 2026."
 permalink: /uzemni-plan/
 ---
 
@@ -204,15 +204,15 @@ permalink: /uzemni-plan/
 }
 </style>
 
-# Územní plán Litovel: praktický průvodce
+# Územní plán Litovel: dokumenty a archiv průvodce
 
-Praktický přehled toho, co je zveřejněno před rozhodováním zastupitelstva, které důležité podklady chybějí a jak se zorientovat ve starší dokumentaci.
+Zastupitelstvo města Litovel vydalo nový územní plán 3. září 2026. Níže najdete oficiální vydané znění a archiv pomůcek, které vznikly před veřejným projednáním a hlasováním.
 
 <div class="up-top-grid">
-  <a class="item-card up-card up-primary-card" href="/uzemni-plan/pripominky/">
-    <h2>Hledat ve starším vypořádání připomínek</h2>
-    <p>Vyhledávání v kapitole N květnového návrhu. Neobsahuje připomínky podané při červnovém projednání.</p>
-    <span class="up-card-link">Otevřít vyhledávání</span>
+  <a class="item-card up-card up-primary-card" href="https://www.litovel.eu/cs/urad/uzemni-planovani-dokumentace/litovel/porizovana-uzemne-planovaci-dokumentace/vydany-uzemni-plan-litovel.html">
+    <h2>Oficiální vydaný územní plán</h2>
+    <p>Aktuálně zveřejněná textová a výkresová dokumentace na webu města Litovel.</p>
+    <span class="up-card-link">Otevřít dokumentaci města</span>
   </a>
 
   <div class="up-top-side">
@@ -220,19 +220,15 @@ Praktický přehled toho, co je zveřejněno před rozhodováním zastupitelstva
       <h2 id="up-deadlines-title">Aktuálně</h2>
       <dl class="up-deadline-list">
         <div>
-          <dt>Zasedání zastupitelstva</dt>
-          <dd>3. 9. 2026 v 15:00, velká zasedací místnost budovy 2 Městského úřadu v Litovli</dd>
+          <dt>Vydání územního plánu</dt>
+          <dd>3. 9. 2026</dd>
         </div>
         <div>
-          <dt>Program</dt>
-          <dd>Bod 6.8 – Vydání Územního plánu Litovel</dd>
+          <dt>Stav této stránky</dt>
+          <dd>Archiv průvodce veřejným projednáním</dd>
         </div>
       </dl>
-      <p><a href="https://www.litovel.eu/cs/urad/uredni-deska/aktualni-informace/pozvanka-na-28-zasedani-zastupitelstva-mesta-litovel-2.html">Oficiální pozvánka a celý program</a></p>
-      <div class="notice-panel notice-panel--warning">
-        <strong>Co zatím veřejně chybí</strong>
-        <p>Připomínky z červnového projednání a dokument, který ukazuje, jak mají být vypořádány. Veřejná stránka města obsahuje pouze návrh zveřejněný před projednáním a uvádí poslední aktualizaci 11. 5. 2026.</p>
-      </div>
+      <p><a href="https://www.litovel.eu/cs/urad/uzemni-planovani-dokumentace/litovel/porizovana-uzemne-planovaci-dokumentace/vydany-uzemni-plan-litovel.html">Přejít na vydané znění</a></p>
     </section>
 
   </div>
@@ -244,37 +240,37 @@ Praktický přehled toho, co je zveřejněno před rozhodováním zastupitelstva
 </div>
 
 <div class="up-source-strip">
-  <strong>Zveřejněné podklady města</strong>
-  <a href="https://www.litovel.eu/cs/urad/uzemni-planovani-dokumentace/litovel/porizovana-uzemne-planovaci-dokumentace/navrh-uzemniho-planu-litovel-1.html">Návrh pro červnové projednání</a>
+  <strong>Články k vydání územního plánu</strong>
+  <a href="https://medium.seznam.cz/clanek/honza-kasik-litovel-schvaluje-uzemni-plan-jeho-podobu-se-lide-dozvi-az-po-hlasovani-313901">Před hlasováním: jeho podobu se lidé dozví až po hlasování</a>
   <span>·</span>
-  <a href="https://web.archive.org/web/20260615102219/https://www.litovel.eu/redakce/index.php?clanek=395564&slozka=364876&xsekce=364878&lanG=cs&xuser=981195827674277749">Archivní kopie</a>
+  <a href="https://medium.seznam.cz/clanek/honza-kasik-nezverejnili-jsme-to-aby-nevznikl-chaos-prijit-nahlednout-jste-ale-mohli-316758">Po hlasování: Nezveřejnili jsme to, aby nevznikl chaos</a>
 </div>
 
 <section class="up-section up-actions" aria-labelledby="up-actions-title">
   <h2 id="up-actions-title">Co chcete udělat?</h2>
 
   <div class="up-action-grid">
-    <a class="item-card up-card" href="#jak-podat-pripominku">
-      <h3>Chci zjistit, jak proběhlo připomínkování</h3>
-      <p>Veřejné projednání i lhůta pro připomínky už skončily. Původní postup zachováváme pro orientaci v procesu.</p>
-      <span class="up-card-link">Přejít na přehled</span>
+    <a class="item-card up-card" href="/uzemni-plan/pripominky/">
+      <h3>Chci hledat ve starším vypořádání připomínek</h3>
+      <p>Vyhledávání v kapitole N květnového návrhu. Neobsahuje připomínky podané při červnovém projednání.</p>
+      <span class="up-card-link">Otevřít archivní vyhledávání</span>
     </a>
 
     <a class="item-card up-card" href="#jak-se-vyznat">
-      <h3>Chci zjistit, co se mění</h3>
-      <p>Kde hledat měněné části návrhu, mapy, plochy a označení lokalit.</p>
-      <span class="up-card-link">Jak se vyznat v dokumentech</span>
+      <h3>Chci projít archiv průvodce</h3>
+      <p>Jak probíhalo veřejné projednání, co bylo možné připomínkovat a jak se orientovat v tehdejším návrhu.</p>
+      <span class="up-card-link">Přejít k archivním informacím</span>
     </a>
 
   </div>
 </section>
 
-## Co je teď nejdůležitější
+## Aktuální stav
 
-- Zastupitelstvo má **3. září 2026** projednat vydání nového územního plánu.
-- Tento bod je v oficiálním programu uveden pod číslem **6.8**.
-- Veřejné projednání proběhlo 11. června a lhůta pro připomínky skončila 26. června 2026, ale podané připomínky ani jejich aktuální vypořádání nejsou na stránce města zveřejněné.
-- [Naše vyhledávání](/uzemni-plan/pripominky/) pokrývá pouze starší kapitolu N z květnového návrhu. **Nejde o připomínky z června 2026 ani jejich vypořádání.**
+- Územní plán byl vydán **3. září 2026**.
+- Rozhodující jsou [oficiální dokumenty zveřejněné městem](https://www.litovel.eu/cs/urad/uzemni-planovani-dokumentace/litovel/porizovana-uzemne-planovaci-dokumentace/vydany-uzemni-plan-litovel.html).
+- Následující průvodce popisuje už ukončené veřejné projednání z června 2026 a zůstává zde jako archiv.
+- [Naše vyhledávání](/uzemni-plan/pripominky/) pokrývá pouze starší kapitolu N z květnového návrhu. **Nejde o konečné znění ani o připomínky z června 2026.**
 
 ## Jak probíhalo podání připomínek {#jak-podat-pripominku}
 
@@ -292,9 +288,10 @@ Následující postup se vztahuje k už ukončenému veřejnému projednání. Z
   <p>Dokument „Odůvodnění územního plánu – textová část“ má stovky stran. Není nutné číst ho celý od začátku. Každá část slouží k něčemu jinému.</p>
 
   <p>
-    Textové odůvodnění a související výkresy hledejte v oficiální dokumentaci města:
-    <a href="https://www.litovel.eu/redakce/index.php?clanek=395564&slozka=364876&xsekce=364878&lanG=cs&xuser=981195827674277749">dokumentace k návrhu územního plánu</a>
-    · <a href="https://web.archive.org/web/20260615102219/https://www.litovel.eu/redakce/index.php?clanek=395564&slozka=364876&xsekce=364878&lanG=cs&xuser=981195827674277749">archivní kopie dokumentace</a>.
+    Pro současné použití vycházejte z <a href="https://www.litovel.eu/cs/urad/uzemni-planovani-dokumentace/litovel/porizovana-uzemne-planovaci-dokumentace/vydany-uzemni-plan-litovel.html">oficiálního vydaného územního plánu</a>.
+    Následující přehled kapitol se vztahuje ke staršímu návrhu pro veřejné projednání:
+    <a href="https://www.litovel.eu/cs/urad/uzemni-planovani-dokumentace/litovel/porizovana-uzemne-planovaci-dokumentace/navrh-uzemniho-planu-litovel-1.html">původní stránka města</a>
+    · <a href="https://web.archive.org/web/20260615102219/https://www.litovel.eu/redakce/index.php?clanek=395564&slozka=364876&xsekce=364878&lanG=cs&xuser=981195827674277749">archivní kopie</a>.
   </p>
 
   <dl class="up-doc-grid">
@@ -344,7 +341,7 @@ Následující postup se vztahuje k už ukončenému veřejnému projednání. Z
 
 ## Podrobné otázky a odpovědi {#podrobne-otazky}
 
-**Aktualizace 27. 8. 2026:** veřejné projednání i lhůta pro připomínky skončily. Následující část zachovává původní podrobnější vysvětlení jako dokumentaci procesu: kdo mohl podat připomínku, k čemu, co měla obsahovat, jak ji doručit a co se stalo po termínu.
+**Aktualizace 22. 9. 2026:** územní plán byl vydán 3. září 2026. Následující část zachovává původní podrobnější vysvětlení jako dokumentaci procesu: kdo mohl podat připomínku, k čemu, co měla obsahovat, jak ji doručit a co se stalo po termínu.
 
 ## Obsah podrobných otázek {#obsah}
 
@@ -373,9 +370,9 @@ Následující postup se vztahuje k už ukončenému veřejnému projednání. Z
 
 ## O co jde? {#o-co-jde}
 
-Litovel pořizuje nový územní plán. Teď se projednává **upravený návrh Územního plánu Litovel** a také vyhodnocení jeho vlivů na udržitelný rozvoj území.
+Litovel v roce 2026 pořizovala nový územní plán. V červnu se projednával **upravený návrh Územního plánu Litovel** a také vyhodnocení jeho vlivů na udržitelný rozvoj území.
 
-Jde o **spojené opakované společné jednání a veřejné projednání**.  
+Šlo o **spojené opakované společné jednání a veřejné projednání**.
 [Zdroj: veřejná vyhláška](https://www.litovel.eu/filemanager/files/file.php?file=5038163)
 
 Územní plán řeší hlavně to, kde se může stavět, co se kde může využívat, kudy má vést doprava nebo infrastruktura, kde má být bydlení, výroba, zeleň, krajina, veřejná vybavenost a podobně.
